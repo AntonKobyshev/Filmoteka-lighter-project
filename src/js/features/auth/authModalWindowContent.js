@@ -123,6 +123,7 @@ refs.authBtn.addEventListener('click', e => {
   if (auth.currentUser) {
     // from /api/firebase/api
     showAuthorisedFields();
+  
   } else {
     showUnauthorisedFields();
   }
