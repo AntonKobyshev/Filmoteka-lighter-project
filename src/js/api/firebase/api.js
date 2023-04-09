@@ -5,7 +5,7 @@ import {
   signOut,
 } from 'firebase/auth';
 
-import { getDoc, doc, setDoc, get, set } from 'firebase/firestore';
+// import { getDoc, doc, setDoc, get, set } from 'firebase/firestore';
 
 import { db, auth } from './firebaseConfig.js';
 
