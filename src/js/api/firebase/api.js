@@ -5,12 +5,13 @@ import {
   signOut,
 } from 'firebase/auth';
 
-import { getDoc, doc, setDoc } from 'firebase/firestore';
+import { getDoc, doc, setDoc, get, set } from 'firebase/firestore';
 
 import { db, auth } from './firebaseConfig.js';
 
 import { dynRefs } from '../../constants/dynamicRefs';
 import { Notify } from 'notiflix';
+import 'notiflix/dist/notiflix-3.2.6.min.css';
 
 // // // // // // // // // // // // //
 
@@ -52,14 +53,18 @@ export function logOut() {
       // Вихід вдалий.
     })
     .catch(error => {
-      Notify.failure("Something went wrong");
+        // Notify.failure("Something went wrong");
+        Notify.message(error.message);
     });
 }
 
 export async function getData() {
   try {
-    const docRef = doc(db, 'users', auth.currentUser.uid);
-    const docSnap = await getDoc(docRef);
+      const docRef = doc(db, 'users', auth.currentUser.uid);
+      console.log(auth.currentUser.uid);
+      console.log(docRef);
+      const docSnap = await getDoc(docRef);
+      console.table(auth.currentUser.uid,docRef, docSnap)
 
     if (docSnap.exists()) {
       localStorage.dataFromDB = JSON.stringify(docSnap.data());
@@ -68,7 +73,9 @@ export async function getData() {
       Notify.warning("Empty database");
     }
   } catch (e) {
-    Notify.failure("Something went wrong");
+    // Notify.failure("Something went wrong");
+      Notify.failure(e.message);
+      
   }
 }
 
@@ -104,9 +111,29 @@ export function authObserver(fncLogIn, fncNotLogged) {
       
     }
   });
-    
-    
 }
+export async function createNote(user, queue, watched) {
+  const database = getDatabase();
+  await set(ref(database, 'galleries/' + user.uid), {
+    queue,
+    watched,
+  });
+}
+
+export async function readNote(user) {
+  const dbRef = ref(getDatabase());
+  return await get(child(dbRef, `galleries/${user.uid}`))
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        return data;
+      } else {
+      }
+      return snapshot.val();
+    })
+    .catch(error => {});
+}
+
 // Цей код містить функції для роботи з Firebase Authentication та Cloud Firestore.
 // import імпортує необхідні функції з Firebase для подальшої роботи зі створеним додатком.
 // firebaseConfig містить дані конфігурації веб - додатку Firebase, такі як ключ API, домен, URL бази даних, ідентифікатор проекту,
