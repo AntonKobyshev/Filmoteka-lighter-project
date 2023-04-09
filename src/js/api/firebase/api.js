@@ -9,7 +9,7 @@ import { getDoc, doc, setDoc } from 'firebase/firestore';
 
 import { db, auth } from './firebaseConfig.js';
 
-// import { dynRefs } from '../../constants/dynamicRefs';
+import { dynRefs } from '../../constants/dynamicRefs';
 import { Notify } from 'notiflix';
 
 // // // // // // // // // // // // //
@@ -38,7 +38,7 @@ export function singUp(email, password) {
 
 export function singIn(email, password) {
   signInWithEmailAndPassword(auth, email, password)
-    .then(userCredential => {})
+    .then(userCredential => {}) //Вхід вдалий
     .catch(error => {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -49,7 +49,7 @@ export function singIn(email, password) {
 export function logOut() {
   signOut(auth)
     .then(() => {
-      // Sign-out successful.
+      // Вихід вдалий.
     })
     .catch(error => {
       Notify.failure("Something went wrong");
@@ -84,7 +84,7 @@ export async function postData(usersFilmsObj, uid = auth.currentUser.uid) {
   }
 }
 
-export function authObserver(fncLogIn, fncNotLog) {
+export function authObserver(fncLogIn, fncNotLogged) {
   onAuthStateChanged(auth, user => {
     if (user) {
 
@@ -96,12 +96,29 @@ export function authObserver(fncLogIn, fncNotLog) {
       });
     } else {
       const { notLoggedIn, loggedIn } = dynRefs();
-      if (fncNotLog) {
-        fncNotLog.forEach(func => func());
+      if (fncNotLogged) {
+        fncNotLogged.forEach(func => func());
       }
 
       localStorage.removeItem('dataFromDB');
-      //usersFilms = localStorage.getItem('usersFilms');
+      
     }
   });
+    
+    
 }
+// Цей код містить функції для роботи з Firebase Authentication та Cloud Firestore.
+// import імпортує необхідні функції з Firebase для подальшої роботи зі створеним додатком.
+// firebaseConfig містить дані конфігурації веб - додатку Firebase, такі як ключ API, домен, URL бази даних, ідентифікатор проекту,
+// бакет для зберігання файлів та інші.
+// db містить посилання на Firestore із заданою конфігурацією, а auth - посилання на Firebase Authentication.
+// singUp() дозволяє користувачеві створити новий акаунт, передаючи електронну адресу та пароль.Після успішної реєстрації створюється
+// новий документ з watched та queue об'єктами, які представляють фільми користувача.singIn() дозволяє користувачеві увійти у систему з 
+// використанням електронної адреси та пароля.У разі невдалої спроби входу, виводиться повідомлення про помилку.
+// logOut() дозволяє користувачеві вийти з системи. У разі невдалої спроби виводиться повідомлення про помилку.
+// getData() отримує дані користувача із Firestore, які відносяться до відповідного uid.Якщо дані існують, вони зберігаються в локальному
+// сховищі та повертаються.Якщо дані відсутні, виводиться повідомлення про помилку.
+// postData() дозволяє зберегти об'єкт фільмів користувача у Firestore. Об'єкт зберігається за заданим uid.
+// authObserver() дозволяє відстежувати зміни стану аутентифікації користувача(залогінений чи ні).При зміні стану виконується відповідна
+// функція: якщо користувач залогінений, запускається функція getData() для отримання даних користувача після цього викликаються функціїї з
+// массиву fncLogIn. Якщо користувач не залогінений, то викликаються функціїї з массиву fncNotLogged
