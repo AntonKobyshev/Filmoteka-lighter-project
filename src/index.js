@@ -7,3 +7,6 @@ import {
 
 
 authObserver([showAuthorisedFields], [showUnauthorisedFields]);
+
+// import templateFunction from './templates/auth-modal';
+// document.body.innerHTML = templateFunction();
