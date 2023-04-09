@@ -1,8 +1,12 @@
+@import './utils/breakpoints';
+@import './utils/variables';
+
 @import './utils/normalize';
+@import './components/variables';
 @import './components/footer';
-@import './components/auth';
 
 @import './components/header-home';
-
+@import './components/modal-cards';
+@import './components/auth';
 @import './base/_container';
 @import './base/_global';
