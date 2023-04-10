@@ -43,4 +43,8 @@ export const refs = {
   regPswd: document.querySelector('#reg-pswd'),
 
   userLibrary: document.querySelector('.btn2'),
+    // refs для модалки команди
+    openModalBtn: document.querySelector('[data-action="open-modal"]'),
+    closeModalBtn: document.querySelector('[data-action="close-modal"]'),
+    backdropTeam: document.querySelector('.team-backdrop'),
 };
