@@ -1,4 +1,5 @@
 import './sass/main.scss';
+import './js/homeSearch';
 import { authObserver } from './js/api/firebase/api';
 import {
   showAuthorisedFields,
