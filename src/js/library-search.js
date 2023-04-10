@@ -1,50 +1,45 @@
-import { getData } from './api/firebase/api';
+import dataStorage from './api/firebase/data-storage';
 import { Notify } from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.6.min.css';
 
-const form = document.querySelector('#search-form');
-
-form.addEventListener('submit', event => {
-  event.preventDefault();
-
-  const searchInput = document.querySelector('#search-input');
-  const query = searchInput.value;
-
-  search(query);
+const data = new dataStorage({
+  queue: {},
+  watched: {},
 });
 
-export function searchMovies(query) {
-  return getData().then(data => {
-    const watched = data?.watched || [];
-    const queue = data?.queue || [];
+const searchForm = document.querySelector('.header__searchlib');
+const searchInput = document.querySelector('.header__searchlib-input');
+const searchResult = document.querySelector('#search-result'); //куди виводити результат пошуку???
 
-    // search in watched movies
-    const watchedResults = watched.filter(movie => {
-      const title = movie.title.toLowerCase();
-      return title.includes(query.toLowerCase());
-    });
+searchForm.addEventListener('submit', event => {
+  event.preventDefault();
+  const query = searchInput.value.trim().toLowerCase();
 
-    // search in movies to watch
-    const queueResults = queue.filter(movie => {
-      const title = movie.title.toLowerCase();
-      return title.includes(query.toLowerCase());
-    });
+  let queueResults = [];
+  let watchedResults = [];
 
-    return { watched: watchedResults, queue: queueResults };
-  });
-}
+  for (const id in data.queue) {
+    if (data.queue[id].title.toLowerCase().includes(query)) {
+      queueResults.push(data.queue[id]);
+    }
+  }
 
-function renderSearchResults(results) {
-  const resultList = document.querySelector('#search-results');
-  resultList.innerHTML = '';
+  for (const id in data.watched) {
+    if (data.watched[id].title.toLowerCase().includes(query)) {
+      watchedResults.push(data.watched[id]);
+    }
+  }
+
+  const results = [...queueResults, ...watchedResults];
 
   if (results.length > 0) {
+    searchResult.innerHTML = '';
     results.forEach(result => {
-      const resultItem = document.createElement('li');
-      resultItem.textContent = result.title;
-      resultList.appendChild(resultItem);
+      const li = document.createElement('li');
+      li.textContent = result.title;
+      searchResult.appendChild(li);
     });
   } else {
-    Notify.warning('No results found.');
+    Notify.warning('No results found');
   }
-}
+});
