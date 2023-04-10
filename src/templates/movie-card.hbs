@@ -1,0 +1,10 @@
+{{#each results}}
+    <div class="movie-card">
+        <img src=`http://image.tmdb.org/t/p/w500{{poster_path}}` alt="Movie poster" loading="lazy" />
+        <ul class="movie-card__info">
+            <li><h2 class="movie-card__title">{{title}}</h2></li>
+            <li><p class="movie-card__item">{{genre_ids}}</p></li>
+            <li><p class="movie-card__year">{{release_date.slice(0, 4)}}</p></li>
+        </ul>
+    </div>
+{{/each}}
