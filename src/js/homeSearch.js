@@ -19,5 +19,8 @@ async function movieSearch(e) {
       });
     console.log(response.data.results);
   } else {
+    Notiflix.Notify.failure(
+      'Search result not successful. Enter the correct movie name.'
+    );
   }
 }
