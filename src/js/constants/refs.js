@@ -4,4 +4,8 @@ export const refs = {
     headerQueueBtn: document.querySelector('.js-queue'), //це клас для кнопки у хедері
     autorizationChecked: document.getElementById('icon-autorization-checked'),
     dataBackdrop: document.querySelector('[data-backdrop]'),
+    // refs для модалки команди
+    openModalBtn: document.querySelector('[data-action="open-modal"]'),
+    closeModalBtn: document.querySelector('[data-action="close-modal"]'),
+    backdropTeam: document.querySelector('.team-backdrop'),
 };
