@@ -6,16 +6,20 @@ import { data } from 'infinite-scroll';
 const refs = {
     gallery: document.querySelector('.movie__gallery'),
 };
+
+API.fetchMovies().then(function (data) {
+    console.log(results);
+    renderMovieList(data.results);
+});   
+
 console.log(movieCardTpl);
-function renderMovieList(results) {
+
+function renderMovieList() {
       const movieCardsHtml = results.map(movieCardTpl).join('');
       refs.gallery.innerHTML = movieCardsHtml;
     };
     
-API.fetchMovies().then(function (results) {
-    console.log(results);
-    renderMovieList(results);
-});    
+ 
 // function renderMovieList(results) {
     
 //     // let genre = [];
