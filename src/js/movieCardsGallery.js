@@ -1,5 +1,5 @@
 import movieCardTpl from '../templates/movie-card.hbs';
-import API from './fetchMovies';
+import API from './api/firebase/fetchMovies';
 import '../sass/components/_movie-gallery.scss';
 import { data } from 'infinite-scroll';
 
