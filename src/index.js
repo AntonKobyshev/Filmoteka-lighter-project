@@ -9,5 +9,7 @@ import './js/features/auth/modal';
 
 authObserver([showAuthorisedFields], [showUnauthorisedFields]);
 
+import "./js/renderCards";
+
 // import templateFunction from './templates/auth-modal';
 // document.body.innerHTML = templateFunction();
