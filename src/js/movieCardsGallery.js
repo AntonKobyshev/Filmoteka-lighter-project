@@ -7,18 +7,19 @@ const refs = {
     gallery: document.querySelector('.movie__gallery'),
 };
 
-API.fetchMovies().then(function (results) {
+API.fetchMovies().then(function (data) {
     console.log(results);
-    renderMovieList(results);
+    renderMovieList(data.results);
 });   
 
 console.log(movieCardTpl);
-function renderMovieList(results) {
+
+function renderMovieList() {
       const movieCardsHtml = results.map(movieCardTpl).join('');
       refs.gallery.innerHTML = movieCardsHtml;
     };
     
-  
+ 
 // function renderMovieList(results) {
     
 //     // let genre = [];
