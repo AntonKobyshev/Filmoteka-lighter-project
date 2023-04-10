@@ -15,50 +15,34 @@
     <header>
       <a href="./index.html" class="header__list-link auth-btn">
         <svg class="header__icon icon-autorization" width="24" height="24">
-          <use href="/src/images/sprite.svg#icon-autorization"></use></svg
-        ><svg
+          <use href="/src/images/sprite.svg#icon-autorization"></use>
+        </svg>
+        <svg
           style="display: none"
           width="11"
           height="11"
           class="header__icon"
           id="icon-autorization-checked"
         >
-          <use href="/src/images/sprite.svg#icon-autorization-check"></use></svg
-      ></a>
+          <use href="/src/images/sprite.svg#icon-autorization-check"></use>
+        </svg>
+      </a>
     </header>
+    <main>
+      <section class="gallery">
+        <h1 class="visually-hidden">List of the most popular movies</h1>
+        <div class="container">
+          <div class="movie__gallery"></div>
+        </div>
+      </section>
+    </main>
     <div class="backdrop__modal-card" data-backdrop></div>
     <include src="./partials/header.html"></include>
     <include src="./partials/footer.html"></include>
 
-
     <div class="modal-backdrop">
       <div class="modal" data-id=""></div>
     </div>
-
-<body>
-  <header>
-    <a href="./index.html" class="header__list-link auth-btn">
-      <svg class="header__icon icon-autorization" width="24" height="24">
-        <use href="/src/images/sprite.svg#icon-autorization"></use>
-      </svg><svg style="display: none" width="11" height="11" class="header__icon" id="icon-autorization-checked">
-        <use href="/src/images/sprite.svg#icon-autorization-check"></use>
-      </svg></a>
-  </header>
-  <main>
-    <section class="gallery">
-      <h1 class="visually-hidden">List of the most popular movies</h1>
-      <div class="container">
-      
-        <div class="movie__gallery"></div>
-
-      </div>
-    </section>
-  </main>
-  <div class="backdrop__modal-card" data-backdrop></div>
-  <include src="./partials/header.html"></include>
-  <include src="./partials/footer.html"></include>
-
-
     <script src="./index.js" type="module"></script>
   </body>
 </html>
