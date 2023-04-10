@@ -9,7 +9,6 @@ import {
 export const firebaseConfig = {
   apiKey: "AIzaSyApAVPx8g9ncyoyFM9AB-VsIVQFVbZimu8",
   authDomain: "kinoteka-cc589.firebaseapp.com",
-  databaseURL: "https://kinoteka-cc589-default-rtdb.firebaseio.com",
   projectId: "kinoteka-cc589",
   storageBucket: "kinoteka-cc589.appspot.com",
   messagingSenderId: "626971331589",

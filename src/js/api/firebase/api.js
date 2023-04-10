@@ -5,7 +5,7 @@ import {
   signOut,
 } from 'firebase/auth';
 
-import { getDoc, doc, setDoc, get, set } from 'firebase/firestore';
+import { getDoc, doc, setDoc } from 'firebase/firestore';
 
 import { db, auth } from './firebaseConfig.js';
 
@@ -112,28 +112,6 @@ export function authObserver(fncLogIn, fncNotLogged) {
     }
   });
 }
-export async function createNote(user, queue, watched) {
-  const database = getDatabase();
-  await set(ref(database, 'galleries/' + user.uid), {
-    queue,
-    watched,
-  });
-}
-
-export async function readNote(user) {
-  const dbRef = ref(getDatabase());
-  return await get(child(dbRef, `galleries/${user.uid}`))
-    .then(snapshot => {
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        return data;
-      } else {
-      }
-      return snapshot.val();
-    })
-    .catch(error => {});
-}
-
 // Цей код містить функції для роботи з Firebase Authentication та Cloud Firestore.
 // import імпортує необхідні функції з Firebase для подальшої роботи зі створеним додатком.
 // firebaseConfig містить дані конфігурації веб - додатку Firebase, такі як ключ API, домен, URL бази даних, ідентифікатор проекту,
