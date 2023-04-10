@@ -1,21 +1,24 @@
 import movieCardTpl from '../templates/movie-card.hbs';
-import API from './fetchMovies';
+import API from './api/firebase/fetchMovies';
 import '../sass/components/_movie-gallery.scss';
 import { data } from 'infinite-scroll';
 
 const refs = {
     gallery: document.querySelector('.movie__gallery'),
 };
+
+API.fetchMovies().then(function (results) {
+    console.log(results);
+    renderMovieList(results);
+});   
+
 console.log(movieCardTpl);
 function renderMovieList(results) {
       const movieCardsHtml = results.map(movieCardTpl).join('');
       refs.gallery.innerHTML = movieCardsHtml;
     };
     
-API.fetchMovies().then(function (results) {
-    console.log(results);
-    renderMovieList(results);
-});    
+  
 // function renderMovieList(results) {
     
 //     // let genre = [];
