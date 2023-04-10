@@ -1,5 +1,6 @@
 @import './utils/breakpoints';
 @import './utils/variables';
+@import './utils/mixin';
 
 @import './utils/normalize';
 @import './components/variables';
@@ -15,3 +16,4 @@
 
 @import './base/_container';
 @import './base/_global';
+@import './components/modal';
