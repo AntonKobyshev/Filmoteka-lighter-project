@@ -97,6 +97,33 @@
     color: #ffffff;
     background: #000000;
   }
+
+  .header__icon {
+    margin-left: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    width: 40px;
+    height: 34px;
+    border-radius: 100px;
+    cursor: pointer;
+    color: #000000;
+    background: #ffffff;
+    @media screen and (min-width: 768px) {
+      margin-left: 8px;
+      width: 40px;
+      height: 38px;
+      padding: 9px 10px;
+    }
+    @media screen and (min-width: 1280px) {
+      margin-left: 8px;
+      width: 40px;
+      height: 38px;
+      padding: 9px 10px;
+    }
+  }
+
   .button-home {
     display: flex;
     align-items: center;
