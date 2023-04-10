@@ -12,22 +12,6 @@
   </head>
 
   <body>
-    <header>
-      <a href="./index.html" class="header__list-link auth-btn">
-        <svg class="header__icon icon-autorization" width="24" height="24">
-          <use href="/src/images/sprite.svg#icon-autorization"></use>
-        </svg>
-        <svg
-          style="display: none"
-          width="11"
-          height="11"
-          class="header__icon"
-          id="icon-autorization-checked"
-        >
-          <use href="/src/images/sprite.svg#icon-autorization-check"></use>
-        </svg>
-      </a>
-    </header>
     <main>
       <section class="gallery">
         <h1 class="visually-hidden">List of the most popular movies</h1>
@@ -36,7 +20,8 @@
         </div>
       </section>
     </main>
-    <div class="backdrop__modal-card" data-backdrop></div>
+    <button id="auth">Login</button>
+    <include src="./partials/user.html"></include>
     <include src="./partials/header.html"></include>
     <include src="./partials/footer.html"></include>
 
