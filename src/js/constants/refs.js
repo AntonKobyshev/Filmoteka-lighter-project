@@ -42,7 +42,7 @@ export const refs = {
   logInPswd: document.querySelector('#logInPswd'),
   regPswd: document.querySelector('#reg-pswd'),
 
-  userLibrary: document.querySelector('.btn2'),
+  userLibrary: document.querySelector('.button-library'),
     // refs для модалки команди
     openModalBtn: document.querySelector('[data-action="open-modal"]'),
     closeModalBtn: document.querySelector('[data-action="close-modal"]'),

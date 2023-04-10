@@ -9,7 +9,7 @@ const auth = getAuth(app);
 
 onAuthStateChanged(auth, user => {
   if (user) {
-    refs.userLibrary.classList.remove('hidden-tab');
+    refs.userLibrary.classList.remove('visually-hidden');
   } else {
     // User is signed out
     // ...
@@ -130,7 +130,7 @@ function onLogOut(e) {
 
   user.logOut();
 
-  // refs.userLibrary.classList.add('hidden-tab');
+  refs.userLibrary.classList.add('visually-hidden');
 
   onCloseModalAuth(e);
 }
