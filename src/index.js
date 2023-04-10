@@ -5,6 +5,7 @@ import {
   showUnauthorisedFields,
 } from './js/features/auth/authModalWindowContent';
 
+import './js/features/auth/modal';
 
 authObserver([showAuthorisedFields], [showUnauthorisedFields]);
 
