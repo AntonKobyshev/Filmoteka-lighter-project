@@ -1,39 +1,41 @@
 <header class="header">
-  <div class="header__container container">
-    <div class="header__bg">
-      <div class="header__wrapper">
-        <div class="header__button-container">
-          <a href="./index.html"
-            ><button class="button-home button current" type="button">
-              HOME
-            </button></a
-          >
-          <a href="./library.html"
-            ><button
-              class="button-library button visually-hidden"
-              type="button"
-            >
-              MY LIBRARY
-            </button></a
-          >
-
-          <svg
-            class="header__icon icon-autorization"
-            width="24"
-            height="24"
-            id="auth"
-          >
-            <use href="/src/images/sprite.svg#icon-autorization"></use>
-          </svg>
-          <svg
-            style="display: none"
-            width="11"
-            height="11"
-            class="header__icon"
-            id="icon-autorization-checked"
-          >
-            <use href="/src/images/sprite.svg#icon-autorization-check"></use>
-          </svg>
+    <div class="header__container container">
+        <div class="header__bg">
+            <div class="header__wrapper">
+                <div class="header__button-container">
+                    <a href="./index.html"><button class="button-home button current " type="button">
+                            HOME
+                        </button></a>
+                    <a href="./library.html"><button class="button-library button" type="button">
+                            MY LIBRARY
+                        </button></a>
+                    <a href="./index.html" class="header__list-link auth-btn">
+                        <svg class="header__icon icon-autorization" width="24" height="24">
+                            <use href="/src/images/sprite.svg#icon-autorization"></use>
+                        </svg>
+                        <svg style="display: none" width="11" height="11" class="header__icon"
+                            id="icon-autorization-checked">
+                            <use href="/src/images/sprite.svg#icon-autorization-check"></use>
+                        </svg>
+                    </a>
+                </div>
+                <form class="header__search">
+                    <input class="header__search-input" name="query" type="text" placeholder="Movie Search" />
+                    <button class="header__search-btn button" type="submit">
+                        <svg class="header__search-icon">
+                            <use href="./images/icon-project.svg#search"></use>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+            <div class="header__logo">
+                <a class="header__logo-link" href="#">
+                    <svg class="header__logo-icon">
+                        <use href="./images/icon-project.svg#film"></use>
+                    </svg>
+                    <h1 class="header__title">Filmoteka</h1>
+                </a>
+            </div>
         </div>
         <form class="header__search">
           <input
