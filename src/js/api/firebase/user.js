@@ -38,7 +38,7 @@ export default class User {
         alert(`User ${this.userData.name} created`);
 
         signOut(auth).then(() => {
-          refs.userLibrary.classList.add('visually-hidden');
+          refs.userLibrary.classList.add('hidden-tab');
         });
       })
       .catch(error => {
@@ -58,7 +58,7 @@ export default class User {
       .then(userCredential => {
         const user = userCredential.user;
 
-        refs.userLibrary.classList.remove('visually-hidden');
+        refs.userLibrary.classList.remove('hidden-tab');
 
         Notify.success(`User ${user.displayName} signed in`);
       })
@@ -106,7 +106,7 @@ export default class User {
     const user = auth.currentUser;
 
     signOut(auth).then(() => {
-      refs.userLibrary.classList.add('visually-hidden');
+      refs.userLibrary.classList.add('hidden-tab');
 
       location.reload();
     });
@@ -117,7 +117,7 @@ export default class User {
     const user = auth.currentUser;
 
     deleteUser(user).then(() => {
-      refs.userLibrary.classList.add('visually-hidden');
+      refs.userLibrary.classList.add('hidden-tab');
 
       remove(ref(db, 'users/' + user.uid)).then(() => {
         location.reload();
