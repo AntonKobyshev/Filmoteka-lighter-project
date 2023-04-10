@@ -1,0 +1,43 @@
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.movie__gallery {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .movie-card {
+    background-color: #F0F0F0;
+  }
+  
+  .movie-card img {
+    display: block;
+    width: 400px;
+    height: 270px;
+  }
+  
+  .movie-card__title{
+    text-transform: uppercase;
+    color: #000000;
+    
+  }
+  
+  .movie-card__info {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+  }

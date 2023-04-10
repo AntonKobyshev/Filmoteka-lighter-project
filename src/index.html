@@ -1,28 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Filmoteka-lighter-project</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Filmoteka-lighter-project</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-</head>
+  <body>
+    <main>
+      <!-- <button id="auth">Login</button> -->
 
-<body>
-  <header>
-    <a href="./index.html" class="header__list-link auth-btn">
-      <svg class="header__icon icon-autorization" width="24" height="24">
-        <use href="/src/images/sprite.svg#icon-autorization"></use>
-      </svg><svg style="display: none" width="11" height="11" class="header__icon" id="icon-autorization-checked">
-        <use href="/src/images/sprite.svg#icon-autorization-check"></use>
-      </svg></a>
-  </header>
-  <div class="backdrop__modal-card" data-backdrop></div>
-  <include src="./partials/header.html"></include>
-  <include src="./partials/footer.html"></include>
+      <section class="gallery">
+        <h1 class="visually-hidden">List of the most popular movies</h1>
+        <div class="container">
+          <div class="movie__gallery"></div>
+        </div>
+      </section>
+    </main>
+    <div class="backdrop__modal-card" data-backdrop></div>
 
-  <script src="./index.js" type="module"></script>
-</body>
+    <include src="./partials/header.html"></include>
+    <include src="./partials/user.html"></include>
+    <include src="./partials/main.html"></include>
+    <include src="./partials/footer.html"></include>
+    <include src="./partials/modal-team.html"></include>
 
+    <div class="modal-backdrop">
+      <div class="modal" data-id=""></div>
+    </div>
+    <script src="./index.js" type="module"></script>
+  </body>
 </html>
