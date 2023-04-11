@@ -88,3 +88,5 @@ export class API_service {
     this.id = newId;
   }
 }
+
+// API_service.page = 3;
