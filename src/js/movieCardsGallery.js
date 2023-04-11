@@ -25,6 +25,8 @@ async function init() {
   }
   }
 
+  init();
+
 let LOCALSTORAGE_KEY = ``;
 let genreName = ``;
 function renderGenre(genreObj) {
