@@ -25,16 +25,17 @@ function renderGenre(genreObj) {
 
 function renderMovie(movie) {
   const changedMovie = movie.results.map(movieCard => {
-    for(let i = 0; i < movieCard.genre_ids.length; i++){
+    for (let i = 0; i < movieCard.genre_ids.length; i++) {
       movieCard.genre_ids[i] = localStorage.getItem(movieCard.genre_ids[i]);
     }
     return movieCard;
   });
   console.log(changedMovie);
-  let movieList = changedMovie.map(({ poster_path, genre_ids, title, release_date }) => {
-    var releaseYear = release_date.slice(0, 4);
-    if(genre_ids.length > 2){
-      return`
+  let movieList = changedMovie
+    .map(({ poster_path, genre_ids, title, release_date }) => {
+      var releaseYear = release_date.slice(0, 4);
+      if (genre_ids.length > 2) {
+        return `
       <div class="movie-card">
         <a href="">
           <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w400${poster_path}" loading="lazy" />
@@ -45,9 +46,8 @@ function renderMovie(movie) {
         </a>
       </div>
       `;
-    }
-    else{
-      return`
+      } else {
+        return `
       <div class="movie-card">
         <a href="" class="movie-card__link">
           <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w400${poster_path}" loading="lazy" />
@@ -58,8 +58,9 @@ function renderMovie(movie) {
         </a>
       </div>
       `;
-    }
-  }).join('');
+      }
+    })
+    .join('');
 
   refs.galleryMovies.insertAdjacentHTML('beforeend', movieList)
 }
