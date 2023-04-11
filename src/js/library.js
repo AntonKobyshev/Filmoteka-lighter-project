@@ -17,10 +17,10 @@ const userData = {
 new dataStorage(userData);
 const filmsApi = new API_service();
 
-const homeBtnRef = document.querySelector('.btn-home');
-const libraryBtnRef = document.querySelector('.btn-library');
+const homeBtnRef = document.querySelector('.button-home');
+const libraryBtnRef = document.querySelector('.button-library');
 const watchedBtnRef = document.querySelector('.js-watched');
-const queueBtnRef = document.querySelector('.js-queue');
+const queueBtnRef = document.querySelector('.item__btn-queue');
 const filmsList = document.querySelector('.films');
 
 homeBtnRef.addEventListener('click', onHomeBtnClick);
@@ -30,7 +30,7 @@ watchedBtnRef.addEventListener('click', onWatchedBtnClick);
 
 async function onHomeBtnClick() {
   try {
-    createHomePagination(renderFilmsMarkup);
+    // createHomePagination(renderFilmsMarkup);
     watchedBtnRef.classList.remove('current');
   } catch (error) {
     console.log(error);
@@ -44,6 +44,7 @@ function onMyLibraryBtnClick() {
 }
 
 function onWatchedBtnClick() {
+  console.log('message')
   if (watchedBtnRef.classList.contains('current')) return;
 
   onAuthStateChanged(auth, user => {
