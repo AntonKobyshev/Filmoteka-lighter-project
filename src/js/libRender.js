@@ -1,3 +1,4 @@
+import { refs } from './constants/refs';
 import { API_service } from './api/apiService';
 import { getDatabase, ref, get } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -5,6 +6,7 @@ import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './api/firebase/firebaseConfig';
 import renderFilmsMarkup from './templates/renderFilmsMarkup';
 import dataStorage from './api/firebase/data-storage';
+import { onOpenModalAuth } from './api/firebase/auth-settings'
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -17,13 +19,17 @@ const userData = {
 new dataStorage(userData);
 const filmsApi = new API_service();
 
-
+const authBtn = document.querySelector('#auth');
 const watchedBtnRef = document.querySelector('.js-watched');
 const queueBtnRef = document.querySelector('.js-queue');
 const filmsList = document.querySelector('.library__container-list');
+const emptyMessage = document.querySelector('.library__mes');
 
 queueBtnRef.addEventListener('click', onQueueBtnClick);
 watchedBtnRef.addEventListener('click', onWatchedBtnClick);
+authBtn.addEventListener('click', onOpenModalAuth);
+
+
 
 onWatchedBtnClick();
 
@@ -38,10 +44,16 @@ function onWatchedBtnClick() {
         .then(snapshot => {
           if (snapshot.exists()) {
             
-            const ids = Object.keys(snapshot.val());
+              const ids = Object.keys(snapshot.val());
+              if (!emptyMessage.classList.contains('visually-hidden')) {
+                  emptyMessage.classList.add('visually-hidden');
+              }
               renderMarkupByIds(ids);
            //Render
           } else {
+              if (emptyMessage.classList.contains('visually-hidden')) {
+                  emptyMessage.classList.remove('visually-hidden');
+              }
             filmsList.innerHTML = '';
             console.log('No data available');
           }
@@ -70,11 +82,17 @@ function onQueueBtnClick() {
           if (snapshot.exists()) {
           
               const ids = Object.keys(snapshot.val());
+              if (!emptyMessage.classList.contains('visually-hidden')) {
+                  emptyMessage.classList.add('visually-hidden');
+              }
               renderMarkupByIds(ids);
            //render
           } else {
+            if (emptyMessage.classList.contains('visually-hidden')) {
+                  emptyMessage.classList.remove('visually-hidden');
+              }
             filmsList.innerHTML = '';
-            addErrorStyles();
+            
             console.log('No data available');
           }
         })
