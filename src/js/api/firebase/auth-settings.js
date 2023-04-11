@@ -35,7 +35,7 @@ function onChangeUserSetTab() {
   refs.delAccBtn.classList.toggle('hidden-tab');
 }
 
-function onOpenModalAuth() {
+export function onOpenModalAuth() {
   refs.modalAuth.classList.toggle('visibility');
   refs.authContainer.classList.remove('hidden-tab');
 
