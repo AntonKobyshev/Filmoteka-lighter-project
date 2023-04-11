@@ -25,6 +25,8 @@ const filmsList = document.querySelector('.library__container-list');
 queueBtnRef.addEventListener('click', onQueueBtnClick);
 watchedBtnRef.addEventListener('click', onWatchedBtnClick);
 
+onWatchedBtnClick();
+
 function onWatchedBtnClick() {
   if (watchedBtnRef.classList.contains('current')) return;
 
