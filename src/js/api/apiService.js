@@ -89,4 +89,3 @@ export class API_service {
   }
 }
 
-// API_service.page = 3;
