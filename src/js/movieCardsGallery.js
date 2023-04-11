@@ -31,7 +31,7 @@ let LOCALSTORAGE_KEY = ``;
 let genreName = ``;
 function renderGenre(genreObj) {
   // console.log(genreObj.genres);
-  genreObj.genres.map((genre) => {
+  genreObj.genres.map(genre => {
     LOCALSTORAGE_KEY = `${genre.id}`;
     genreName = `${genre.name}`;
 
