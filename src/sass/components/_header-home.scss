@@ -18,9 +18,9 @@
   background-size: cover;
 
   background-image: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.4) 65.37%
     ),
     url(../images/header/header-m.jpg);
 
@@ -28,9 +28,9 @@
     (min-resolution: 192dpi),
     (min-resolution: 2dppx) {
     background-image: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0.5),
-        rgba(0, 0, 0, 0.5)
+        180deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.4) 65.37%
       ),
       url(../images/header/header-m-2x.jpg);
   }
@@ -41,21 +41,11 @@
     padding: 16px;
     border-radius: 15px;
 
-    background-image: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0.5),
-        rgba(0, 0, 0, 0.5)
-      ),
-      url(../images/header/header-t.jpg);
+    background-image: url(../images/header/header-t.jpg);
     @media (min-device-pixel-ratio: 2),
       (min-resolution: 192dpi),
       (min-resolution: 2dppx) {
-      background-image: linear-gradient(
-          to right,
-          rgba(0, 0, 0, 0.5),
-          rgba(0, 0, 0, 0.5)
-        ),
-        url(../images/header/header-t-2x.jpg);
+      background-image: url(../images/header/header-t-2x.jpg);
     }
 
     @media screen and (min-width: 1280px) {
@@ -63,22 +53,12 @@
       min-height: 316px;
       padding: 16px 32px 32px 32px;
       border-radius: 15px;
-      background-image: linear-gradient(
-          to right,
-          rgba(0, 0, 0, 0.49),
-          rgba(0, 0, 0, 0.49)
-        ),
-        url(../images/header/header-d.jpg);
+      background-image: url(../images/header/header-d.jpg);
 
       @media (min-device-pixel-ratio: 2),
         (min-resolution: 192dpi),
         (min-resolution: 2dppx) {
-        background-image: linear-gradient(
-            to right,
-            rgba(0, 0, 0, 0.49),
-            rgba(0, 0, 0, 0.49)
-          ),
-          url(../images/header/header-d-2x.jpg);
+        background-image: url(../images/header/header-d-2x.jpg);
       }
     }
   }
@@ -117,14 +97,42 @@
     color: #ffffff;
     background: #000000;
   }
+
+  .header__icon {
+    margin-left: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    width: 40px;
+    height: 34px;
+    border-radius: 100px;
+    cursor: pointer;
+    color: #000000;
+    background: #ffffff;
+    @media screen and (min-width: 768px) {
+      margin-left: 8px;
+      width: 40px;
+      height: 38px;
+      padding: 9px 10px;
+    }
+    @media screen and (min-width: 1280px) {
+      margin-left: 8px;
+      width: 40px;
+      height: 38px;
+      padding: 9px 10px;
+    }
+  }
+
   .button-home {
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 10px 26px;
     width: 87px;
     height: 34px;
     border-radius: 100px;
-
+    font-family: Roboto;
     font-weight: 500;
     font-size: 12px;
     line-height: calc(12 / 14);
@@ -135,16 +143,19 @@
     @media screen and (min-width: 768px) {
       width: 83px;
       height: 38px;
-      padding: 12px 24px;
+      padding: 4px 16px;
     }
     @media screen and (min-width: 1280px) {
       margin-left: 8px;
       width: 99px;
       height: 42px;
-      padding: 14px 32px;
+      padding: 8px 16px;
     }
   }
-
+  .icon-autorization {
+    fill: rgb(187, 17, 17);
+    stroke: rgb(187, 17, 17);
+  }
   .button-library {
     display: flex;
     justify-content: center;
@@ -155,6 +166,7 @@
     border-radius: 100px;
 
     font-weight: 500;
+    font-family: Roboto;
     font-size: 12px;
     line-height: calc(12 / 14);
     text-transform: uppercase;
@@ -164,17 +176,18 @@
     @media screen and (min-width: 768px) {
       width: 109px;
       height: 38px;
-      padding: 12px 20px;
+      padding: 4px 16px;
     }
     @media screen and (min-width: 1280px) {
       margin-left: 8px;
-      width: 117px;
-      height: 42px;
-      padding: 14px 24px;
+      width: 109px;
+      height: 38px;
+      padding: 4px 16px;
     }
   }
 
   .header__search {
+    justify-content: center;
     display: flex;
     max-width: 252px;
     @media screen and (min-width: 1280px) {
@@ -183,6 +196,7 @@
   }
 
   .header__search-input {
+    font-family: Roboto;
     height: 34px;
     padding-left: 14px;
     padding-right: 0;
@@ -217,12 +231,14 @@
   }
 
   .header__search-input::placeholder {
+    font-family: Roboto;
     font-weight: 400;
     font-size: 12px;
     line-height: calc(12 / 14);
 
     color: #000000;
     @media screen and (min-width: 768px) {
+      font-family: Roboto;
       font-size: 14px;
       line-height: calc(14 / 16);
     }

@@ -1,12 +1,10 @@
+
+import './js/features/auth/modal-team';
+import './js/features/auth/modal';
 import './sass/main.scss';
-import { authObserver } from './js/api/firebase/api';
-import {
-  showAuthorisedFields,
-  showUnauthorisedFields,
-} from './js/features/auth/authModalWindowContent';
+import './js/api/apiService';
+import "./js/api/firebase/user-service";
+import "./js/movieCardsGallery";
+import "./js/renderCards";
 
 
-authObserver([showAuthorisedFields], [showUnauthorisedFields]);
-
-// import templateFunction from './templates/auth-modal';
-// document.body.innerHTML = templateFunction();

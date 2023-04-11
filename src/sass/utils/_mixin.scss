@@ -1,0 +1,39 @@
+// миксин для реализации медиа запросов.
+// при указании точки перелома (девайса) применяется минимальная ширина для
+// него.
+
+$breakpoints: (
+  'mobile': 320px,
+  'tablet': 768px,
+  'desktop': 1280px,
+
+  'retina': 'retina',
+  // применяется при добавлении images для ретина дисплеев.
+);
+
+@mixin mq($device, $type: min) {
+  @if map_has_key($breakpoints, $device) {
+    @if $device == 'retina' {
+      @media only screen and (min-device-pixel-ratio: 2),
+        (min-resolution: 192dpi),
+        (min-resolution: 2dppx) {
+        @content;
+      }
+    }
+    $width: map_get($breakpoints, $device);
+    @if $type == max {
+      $width: $width - 0.02;
+      // если указан $type: max то от ширины автоматически отнимется 0.02 пикселя.
+    }
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+
+  // Если не правильно ввели имя запроса $device
+
+  @else {
+    @warn "На жаль, не вдалося отримати значення  `#{$device}`. "
+        + "Доступні значення: #{map-keys($breakpoints)}.";
+  }
+}
