@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export default function fetchMovies(page) {
+export default function fetchMovies() {
   const KEY = '1ad822106312cb8004c8ffd62b3d3ebd';
-  return axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=${KEY}&page=${page}`)
+  return axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=${KEY}`)
   .then(function ({data}) {
     return data;
   })
@@ -10,3 +10,4 @@ export default function fetchMovies(page) {
     console.error(error);
   });
 }
+// &page=${page}
