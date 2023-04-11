@@ -1,4 +1,3 @@
-
 import './js/features/auth/modal-team';
 import './js/features/auth/modal';
 import './sass/main.scss';
