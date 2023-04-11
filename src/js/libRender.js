@@ -23,6 +23,7 @@ const authBtn = document.querySelector('#auth');
 const watchedBtnRef = document.querySelector('.js-watched');
 const queueBtnRef = document.querySelector('.js-queue');
 const filmsList = document.querySelector('.library__container-list');
+const emptyMessage = document.querySelector('.library__mes');
 
 queueBtnRef.addEventListener('click', onQueueBtnClick);
 watchedBtnRef.addEventListener('click', onWatchedBtnClick);
@@ -43,10 +44,16 @@ function onWatchedBtnClick() {
         .then(snapshot => {
           if (snapshot.exists()) {
             
-            const ids = Object.keys(snapshot.val());
+              const ids = Object.keys(snapshot.val());
+              if (!emptyMessage.classList.contains('visually-hidden')) {
+                  emptyMessage.classList.add('visually-hidden');
+              }
               renderMarkupByIds(ids);
            //Render
           } else {
+              if (emptyMessage.classList.contains('visually-hidden')) {
+                  emptyMessage.classList.remove('visually-hidden');
+              }
             filmsList.innerHTML = '';
             console.log('No data available');
           }
@@ -75,11 +82,17 @@ function onQueueBtnClick() {
           if (snapshot.exists()) {
           
               const ids = Object.keys(snapshot.val());
+              if (!emptyMessage.classList.contains('visually-hidden')) {
+                  emptyMessage.classList.add('visually-hidden');
+              }
               renderMarkupByIds(ids);
            //render
           } else {
+            if (emptyMessage.classList.contains('visually-hidden')) {
+                  emptyMessage.classList.remove('visually-hidden');
+              }
             filmsList.innerHTML = '';
-            addErrorStyles();
+            
             console.log('No data available');
           }
         })
