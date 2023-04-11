@@ -11,7 +11,7 @@ const refs = {
 };
 
 fetchGenres().then(genreObj => renderGenre(genreObj));
-apiMovies.fetchTrending((allData = true)).then(movie => {
+apiMovies.fetchTrending(allData = true).then(movie => {
   localStorage.setItem('totalPages', movie.total_pages);
   const totalPages = localStorage.getItem('totalPages');
   renderPagination(totalPages);
