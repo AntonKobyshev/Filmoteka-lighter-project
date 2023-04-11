@@ -1,23 +1,28 @@
 // import fetchMovies from './api/firebase/fetchMovies';
-import { API_service } from './api/apiService'
+import { API_service } from './api/apiService';
 import fetchGenres from './api/fetchGenres';
 import '../sass/components/_movie-gallery.scss';
+import renderPagination from './pagination';
 
 const apiMovies = new API_service();
 
 const refs = {
   galleryMovies: document.querySelector('.movie__gallery'),
-};   
+};
 
 fetchGenres().then(genreObj => renderGenre(genreObj));
-apiMovies.fetchTrending().then(movie => renderMovie(movie));
+apiMovies.fetchTrending((allData = true)).then(movie => {
+  localStorage.setItem('totalPages', movie.total_pages);
+  const totalPages = localStorage.getItem('totalPages');
+  renderPagination(totalPages);
+  renderMovie(movie.results);
+});
 
 let LOCALSTORAGE_KEY = ``;
 let genreName = ``;
 function renderGenre(genreObj) {
   // console.log(genreObj.genres);
-  genreObj.genres.map((genre) => {
-
+  genreObj.genres.map(genre => {
     LOCALSTORAGE_KEY = `${genre.id}`;
     genreName = `${genre.name}`;
 
@@ -25,7 +30,7 @@ function renderGenre(genreObj) {
   });
 }
 
-function renderMovie(movie) {
+export function renderMovie(movie) {
   const changedMovie = movie.map(movieCard => {
     for (let i = 0; i < movieCard.genre_ids.length; i++) {
       movieCard.genre_ids[i] = localStorage.getItem(movieCard.genre_ids[i]);
@@ -64,5 +69,5 @@ function renderMovie(movie) {
     })
     .join('');
 
-  refs.galleryMovies.insertAdjacentHTML('beforeend', movieList)
+  refs.galleryMovies.innerHTML = movieList;
 }
