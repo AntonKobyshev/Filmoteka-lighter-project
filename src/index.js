@@ -6,3 +6,4 @@ import './js/api/firebase/user-service';
 import './js/movieCardsGallery';
 import './js/homeSearch';
 import './js/features/auth/loader';
+import './js/pagination';
