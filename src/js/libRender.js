@@ -17,31 +17,13 @@ const userData = {
 new dataStorage(userData);
 const filmsApi = new API_service();
 
-const homeBtnRef = document.querySelector('.btn-home');
-const libraryBtnRef = document.querySelector('.btn-library');
+
 const watchedBtnRef = document.querySelector('.js-watched');
 const queueBtnRef = document.querySelector('.js-queue');
-const filmsList = document.querySelector('.films');
+const filmsList = document.querySelector('.library__container-list');
 
-homeBtnRef.addEventListener('click', onHomeBtnClick);
-libraryBtnRef.addEventListener('click', onMyLibraryBtnClick);
 queueBtnRef.addEventListener('click', onQueueBtnClick);
 watchedBtnRef.addEventListener('click', onWatchedBtnClick);
-
-async function onHomeBtnClick() {
-  try {
-    createHomePagination(renderFilmsMarkup);
-    watchedBtnRef.classList.remove('current');
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-function onMyLibraryBtnClick() {
-  if (libraryBtnRef.classList.contains('current')) return;
-  resetErrorStyles();
-  onWatchedBtnClick();
-}
 
 function onWatchedBtnClick() {
   if (watchedBtnRef.classList.contains('current')) return;
@@ -53,13 +35,12 @@ function onWatchedBtnClick() {
       get(ref(db, libDataBase))
         .then(snapshot => {
           if (snapshot.exists()) {
-            resetErrorStyles();
+            
             const ids = Object.keys(snapshot.val());
-
-            createLibraryPagination(ids, renderMarkupByIds);
+              renderMarkupByIds(ids);
+           //Render
           } else {
             filmsList.innerHTML = '';
-            addErrorStyles();
             console.log('No data available');
           }
         })
@@ -69,14 +50,14 @@ function onWatchedBtnClick() {
     }
   });
 
-  watchedBtnRef.classList.add('current');
-  queueBtnRef.classList.remove('current');
+  watchedBtnRef.classList.add('is-active');
+  queueBtnRef.classList.remove('is-active');
 }
 
 function onQueueBtnClick() {
-  if (queueBtnRef.classList.contains('current')) return;
-  queueBtnRef.classList.add('current');
-  watchedBtnRef.classList.remove('current');
+  if (queueBtnRef.classList.contains('is-active')) return;
+  queueBtnRef.classList.add('is-active');
+  watchedBtnRef.classList.remove('is-active');
 
   onAuthStateChanged(auth, user => {
     if (user) {
@@ -85,9 +66,10 @@ function onQueueBtnClick() {
       get(ref(db, libDataBase))
         .then(snapshot => {
           if (snapshot.exists()) {
-            resetErrorStyles();
-            const ids = Object.keys(snapshot.val());
-            createLibraryPagination(ids, renderMarkupByIds);
+          
+              const ids = Object.keys(snapshot.val());
+              renderMarkupByIds(ids);
+           //render
           } else {
             filmsList.innerHTML = '';
             addErrorStyles();
