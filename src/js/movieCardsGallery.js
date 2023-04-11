@@ -10,13 +10,20 @@ const refs = {
   galleryMovies: document.querySelector('.movie__gallery'),
 };
 
-fetchGenres().then(genreObj => renderGenre(genreObj));
-apiMovies.fetchTrending((allData = true)).then(movie => {
+async function init() {
+  try {
+  const genreObj = await fetchGenres();
+  renderGenre(genreObj);
+  const movie = await apiMovies.fetchTrending(allData = true);
   localStorage.setItem('totalPages', movie.total_pages);
   const totalPages = localStorage.getItem('totalPages');
   renderPagination(totalPages);
   renderMovie(movie.results);
-});
+  
+  } catch (error) {
+  console.log(error);
+  }
+  }
 
 let LOCALSTORAGE_KEY = ``;
 let genreName = ``;
