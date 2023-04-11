@@ -1,14 +1,16 @@
-import fetchMovies from './api/firebase/fetchMovies';
-import fetchGenres from './api/firebase/fetchGenres';
+// import fetchMovies from './api/firebase/fetchMovies';
+import { API_service } from './api/apiService'
+import fetchGenres from './api/fetchGenres';
 import '../sass/components/_movie-gallery.scss';
-import { data } from 'infinite-scroll';
+
+const apiMovies = new API_service();
 
 const refs = {
   galleryMovies: document.querySelector('.movie__gallery'),
 };   
 
 fetchGenres().then(genreObj => renderGenre(genreObj));
-fetchMovies().then(movie => renderMovie(movie));
+apiMovies.fetchTrending().then(movie => renderMovie(movie));
 
 let LOCALSTORAGE_KEY = ``;
 let genreName = ``;
@@ -24,7 +26,7 @@ function renderGenre(genreObj) {
 }
 
 function renderMovie(movie) {
-  const changedMovie = movie.results.map(movieCard => {
+  const changedMovie = movie.map(movieCard => {
     for (let i = 0; i < movieCard.genre_ids.length; i++) {
       movieCard.genre_ids[i] = localStorage.getItem(movieCard.genre_ids[i]);
     }
