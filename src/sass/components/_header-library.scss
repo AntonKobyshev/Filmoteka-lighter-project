@@ -280,7 +280,7 @@
 .item__btn-watched:focus {
     background: #B92F2C;;
     box-shadow: 0px 0px 7px rgba(27, 27, 27, 0.15);
-    border-radius: 0;
+    border-radius: 100px;
     color: #FFFFFF;
 }  
 
@@ -316,8 +316,7 @@
   transition: 0.7ms;
 }
 
-.item__btn-watched.current,
-.item__btn-queue.current {
+.is-active {
   color: #ffffff;
   background: #B92F2C;
   border-radius: 100px;
