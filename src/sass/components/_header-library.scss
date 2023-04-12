@@ -265,14 +265,15 @@
     }
   
     .item__btn-watched  {
+      font-family: Roboto;
+      font-weight: 500;
+      font-size: 12px;
       padding: 10px 23px;
       width: 102px;
       height: 34px;
       border-radius: 100px;
       border: 0;
       color: #B92F2C;
-      font-weight: 500;
-      font-size: 12px;
       line-height: calc(12 / 14);
       text-transform: uppercase;
       cursor: pointer;
@@ -299,6 +300,7 @@
 }  
 
 .item__btn-queue {
+  font-family: Roboto;
   font-weight: 500;
   font-size: 12px;
   line-height: calc(12 / 14);
