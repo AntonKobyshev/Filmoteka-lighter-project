@@ -3,7 +3,7 @@ import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { API_service } from './api/apiService';
 import fetchGenres from './api/fetchGenres';
 import '../sass/components/_movie-gallery.scss';
-import renderPagination from './pagination';
+import { renderPagination } from './pagination';
 
 const apiMovies = new API_service();
 
@@ -14,12 +14,13 @@ const refs = {
 async function init() {
   try {
     Loading.pulse({
-        svgColor: 'orange',
+      svgColor: 'orange',
     });
-    
+
     const genreObj = await fetchGenres();
     renderGenre(genreObj);
     const movie = await apiMovies.fetchTrending();
+    localStorage.setItem('fetchType', 'trending');
     localStorage.setItem('totalPages', movie.total_pages);
     const totalPages = localStorage.getItem('totalPages');
     renderPagination(totalPages);
@@ -36,7 +37,6 @@ init();
 let LOCALSTORAGE_KEY = ``;
 let genreName = ``;
 function renderGenre(genreObj) {
-  // console.log(genreObj.genres);
   genreObj.genres.map(genre => {
     LOCALSTORAGE_KEY = `${genre.id}`;
     genreName = `${genre.name}`;
@@ -52,7 +52,6 @@ export function renderMovie(movie) {
     }
     return movieCard;
   });
-  console.log(changedMovie);
   let movieList = changedMovie
     .map(({ poster_path, genre_ids, title, release_date, id }) => {
       var releaseYear = release_date.slice(0, 4);
