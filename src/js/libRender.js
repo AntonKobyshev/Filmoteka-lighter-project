@@ -45,6 +45,7 @@ function onWatchedBtnClick() {
         .then(snapshot => {
           if (snapshot.exists()) {
             const ids = Object.keys(snapshot.val());
+            localStorage.setItem('watched', JSON.stringify(ids));
             if (!emptyMessage.classList.contains('visually-hidden')) {
               emptyMessage.classList.add('visually-hidden');
             }
@@ -86,6 +87,7 @@ function onQueueBtnClick() {
         .then(snapshot => {
           if (snapshot.exists()) {
             const ids = Object.keys(snapshot.val());
+            localStorage.setItem('queued', JSON.stringify(ids));
             if (!emptyMessage.classList.contains('visually-hidden')) {
               emptyMessage.classList.add('visually-hidden');
             }
@@ -108,12 +110,15 @@ function onQueueBtnClick() {
   Loading.remove();
 }
 
-export default async function renderMarkupByIds(ids) {
+export default async function renderMarkupByIds(ids, page = 1) {
   try {
     Loading.pulse({
       svgColor: 'orange',
     });
-    const arrProm = ids.map(async id => {
+    const startIndex = (page - 1) * 20;
+    const endIndex = page * 20;
+    const idsToRender = ids.slice(startIndex, endIndex);
+    const arrProm = idsToRender.map(async id => {
       filmsApi.id = id;
       return await filmsApi.fetchMovieById();
     });

@@ -2,13 +2,10 @@ document.body.onload = function () {
   setTimeout(function () {
     let preloader = document.getElementById('page-preloader');
     if (!preloader.classList.contains('done')) {
-      preloader.classList.add('done')
+      preloader.classList.add('done');
     }
-  }, 250)
-}
-
-
-
+  }, 250);
+};
 
 // document.body.onload = function loader() {
 //     // Получаем контейнер и создаем лоадер
