@@ -1,4 +1,3 @@
-import './sass/main.scss';
 import './js/features/arrowtop';
 import { animationInput } from './js/placeholder_animation';
 import './js/features/auth/modal-team';
