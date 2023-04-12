@@ -37,12 +37,13 @@ export class API_service {
         params: {
           api_key: API_KEY,
           query: this.searchQuery,
+          page: this.page,
         },
       });
 
       spiner.removeSpiner(spinerSelector);
 
-      return data.results; //returns an OBJECT. e.g.{page: 1, results: Array(20), total_pages: 8, total_results: 147}
+      return data; //returns an OBJECT. e.g.{page: 1, results: Array(20), total_pages: 8, total_results: 147}
     } catch (error) {
       console.log(error);
     }

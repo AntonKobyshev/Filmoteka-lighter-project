@@ -22,28 +22,83 @@ let totalPages = 1;
 // event listener
 buttonsList.addEventListener('click', onClick);
 
-//select type of fetch !!!NOT FINISHED---TEST VERSION
+//select type of fetch
 async function fetchByType() {
   newFetch.page = currentPage;
+  if (localStorage.getItem('fetchType') == 'trending') {
+    fetchTrending();
+  } else if (localStorage.getItem('fetchType') == 'search') {
+    fetchSearch();
+  }
+  // else if (localStorage.getItem('fetchType') == 'watched') {
+  // } else if (localStorage.getItem('fetchType') == 'queue') {
+  // }
+}
+
+async function fetchTrending() {
   const response = await newFetch.fetchTrending();
   renderMovie(response.results);
 }
 
+async function fetchSearch() {
+  const searchQuery = localStorage.getItem('searchQuery');
+  newFetch.searchQuery = searchQuery;
+  const response = await newFetch.fetchMoviesByKeyword();
+  renderMovie(response.results);
+}
+
+async function fetchWatched() {
+  function pageCount() {
+    return Math.ceil(watchedList.length / 20);
+  } // ця фунція має бути в файлі рендеру сторінок для watched
+
+  localStorage.setItem('fetchType', 'watched');
+  localStorage.setItem('totalPages', pageCount());
+  const totalPages = localStorage.getItem('totalPages');
+  renderPagination(totalPages);
+}
+
+async function fetchQueue() {
+  function pageCount() {
+    return Math.ceil(queueList.length / 20);
+  } // ця фунція має бути в файлі рендеру сторінок для queue
+
+  localStorage.setItem('fetchType', 'queue');
+  localStorage.setItem('totalPages', pageCount());
+  const totalPages = localStorage.getItem('totalPages');
+  renderPagination(totalPages);
+}
+
 // render pagination for first load
-export default function renderPagination(totalPages) {
+export function renderPagination(totalPages) {
+  const pagButtons = [btn1, btn2, btn3, btn4, btn5];
+  pagButtons.forEach((button, index) => {
+    const pageNumber = index + 1;
+    if (pageNumber <= totalPages) {
+      button.textContent = pageNumber;
+      button.style.display = 'inline';
+    } else {
+      button.style.display = 'none';
+    }
+  });
   lastPageBtn.textContent = totalPages;
-  if (totalPages <= 5) {
+  currentPage = 1;
+  updateCurrentBtn();
+
+  if (totalPages > 5) {
+    afterDots.style.display = 'inline';
+    lastPageBtn.style.display = 'inline';
+    nextPageBtn.style.display = 'inline';
+    previousPageBtn.style.display = 'none';
+    firstPageBtn.style.display = 'none';
+    beforeDots.style.display = 'none';
+  } else {
     afterDots.style.display = 'none';
     lastPageBtn.style.display = 'none';
     nextPageBtn.style.display = 'none';
-    Array.from(buttonsList.children).forEach(btn => {
-      if (
-        btn.classList.contains('pagination__btn') &&
-        Number(btn.textContent) > totalPages
-      ) {
-        btn.style.display = 'none';
-      }
-    });
+    previousPageBtn.style.display = 'none';
+    firstPageBtn.style.display = 'none';
+    beforeDots.style.display = 'none';
   }
 }
 
