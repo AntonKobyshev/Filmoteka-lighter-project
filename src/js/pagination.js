@@ -27,7 +27,7 @@ buttonsList.addEventListener('click', onClick);
 async function fetchByType() {
   newFetch.page = currentPage;
   const response = await newFetch.fetchTrending();
-  renderMovie(response);
+  renderMovie(response.results);
 }
 
 // render pagination for first load

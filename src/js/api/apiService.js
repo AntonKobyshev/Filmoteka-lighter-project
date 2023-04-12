@@ -12,7 +12,7 @@ export class API_service {
     this.genreId = null;
   }
 
-  async fetchTrending(allData = false) {
+  async fetchTrending(allData = true) {
     try {
       Loading.pulse({
         svgColor: 'orange',
@@ -88,4 +88,3 @@ export class API_service {
     this.id = newId;
   }
 }
-
