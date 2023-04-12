@@ -9,10 +9,10 @@ const auth = getAuth(app);
 
 onAuthStateChanged(auth, user => {
     if (user) {
-        if (refs.userLibrary.classList.contains('visually-hidden')) {
+        if (refs.userLibrary.classList.contains('visually-hidden')){
             refs.userLibrary.classList.remove('visually-hidden');
-        }
-      } else {
+        };
+  } else {
     // User is signed out
     // ...
   }
