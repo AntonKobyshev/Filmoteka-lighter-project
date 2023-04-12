@@ -40,7 +40,7 @@ function renderMovie(response) {
   });
   console.log(changedMovie);
   let movieList = changedMovie
-    .map(({ poster_path, genre_ids, title, release_date,  id }) => {
+    .map(({ poster_path, genre_ids, title, release_date,  id}) => {
       var releaseYear = release_date.slice(0, 4);
       if (genre_ids.length > 2) {
         return `
