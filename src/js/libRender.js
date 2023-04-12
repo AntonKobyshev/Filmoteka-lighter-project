@@ -1,4 +1,4 @@
-import { refs } from './constants/refs';
+
 import { API_service } from './api/apiService';
 import { getDatabase, ref, get } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
