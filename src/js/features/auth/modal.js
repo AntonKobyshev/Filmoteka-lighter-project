@@ -112,9 +112,7 @@ function createModal(event) {
 function openModal() {
   modalBackdrop.classList.add('modal-open');
   document.body.style.overflow = 'hidden';
-  document.querySelector('.poster-trailer').addEventListener('click', e => {
-    console.log(`${e.target} message`);
-  });
+
   setCloseOptionModal();
 }
 
