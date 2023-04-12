@@ -17,8 +17,7 @@ const lastPageBtn = document.querySelector('.pagination__btn--last-page');
 const nextPageBtn = document.querySelector('.pagination__btn--next');
 
 let currentPage = 1;
-const totalPages = localStorage.getItem('totalPages');
-// let totalPages = 1;
+let totalPages = 1;
 
 // event listener
 buttonsList.addEventListener('click', onClick);
@@ -50,6 +49,10 @@ export default function renderPagination(totalPages) {
 
 // logic of pressed button
 function onClick(e) {
+  if (totalPages !== localStorage.getItem('totalPages')) {
+    totalPages = localStorage.getItem('totalPages');
+  }
+
   if (e.target.classList.contains('pagination__btn')) {
     currentPage = e.target.textContent;
     updateCurrentBtn();

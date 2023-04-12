@@ -39,7 +39,7 @@ export default function makeFilmsMarkup(films) {
                       0,
                       4,
                     )}</p>
-                    <span class="films__rating">${vote_average || '-'}</span>
+                    <span class="films__rating visually-hidden">${vote_average || '-'}</span>
                   </div>
                 </div>
             </li>`;
