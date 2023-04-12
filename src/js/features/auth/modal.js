@@ -1,3 +1,7 @@
+import { API_service } from "../../api/apiService";
+import { renderMovie} from "../../movieCardsGallery"
+
+const newApiServis = new API_service();
 const modalMoviemarkup = (
   poster_path,
   popularity,
@@ -84,12 +88,30 @@ const modalBackdrop = document.querySelector('.modal-backdrop');
 const btnClose = document.querySelector('.btn__closs-modal');
 
 
-document.querySelector('.header__logo').addEventListener('click', createModal);
+document.querySelector('.movie__gallery').addEventListener('click', createModal);
+
+let cardItem = document.querySelector('.movie-card')
+
+const cardId ='';
 
 function createModal(event) {
+  // console.log(event.currentTarget);
+  // console.log(event.target);
+  
+  if(event.target.nodeName === "UL"){
+   return;
+  } 
   renderModalContent();
   openModal();
+  
+  // console.log(cardList);
+  console.log(event.target);
+   cardId = cardItem.id = event.target.closest('li').dataset.id;
+   console.log(cardId);
+   
 }
+
+newApiServis.fetchMovieById(cardId)
 
 function openModal() {
   modalBackdrop.classList.add('modal-open');
