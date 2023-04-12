@@ -12,20 +12,19 @@ const refs = {
 
 async function init() {
   try {
-  const genreObj = await fetchGenres();
-  renderGenre(genreObj);
-  const movie = await apiMovies.fetchTrending(allData = true);
-  localStorage.setItem('totalPages', movie.total_pages);
-  const totalPages = localStorage.getItem('totalPages');
-  renderPagination(totalPages);
-  renderMovie(movie.results);
-  
+    const genreObj = await fetchGenres();
+    renderGenre(genreObj);
+    const movie = await apiMovies.fetchTrending();
+    localStorage.setItem('totalPages', movie.total_pages);
+    const totalPages = localStorage.getItem('totalPages');
+    renderPagination(totalPages);
+    renderMovie(movie.results);
   } catch (error) {
-  console.log(error);
+    console.log(error);
   }
-  }
+}
 
-  init();
+init();
 
 let LOCALSTORAGE_KEY = ``;
 let genreName = ``;
