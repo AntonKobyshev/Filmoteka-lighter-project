@@ -1,4 +1,5 @@
 // import fetchMovies from './api/firebase/fetchMovies';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { API_service } from './api/apiService';
 import fetchGenres from './api/fetchGenres';
 import '../sass/components/_movie-gallery.scss';
@@ -12,6 +13,10 @@ const refs = {
 
 async function init() {
   try {
+    Loading.pulse({
+        svgColor: 'orange',
+    });
+    
     const genreObj = await fetchGenres();
     renderGenre(genreObj);
     const movie = await apiMovies.fetchTrending();
@@ -19,6 +24,8 @@ async function init() {
     const totalPages = localStorage.getItem('totalPages');
     renderPagination(totalPages);
     renderMovie(movie.results);
+
+    Loading.remove();
   } catch (error) {
     console.log(error);
   }
