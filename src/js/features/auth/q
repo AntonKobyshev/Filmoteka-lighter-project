@@ -97,10 +97,9 @@ function createModal(event) {
   if(event.target.nodeName === "UL"){
    return;
   } 
-  
-  let cardItem = document.querySelector('.movie-card')
 
-  const cardId = cardItem.id = event.target.closest('li').dataset.id;
+  let cardItem = document.querySelector('.movie-card')
+  cardId = cardItem.id = event.target.closest('li').dataset.id;
   localStorage.setItem('movieId', cardId);
 
   newApiServis.id = cardId;
@@ -164,4 +163,3 @@ function offModal() {
 
   movieModal.innerHTML = '';
 }
-

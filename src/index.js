@@ -10,3 +10,4 @@ import './js/homeSearch';
 // import './js/features/auth/loader';
 
 import './js/pagination';
+import './js/trailer';

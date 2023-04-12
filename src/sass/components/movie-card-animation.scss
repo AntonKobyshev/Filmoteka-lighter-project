@@ -1,0 +1,8 @@
+.movie-card {
+  transition: transform 250ms linear;
+}
+
+.movie-card:hover,
+.movie-card:focus {
+  transform: scale(1.05);
+}
