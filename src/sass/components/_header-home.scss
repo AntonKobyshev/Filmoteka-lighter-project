@@ -187,7 +187,6 @@
   }
 
   .header__search {
-    justify-content: center;
     display: flex;
     max-width: 252px;
     @media screen and (min-width: 1280px) {
@@ -204,6 +203,7 @@
     outline: transparent;
     border-top-left-radius: 100px;
     border-bottom-left-radius: 100px;
+    width: 252px;
     @media screen and (min-width: 768px) {
       max-width: 120px;
       height: 38px;
