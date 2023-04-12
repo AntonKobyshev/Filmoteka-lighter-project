@@ -52,25 +52,21 @@ export function renderMovie(movie) {
       if (genre_ids.length > 2) {
         return `
       <div class="movie-card">
-        <a href="" class="movie-card__link">
           <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w400${poster_path}" loading="lazy" />
           <div class="movie-card__info">
             <p class="movie-card__title">${title}</p>
             <p class="movie-card__additionaly">${genre_ids[0]},${genre_ids[1]},Other | ${releaseYear}</p>
           </div>
-        </a>
       </div>
       `;
       } else {
         return `
       <div class="movie-card">
-        <a href="" class="movie-card__link">
           <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w400${poster_path}" loading="lazy" />
           <div class="movie-card__info">
             <p class="movie-card__title">${title}</p>
             <p class="movie-card__additionaly">${genre_ids} | ${releaseYear}</p>
           </div>
-        </a>
       </div>
       `;
       }
