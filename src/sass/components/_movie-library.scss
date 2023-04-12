@@ -110,7 +110,7 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
-  color: var(--accent-color);
+  color: $accent-color;
 }
 
 .films__data::before {
@@ -120,7 +120,7 @@
   height: 12px;
   margin-left: 5px;
   margin-right: 5px;
-  background-color: var(--accent-color);
+  background-color: $accent-color;
 }
 
 .films__rating {
@@ -136,7 +136,7 @@
   font-size: 12px;
   line-height: 1.17;
   text-transform: uppercase;
-  background-color: var(--accent-color);
+  background-color: $accent-color;
   color: var(--white-text-color);
   border-radius: 5px;
 }
