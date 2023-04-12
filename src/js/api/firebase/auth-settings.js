@@ -9,9 +9,7 @@ const auth = getAuth(app);
 
 onAuthStateChanged(auth, user => {
   if (user) {
-    if (refs.userLibrary.classList.contains('visually-hidden')) {
-      refs.userLibrary.classList.remove('visually-hidden');
-    }
+    refs.userLibrary.classList.toggle('visually-hidden');
   } else {
     localStorage.removeItem('watched');
     localStorage.removeItem('queued');
