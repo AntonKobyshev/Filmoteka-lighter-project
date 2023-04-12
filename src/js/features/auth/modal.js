@@ -1,14 +1,14 @@
 import { API_service } from "../../api/apiService";
-import { renderMovie} from "../../movieCardsGallery"
 
 const newApiServis = new API_service();
+
 const modalMoviemarkup = (
   poster_path,
   popularity,
   vote_average,
   vote_count,
   original_title,
-  genre_ids,
+  newId,
   overview
 ) => {
   let posterPath = ``;
@@ -60,7 +60,7 @@ const modalMoviemarkup = (
     <li class="info-card__item info-card__item-paramter">Original Title</li>
     <li class="info-card__item info-card__item-point">${original_title}</li>
     <li class="info-card__item info-card__item-paramter">Genre</li>
-    <li class="info-card__item info-card__item-point">${genre_ids}</li>
+    <li class="info-card__item info-card__item-point">${newId}</li>
   </ul>
   
 </div>
@@ -72,12 +72,10 @@ const modalMoviemarkup = (
   </p>
 </div>
 <div class="modal__buttons">
-      <button type="button" class="modal__button modal__add-watched" data-watched='false' data-liery='false'><span class="add-watched__text">add to watched</span></button>
-      <button type="button" class="modal__button modal__add-queue" data-queue='false' data-liery='false'>add to queue</button>
-      
-    </div>
-   
-  
+    <button type="button" class="modal__button modal__add-watched" data-watched='false' data-liery='false'>add to watched</button>
+    <button type="button" class="modal__button modal__add-queue" data-queue='false' data-liery='false'>add to queue</button>
+</div>
+
     </div>
     </div>`;
 };
@@ -91,19 +89,18 @@ const btnClose = document.querySelector('.btn__closs-modal');
 document.querySelector('.movie__gallery').addEventListener('click', createModal);
 
 
-
-
 function createModal(event) {
   if(event.target.nodeName === "UL"){
-   return;
+    return;
   } 
-  console.log(event.target);
+
   let cardItem = document.querySelector('.movie-card')
   const cardId = cardItem.id = event.target.closest('li').dataset.id;
-  console.log(cardId);
+
   newApiServis.id = cardId;
   newApiServis.fetchMovieById().then(movieById => {renderModalContent(movieById);
   openModal()
+
   }); 
 
 }
@@ -124,15 +121,19 @@ function setCloseOptionModal() {
 }
 
 function renderModalContent(movieById) {
-        modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup( 
-          movieById.poster_path,
-          movieById.popularity, 
-          movieById.vote_average, 
-          movieById.vote_count,
-          movieById.original_title, 
-          movieById.genre_ids, 
-          movieById.overview);
-  };
+  let newId = movieById.genres.map((genre) => {
+    return genre.name;
+  }).join(', ');
+
+  modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup( 
+    movieById.poster_path,
+    movieById.popularity, 
+    movieById.vote_average, 
+    movieById.vote_count,
+    movieById.original_title, 
+    newId,
+    movieById.overview);
+}
 
 
 function offModalForEscape(e) {
