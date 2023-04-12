@@ -25,7 +25,11 @@ export default class User {
   }
 
   create() {
-    createUserWithEmailAndPassword(auth, this.userData.email, this.userData.password)
+    createUserWithEmailAndPassword(
+      auth,
+      this.userData.email,
+      this.userData.password
+    )
       .then(userCredential => {
         const user = userCredential.user;
 
@@ -65,7 +69,6 @@ export default class User {
       .catch(error => {
         const errorCode = error.code;
         Notify.failure(error.message);
-          
       });
   }
 
@@ -106,14 +109,16 @@ export default class User {
     const user = auth.currentUser;
 
     signOut(auth).then(() => {
-      refs.userLibrary.classList.add('visually-hidden');
-
+      if (!refs.userLibrary.classList.contains('visually-hidden')) {
+        refs.userLibrary.classList.add('visually-hidden');
+      }
+      refs.homeBtn.click();
       location.reload();
     });
 
     Notify.message('You are logged out');
-    }
-    removeUser() {
+  }
+  removeUser() {
     const user = auth.currentUser;
 
     deleteUser(user).then(() => {

@@ -1,11 +1,11 @@
 export const refs = {
-    body: document.querySelector('body'),
-    userAuth: document.querySelector('#auth'),//це клас для кнопки автентифікаціїї у хедері
-    headerWatchedBtn: document.querySelector('.js-watched'), //це клас для кнопки у хедері
-    headerQueueBtn: document.querySelector('.js-queue'), //це клас для кнопки у хедері
-    autorizationChecked: document.getElementById('icon-autorization-checked'),
-    dataBackdrop: document.querySelector('[data-backdrop]'),
-
+  body: document.querySelector('body'),
+  userAuth: document.querySelector('#auth'), //це клас для кнопки автентифікаціїї у хедері
+  headerWatchedBtn: document.querySelector('.js-watched'), //це клас для кнопки у хедері
+  headerQueueBtn: document.querySelector('.js-queue'), //це клас для кнопки у хедері
+  autorizationChecked: document.getElementById('icon-autorization-checked'),
+  dataBackdrop: document.querySelector('[data-backdrop]'),
+  homeBtn: document.querySelector('btn-home'),
   modalAuth: document.querySelector('.backdrop-auth'),
   authContainer: document.querySelector('.auth-container'),
 
@@ -40,8 +40,8 @@ export const refs = {
   regPswd: document.querySelector('#reg-pswd'),
 
   userLibrary: document.querySelector('.button-library'),
-    // refs для модалки команди
-    openModalBtn: document.querySelector('[data-action="open-modal"]'),
-    closeModalBtn: document.querySelector('[data-action="close-modal"]'),
-    backdropTeam: document.querySelector('.team-backdrop'),
+  // refs для модалки команди
+  openModalBtn: document.querySelector('[data-action="open-modal"]'),
+  closeModalBtn: document.querySelector('[data-action="close-modal"]'),
+  backdropTeam: document.querySelector('.team-backdrop'),
 };
