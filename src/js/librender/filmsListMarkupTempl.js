@@ -32,9 +32,7 @@ export default function makeFilmsMarkup(films) {
         }" loading="lazy">
                   <div class="films__description">
                   <p class="films__title">${title || name}</p>
-                  <div class="films__meta">
-                    <p class="films__genres">${filmGenres || 'Action'}</p>
-                    <p class="films__data">${(release_date || first_air_date || '2023').slice(
+                  <p class="movie-card__additionaly">${filmGenres || 'Action'}  |  ${(release_date || first_air_date || '2023').slice(
                       0,
                       4,
                     )}</p>
