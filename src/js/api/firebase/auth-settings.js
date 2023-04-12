@@ -8,11 +8,13 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 onAuthStateChanged(auth, user => {
-    if (user) {
-        if (refs.userLibrary.classList.contains('visually-hidden')){
-            refs.userLibrary.classList.remove('visually-hidden');
-        };
+  if (user) {
+    if (refs.userLibrary.classList.contains('visually-hidden')) {
+      refs.userLibrary.classList.remove('visually-hidden');
+    }
   } else {
+    localStorage.removeItem('watched');
+    localStorage.removeItem('queued');
     // User is signed out
     // ...
   }
@@ -133,7 +135,7 @@ function onLogOut(e) {
   user.logOut();
 
   refs.userLibrary.classList.add('visually-hidden');
-
+  document.getElementById('btn-home').click();
   onCloseModalAuth(e);
 }
 
