@@ -39,7 +39,7 @@
 
   background: #fff;
 
-  box-shadow: 1px 1px 100px -9px rgba(255, 107, 8, 0.95);
+  box-shadow: 1px 1px 100px -9px $accent-color;
 
   border-radius: 8px;
 
@@ -164,7 +164,7 @@
   &:focus {
     cursor: pointer;
 
-    box-shadow: 1px 1px 47px -9px rgba(255, 107, 8, 0.69) inset;
+    box-shadow: 1px 1px 47px -9px $accent-color inset;
   }
 }
 
@@ -243,8 +243,8 @@
 
   &:focus,
   &:hover {
-    fill: var(--accent-color);
+    fill: $accent-color;
     background-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 1px 1px 55px 13px rgba(255, 107, 8, 0.95);
+    box-shadow: 1px 1px 55px 13px $accent-color;;
   }
 }

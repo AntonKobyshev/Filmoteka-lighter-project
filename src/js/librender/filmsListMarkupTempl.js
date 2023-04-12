@@ -26,16 +26,13 @@ export default function makeFilmsMarkup(films) {
         }
 
         return `<li class="films__item" data-id=${id}>
-                <div class="films__img">
-                <img src=https://image.tmdb.org/t/p/original${poster_path} alt="${
+                
+                <img class="films__img" src=https://image.tmdb.org/t/p/original${poster_path} alt="${
           title || name
         }" loading="lazy">
-        </div>
-                <div class="films__description">
+                  <div class="films__description">
                   <p class="films__title">${title || name}</p>
-                  <div class="films__meta">
-                    <p class="films__genres">${filmGenres || 'Action'}</p>
-                    <p class="films__data">${(release_date || first_air_date || '2023').slice(
+                  <p class="movie-card__additionaly">${filmGenres || 'Action'}  |  ${(release_date || first_air_date || '2023').slice(
                       0,
                       4,
                     )}</p>

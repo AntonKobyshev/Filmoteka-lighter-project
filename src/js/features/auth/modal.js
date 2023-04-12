@@ -1,3 +1,7 @@
+import { API_service } from "../../api/apiService";
+import { renderMovie} from "../../movieCardsGallery"
+
+const newApiServis = new API_service();
 const modalMoviemarkup = (
   poster_path,
   popularity,
@@ -30,7 +34,7 @@ const modalMoviemarkup = (
       </svg>
     </button>
 <div class="modal__movi-poster">
-<img src="${posterPath}" alt="placeholder" />
+<img class="modal__movi-img" src="${posterPath}" alt="placeholder" />
 <button class="poster-trailler trailer"><svg class="trailler-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32">
 <title>play</title>
 <path d="M30.662 5.003c-4.488-0.645-9.448-1.003-14.662-1.003s-10.174 0.358-14.662 1.003c-0.86 3.366-1.338 7.086-1.338 10.997s0.477 7.63 1.338 10.997c4.489 0.645 9.448 1.003 14.662 1.003s10.174-0.358 14.662-1.003c0.86-3.366 1.338-7.086 1.338-10.997s-0.477-7.63-1.338-10.997zM12 22v-12l10 6-10 6z"></path>
@@ -68,7 +72,7 @@ const modalMoviemarkup = (
   </p>
 </div>
 <div class="modal__buttons">
-      <button type="button" class="modal__button modal__add-watched" data-watched='false' data-liery='false'>add to watched</button>
+      <button type="button" class="modal__button modal__add-watched" data-watched='false' data-liery='false'><span class="add-watched__text">add to watched</span></button>
       <button type="button" class="modal__button modal__add-queue" data-queue='false' data-liery='false'>add to queue</button>
       
     </div>
@@ -84,11 +88,24 @@ const modalBackdrop = document.querySelector('.modal-backdrop');
 const btnClose = document.querySelector('.btn__closs-modal');
 
 
-document.querySelector('.header__logo').addEventListener('click', createModal);
+document.querySelector('.movie__gallery').addEventListener('click', createModal);
+
+
+
 
 function createModal(event) {
-  renderModalContent();
-  openModal();
+  if(event.target.nodeName === "UL"){
+   return;
+  } 
+  console.log(event.target);
+  let cardItem = document.querySelector('.movie-card')
+  const cardId = cardItem.id = event.target.closest('li').dataset.id;
+  console.log(cardId);
+  newApiServis.id = cardId;
+  newApiServis.fetchMovieById().then(movieById => {renderModalContent(movieById);
+  openModal()
+  }); 
+
 }
 
 function openModal() {
@@ -106,17 +123,17 @@ function setCloseOptionModal() {
     .addEventListener('click', offModal);
 }
 
-function renderModalContent() {
-  modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup(
-    '/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg',
-    8358.734,
-    7.323,
-    100.2,
-    'A FISTFUL OF LEAD',
-    [878, 12, 28],
-    'Set more than a decade after the events of the first film, learn the story of the Sully family'
-  );
-}
+function renderModalContent(movieById) {
+        modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup( 
+          movieById.poster_path,
+          movieById.popularity, 
+          movieById.vote_average, 
+          movieById.vote_count,
+          movieById.original_title, 
+          movieById.genre_ids, 
+          movieById.overview);
+  };
+
 
 function offModalForEscape(e) {
   if (e.key === 'Escape') {
