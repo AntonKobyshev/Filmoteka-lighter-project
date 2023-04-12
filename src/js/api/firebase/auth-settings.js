@@ -8,9 +8,11 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 onAuthStateChanged(auth, user => {
-  if (user) {
-    refs.userLibrary.classList.remove('visually-hidden');
-  } else {
+    if (user) {
+        if (refs.userLibrary.classList.contains('visually-hidden')) {
+            refs.userLibrary.classList.remove('visually-hidden');
+        }
+      } else {
     // User is signed out
     // ...
   }
