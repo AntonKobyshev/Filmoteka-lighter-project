@@ -1,3 +1,4 @@
+import './sass/main.scss';
 import './js/features/arrowtop';
 import { animationInput } from './js/placeholder_animation';
 import './js/features/auth/modal-team';
@@ -10,3 +11,4 @@ import './js/homeSearch';
 // import './js/features/auth/loader';
 
 import './js/pagination';
+import './js/trailer';
