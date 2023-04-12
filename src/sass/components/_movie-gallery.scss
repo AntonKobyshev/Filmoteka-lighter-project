@@ -46,6 +46,7 @@
   
 .movie-card {
   background-color: #ffffff;
+  cursor: pointer;
 
   @media screen and (max-width: 767px) {
     &:not(:last-child){
