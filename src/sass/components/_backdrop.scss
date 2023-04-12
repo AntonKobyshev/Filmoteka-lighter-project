@@ -24,6 +24,7 @@
 }
 
 .backdrop.is-hidden.modal {
+  
   position: relative;
   top: 50%;
   left: 50%;
@@ -37,7 +38,7 @@
   width: 280px;
   padding: 50px 20px 30px 20px;
   top: 20px;
-  left: 50%;
+  left: 0%;
   transform: translateX(-50%) scale(1);
   overflow: hidden;
 

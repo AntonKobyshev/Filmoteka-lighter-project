@@ -27,13 +27,16 @@
 }
 
 .modal {
+  position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   background-color: #fff;
   max-width: 380px;
   padding: 48px 20px 40px;
   margin-bottom: 50px;
   position: relative;
-  margin: auto;
-  border-radius: 15px;
+  border-radius: 0px;
 
   @include mq(tablet) {
     max-width: 704px;
@@ -44,7 +47,8 @@
   }
 
   @include mq(desktop) {
-    max-width: 806px;
+    max-width: 800px;
+    max-height: 558px;
     padding: 40px 12px;
     display: grid;
     grid-template-columns: 375px 1fr;
@@ -85,12 +89,10 @@
   }
 }
 
-.modal > .modal__movi-poster > img {
+.modal__movi-poster {
   position: relative;
-  margin-left: auto;
+  margin-left: 0;
   display: block;
-  width: 100%;
-  height: 100%;
   object-fit: fill;
   border-radius: 5px;
   margin-bottom: 20px;
@@ -101,13 +103,19 @@
   }
 }
 
+.modal__movi-img {
+
+  width: 375px;
+    height: 478px;
+}
+
 .modal__title {
   margin-bottom: 20px;
   font-weight: 500;
   font-size: 20px;
   line-height: 1.15;
 
-  text-align: center;
+  text-align: left;
 
   @include mq(desktop) {
     font-weight: 500;
@@ -260,7 +268,7 @@
 .poster-trailler{
   padding: 15px;
   border: 0px;
-  border-radius: 100px;
+  border-radius: 50%;
   background: #00000061;
   position: absolute;
   top: 45%;
@@ -278,4 +286,9 @@
 .modal__movi-poster > .poster-trailler :focus {
   width: 50px;
   height: 50px;
+}
+
+
+.modal_movi-info {
+  margin-left: 0;
 }
