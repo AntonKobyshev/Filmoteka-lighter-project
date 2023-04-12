@@ -90,28 +90,23 @@ const btnClose = document.querySelector('.btn__closs-modal');
 
 document.querySelector('.movie__gallery').addEventListener('click', createModal);
 
-let cardItem = document.querySelector('.movie-card')
 
-const cardId ='';
+
 
 function createModal(event) {
-  // console.log(event.currentTarget);
-  // console.log(event.target);
-  
   if(event.target.nodeName === "UL"){
    return;
   } 
-  renderModalContent();
-  openModal();
-  
-  // console.log(cardList);
   console.log(event.target);
-   cardId = cardItem.id = event.target.closest('li').dataset.id;
-   console.log(cardId);
-   
-}
+  let cardItem = document.querySelector('.movie-card')
+  const cardId = cardItem.id = event.target.closest('li').dataset.id;
+  console.log(cardId);
+  newApiServis.id = cardId;
+  newApiServis.fetchMovieById().then(movieById => {renderModalContent(movieById);
+  openModal()
+  }); 
 
-newApiServis.fetchMovieById(cardId)
+}
 
 function openModal() {
   modalBackdrop.classList.add('modal-open');
@@ -128,16 +123,30 @@ function setCloseOptionModal() {
     .addEventListener('click', offModal);
 }
 
-function renderModalContent() {
-  modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup(
-    '/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg',
-    8358.734,
-    7.323,
-    100.2,
-    'A FISTFUL OF LEAD',
-    [878, 12, 28],
-    'Set more than a decade after the events of the first film, learn the story of the Sully family'
-  );
+function renderModalContent(movieById) {
+  console.log(movieById)
+  for (let key in movieById) {
+    return modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup({ poster_path,
+          popularity,
+          vote_average,
+          vote_count,
+          original_title,
+          genre_ids,
+          overview});
+  };
+  // movieById.map(({ poster_path,
+  //   popularity,
+  //   vote_average,
+  //   vote_count,
+  //   original_title,
+  //   genre_ids,
+  //   overview}) =>  {return modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup({ poster_path,
+  //     popularity,
+  //     vote_average,
+  //     vote_count,
+  //     original_title,
+  //     genre_ids,
+  //     overview});});
 }
 
 function offModalForEscape(e) {
