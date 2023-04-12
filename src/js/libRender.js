@@ -3,7 +3,7 @@ import { getDatabase, ref, get } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './api/firebase/firebaseConfig';
-import renderFilmsMarkup from './templates/renderFilmsMarkup';
+import renderFilmsMarkup from './librender/renderFilmsMarkup';
 import dataStorage from './api/firebase/data-storage';
 import { onOpenModalAuth } from './api/firebase/auth-settings'
 
