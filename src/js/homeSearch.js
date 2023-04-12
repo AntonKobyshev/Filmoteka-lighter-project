@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
+import * as spiner from './features/auth/spiner';
 const homeSearchForm = document.querySelector('.header__search');
 const homeSearchInput = document.querySelector('.header__search-input');
 const gallery = document.querySelector('.movie__gallery');
@@ -11,6 +12,7 @@ async function movieSearch(e) {
   e.preventDefault();
   searchQuery = homeSearchInput.value;
   if (searchQuery !== '') {
+    let spinerSelector = spiner.spinerInit('.gallery');
     const response = await axios
       .get(
         `https://api.themoviedb.org/3/search/movie?api_key=${KEY}&query=${searchQuery}&page=${page}`
@@ -19,6 +21,7 @@ async function movieSearch(e) {
         return response.data;
       });
     renderMovie(response);
+    spiner.removeSpiner(spinerSelector);
     console.log('s ', response);
   } else {
     Notiflix.Notify.failure('Please enter the name of the movie.');

@@ -6,7 +6,7 @@ import { firebaseConfig } from './api/firebase/firebaseConfig';
 import renderFilmsMarkup from './librender/renderFilmsMarkup';
 import dataStorage from './api/firebase/data-storage';
 import { onOpenModalAuth } from './api/firebase/auth-settings';
-import { Loading } from 'notiflix/build/notiflix-loading-aio';
+import * as spiner from './features/auth/spiner';
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -33,9 +33,7 @@ onWatchedBtnClick();
 
 function onWatchedBtnClick() {
   if (watchedBtnRef.classList.contains('current')) return;
-  Loading.pulse({
-    svgColor: 'orange',
-  });
+  let spinerSelector = spiner.spinerInit('body')
 
   onAuthStateChanged(auth, user => {
     if (user) {
@@ -61,7 +59,7 @@ function onWatchedBtnClick() {
         .catch(error => {
           console.error(error);
         });
-      Loading.remove();
+      spiner.removeSpiner(spinerSelector);
     }
   });
 
@@ -74,9 +72,7 @@ function onQueueBtnClick() {
   queueBtnRef.classList.add('is-active');
   watchedBtnRef.classList.remove('is-active');
 
-  Loading.pulse({
-    svgColor: 'orange',
-  });
+  let spinerSelector = spiner.spinerInit('body')
 
   onAuthStateChanged(auth, user => {
     if (user) {
@@ -105,21 +101,19 @@ function onQueueBtnClick() {
         });
     }
   });
-  Loading.remove();
+  spiner.removeSpiner(spinerSelector);
 }
 
 export default async function renderMarkupByIds(ids) {
   try {
-    Loading.pulse({
-      svgColor: 'orange',
-    });
+    let spinerSelector = spiner.spinerInit('body')
     const arrProm = ids.map(async id => {
       filmsApi.id = id;
       return await filmsApi.fetchMovieById();
     });
     const films = await Promise.all(arrProm);
     renderFilmsMarkup(films);
-    Loading.remove();
+    spiner.removeSpiner(spinerSelector);
   } catch (error) {
     console.log(error);
   }

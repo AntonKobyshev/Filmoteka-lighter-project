@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Loading } from 'notiflix/build/notiflix-loading-aio';
+import * as spiner from '../features/auth/spiner'
 
 const API_KEY = '1ad822106312cb8004c8ffd62b3d3ebd';
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
@@ -14,9 +14,7 @@ export class API_service {
 
   async fetchTrending(allData = true) {
     try {
-      Loading.pulse({
-        svgColor: 'orange',
-      });
+      let spinerSelector = spiner.spinerInit('body');
       const { data } = await axios('trending/movie/day', {
         params: {
           api_key: API_KEY,
@@ -24,7 +22,7 @@ export class API_service {
         },
       });
 
-      Loading.remove();
+      spiner.removeSpiner(spinerSelector);
 
       return allData ? data : data.results;
     } catch (error) {
@@ -34,9 +32,7 @@ export class API_service {
 
   async fetchMoviesByKeyword() {
     try {
-      Loading.pulse({
-        svgColor: 'orange',
-      });
+      let spinerSelector = spiner.spinerInit('body');
       const { data } = await axios('search/movie', {
         params: {
           api_key: API_KEY,
@@ -44,7 +40,7 @@ export class API_service {
         },
       });
 
-      Loading.remove();
+      spiner.removeSpiner(spinerSelector);
 
       return data.results; //returns an OBJECT. e.g.{page: 1, results: Array(20), total_pages: 8, total_results: 147}
     } catch (error) {
@@ -55,16 +51,14 @@ export class API_service {
   async fetchMovieById() {
     //will throw an error if title "undefined";
     try {
-      Loading.pulse({
-        svgColor: 'orange',
-      });
+      let spinerSelector = spiner.spinerInit('body');
       const { data } = await axios(`movie/${this.id}`, {
         //for this to work make sure this.searchQuery type is number!!!
         params: {
           api_key: API_KEY,
         },
       });
-      Loading.remove();
+      spiner.removeSpiner(spinerSelector);
 
       return data;
     } catch (error) {
