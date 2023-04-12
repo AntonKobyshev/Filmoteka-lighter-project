@@ -99,9 +99,10 @@ function createModal(event) {
   } 
   
   let cardItem = document.querySelector('.movie-card')
+
   const cardId = cardItem.id = event.target.closest('li').dataset.id;
   localStorage.setItem('movieId', cardId);
-  
+
   newApiServis.id = cardId;
   newApiServis.fetchMovieById().then(movieById => {renderModalContent(movieById);
   openModal()
@@ -163,3 +164,4 @@ function offModal() {
 
   movieModal.innerHTML = '';
 }
+
