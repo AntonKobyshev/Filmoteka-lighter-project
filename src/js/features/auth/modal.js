@@ -72,7 +72,7 @@ const modalMoviemarkup = (
   </p>
 </div>
 <div class="modal__buttons">
-      <button type="button" class="modal__button modal__add-watched" data-watched='false' data-liery='false'>add to watched</button>
+      <button type="button" class="modal__button modal__add-watched" data-watched='false' data-liery='false'><span class="add-watched__text">add to watched</span></button>
       <button type="button" class="modal__button modal__add-queue" data-queue='false' data-liery='false'>add to queue</button>
       
     </div>
@@ -124,30 +124,16 @@ function setCloseOptionModal() {
 }
 
 function renderModalContent(movieById) {
-  console.log(movieById)
-  for (let key in movieById) {
-    return modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup({ poster_path,
-          popularity,
-          vote_average,
-          vote_count,
-          original_title,
-          genre_ids,
-          overview});
+        modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup( 
+          movieById.poster_path,
+          movieById.popularity, 
+          movieById.vote_average, 
+          movieById.vote_count,
+          movieById.original_title, 
+          movieById.genre_ids, 
+          movieById.overview);
   };
-  // movieById.map(({ poster_path,
-  //   popularity,
-  //   vote_average,
-  //   vote_count,
-  //   original_title,
-  //   genre_ids,
-  //   overview}) =>  {return modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup({ poster_path,
-  //     popularity,
-  //     vote_average,
-  //     vote_count,
-  //     original_title,
-  //     genre_ids,
-  //     overview});});
-}
+
 
 function offModalForEscape(e) {
   if (e.key === 'Escape') {

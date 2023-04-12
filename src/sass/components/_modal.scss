@@ -30,7 +30,6 @@
   position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
   background-color: #fff;
   max-width: 380px;
   padding: 48px 20px 40px;
@@ -38,7 +37,12 @@
   position: relative;
   border-radius: 0px;
 
+  @media screen and (max-width: 767px) {
+    transform: translate(-50%, -30%);
+  }
+
   @include mq(tablet) {
+    transform: translate(-50%, -50%);
     max-width: 704px;
     padding: 20px;
     display: grid;
@@ -105,8 +109,10 @@
 
 .modal__movi-img {
 
-  width: 375px;
-    height: 478px;
+  width: 240px;
+  height: 357px;
+    
+  border-radius: 5px;
 }
 
 .modal__title {
@@ -253,6 +259,12 @@
     height: 42px;
     padding: 14px 32px;
   }
+}
+
+.add-watched__text{
+  display: block;
+  width: 101px;
+  height: 14px;
 }
 
 .modal__add-queue {
