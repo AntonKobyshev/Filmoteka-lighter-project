@@ -1,4 +1,7 @@
 import Notiflix from 'notiflix';
+
+import * as spiner from './features/auth/spiner';
+
 import { API_service } from './api/apiService';
 const newFetch = new API_service();
 import { renderPagination } from './pagination';
@@ -14,6 +17,7 @@ async function movieSearch(e) {
   e.preventDefault();
   searchQuery = homeSearchInput.value;
   if (searchQuery !== '') {
+    let spinerSelector = spiner.spinerInit('.gallery');
     newFetch.page = 1;
     newFetch.searchQuery = searchQuery;
     const response = await newFetch.fetchMoviesByKeyword();
@@ -24,6 +28,8 @@ async function movieSearch(e) {
     totalPages = localStorage.getItem('totalPages');
     renderPagination(localStorage.getItem('totalPages'));
     renderMovie(response.results);
+    spiner.removeSpiner(spinerSelector);
+
   } else {
     Notiflix.Notify.failure('Please enter the name of the movie.');
   }
