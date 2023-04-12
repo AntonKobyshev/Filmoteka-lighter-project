@@ -5,7 +5,8 @@ import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './api/firebase/firebaseConfig';
 import renderFilmsMarkup from './librender/renderFilmsMarkup';
 import dataStorage from './api/firebase/data-storage';
-import { onOpenModalAuth } from './api/firebase/auth-settings'
+import { onOpenModalAuth } from './api/firebase/auth-settings';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -28,12 +29,13 @@ queueBtnRef.addEventListener('click', onQueueBtnClick);
 watchedBtnRef.addEventListener('click', onWatchedBtnClick);
 authBtn.addEventListener('click', onOpenModalAuth);
 
-
-
 onWatchedBtnClick();
 
 function onWatchedBtnClick() {
   if (watchedBtnRef.classList.contains('current')) return;
+  Loading.pulse({
+    svgColor: 'orange',
+  });
 
   onAuthStateChanged(auth, user => {
     if (user) {
@@ -42,17 +44,16 @@ function onWatchedBtnClick() {
       get(ref(db, libDataBase))
         .then(snapshot => {
           if (snapshot.exists()) {
-            
-              const ids = Object.keys(snapshot.val());
-              if (!emptyMessage.classList.contains('visually-hidden')) {
-                  emptyMessage.classList.add('visually-hidden');
-              }
-              renderMarkupByIds(ids);
-           //Render
+            const ids = Object.keys(snapshot.val());
+            if (!emptyMessage.classList.contains('visually-hidden')) {
+              emptyMessage.classList.add('visually-hidden');
+            }
+            renderMarkupByIds(ids);
+            //Render
           } else {
-              if (emptyMessage.classList.contains('visually-hidden')) {
-                  emptyMessage.classList.remove('visually-hidden');
-              }
+            if (emptyMessage.classList.contains('visually-hidden')) {
+              emptyMessage.classList.remove('visually-hidden');
+            }
             filmsList.innerHTML = '';
             console.log('No data available');
           }
@@ -60,6 +61,7 @@ function onWatchedBtnClick() {
         .catch(error => {
           console.error(error);
         });
+      Loading.remove();
     }
   });
 
@@ -72,6 +74,10 @@ function onQueueBtnClick() {
   queueBtnRef.classList.add('is-active');
   watchedBtnRef.classList.remove('is-active');
 
+  Loading.pulse({
+    svgColor: 'orange',
+  });
+
   onAuthStateChanged(auth, user => {
     if (user) {
       const libDataBase = `users/${user.uid}/lib/queue/`;
@@ -79,19 +85,18 @@ function onQueueBtnClick() {
       get(ref(db, libDataBase))
         .then(snapshot => {
           if (snapshot.exists()) {
-          
-              const ids = Object.keys(snapshot.val());
-              if (!emptyMessage.classList.contains('visually-hidden')) {
-                  emptyMessage.classList.add('visually-hidden');
-              }
-              renderMarkupByIds(ids);
-           //render
+            const ids = Object.keys(snapshot.val());
+            if (!emptyMessage.classList.contains('visually-hidden')) {
+              emptyMessage.classList.add('visually-hidden');
+            }
+            renderMarkupByIds(ids);
+            //render
           } else {
             if (emptyMessage.classList.contains('visually-hidden')) {
-                  emptyMessage.classList.remove('visually-hidden');
-              }
+              emptyMessage.classList.remove('visually-hidden');
+            }
             filmsList.innerHTML = '';
-            
+
             console.log('No data available');
           }
         })
@@ -100,16 +105,21 @@ function onQueueBtnClick() {
         });
     }
   });
+  Loading.remove();
 }
 
 export default async function renderMarkupByIds(ids) {
   try {
+    Loading.pulse({
+      svgColor: 'orange',
+    });
     const arrProm = ids.map(async id => {
       filmsApi.id = id;
       return await filmsApi.fetchMovieById();
     });
     const films = await Promise.all(arrProm);
     renderFilmsMarkup(films);
+    Loading.remove();
   } catch (error) {
     console.log(error);
   }
