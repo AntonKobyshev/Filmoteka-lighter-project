@@ -1,5 +1,4 @@
-import { API_service } from "../../api/apiService";
-
+import { API_service } from '../../api/apiService';
 
 const newApiServis = new API_service();
 
@@ -87,33 +86,35 @@ const movieModal = document.querySelector('.modal');
 const modalBackdrop = document.querySelector('.modal-backdrop');
 const btnClose = document.querySelector('.btn__closs-modal');
 
-
-document.querySelector('.movie__gallery').addEventListener('click', createModal);
-
+document
+  .querySelector('.movie__gallery')
+  .addEventListener('click', createModal);
 
 let cardId;
 
 function createModal(event) {
-  if(event.target.nodeName === "UL"){
-   return;
-  } 
-  
-  let cardItem = document.querySelector('.movie-card')
+  if (event.target.nodeName === 'UL') {
+    return;
+  }
 
-  const cardId = cardItem.id = event.target.closest('li').dataset.id;
+  let cardItem = document.querySelector('.movie-card');
+
+  const cardId = (cardItem.id = event.target.closest('li').dataset.id);
   localStorage.setItem('movieId', cardId);
 
   newApiServis.id = cardId;
-  newApiServis.fetchMovieById().then(movieById => {renderModalContent(movieById);
-  openModal()
-  }); 
-
+  newApiServis.fetchMovieById().then(movieById => {
+    renderModalContent(movieById);
+    openModal();
+  });
 }
 
 function openModal() {
   modalBackdrop.classList.add('modal-open');
   document.body.style.overflow = 'hidden';
-
+  document.querySelector('.poster-trailer').addEventListener('click', e => {
+    console.log(`${e.target} message`);
+  });
   setCloseOptionModal();
 }
 
@@ -126,20 +127,22 @@ function setCloseOptionModal() {
 }
 
 function renderModalContent(movieById) {
-  let newId = movieById.genres.map((genre) => {
-    return genre.name;
-  }).join(', ');
+  let newId = movieById.genres
+    .map(genre => {
+      return genre.name;
+    })
+    .join(', ');
 
-  modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup( 
+  modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup(
     movieById.poster_path,
-    movieById.popularity, 
-    movieById.vote_average, 
+    movieById.popularity,
+    movieById.vote_average,
     movieById.vote_count,
-    movieById.original_title, 
+    movieById.original_title,
     newId,
-    movieById.overview);
+    movieById.overview
+  );
 }
-
 
 function offModalForEscape(e) {
   if (e.key === 'Escape') {
@@ -164,4 +167,3 @@ function offModal() {
 
   movieModal.innerHTML = '';
 }
-
