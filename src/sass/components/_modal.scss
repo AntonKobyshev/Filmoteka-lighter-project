@@ -1,0 +1,309 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-backdrop.modal-open {
+  pointer-events: all;
+  opacity: 1;
+  visibility: visible;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding-top: 20px;
+  padding-bottom: 38px;
+  padding: 20px 10px 38px;
+  overflow: overlay;
+  width: 100%;
+  height: 100%;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal {
+  position: fixed;
+    top: 50%;
+    left: 50%;
+  background-color: #fff;
+  min-width: 280px;
+  padding: 48px 20px 40px;
+  // margin-bottom: 50px;
+  position: relative;
+  border-radius: 0px;
+
+  @media screen and (max-width: 767px) {
+    transform: translate(-50%, -30%);
+  }
+
+  @include mq(tablet) {
+    transform: translate(-50%, -50%);
+    max-width: 704px;
+    max-height: 552px;
+    padding-right: 72px;
+    padding-bottom: 64px;
+    padding-left: 36px;
+    padding-top: 40px;
+    display: grid;
+    grid-template-columns: 264px 1fr;
+    grid-column-gap: 68px;
+  }
+
+  @include mq(desktop) {
+    max-width: 800px;
+    max-height: 558px;
+    padding: 40px 12px;
+    display: grid;
+    grid-template-columns: 375px 1fr;
+    grid-column-gap: 16px;
+  }
+}
+
+.btn__closs-modal {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover,
+  &:focus {
+    color: #b92f2c;
+  }
+}
+
+.modal__movi-poster {
+  max-width: 360px;
+  position: relative;
+  filter: inherit;
+
+  @include mq(tablet) {
+    width: 300px;
+    height: 450px;
+    margin-top: 20px;
+  }
+  @include mq(desktop) {
+    width: 360px;
+    height: 550px;
+    margin-top: 0px;
+  }
+}
+
+.modal__movi-poster {
+  position: relative;
+  margin-left: 0;
+  display: block;
+  object-fit: fill;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  @include mq(desktop) {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+}
+
+.modal__movi-img {
+
+  width: 240px;
+  height: 357px;
+    
+  border-radius: 5px;
+  @media screen and (min-width: 768px) {
+      width: 264px;
+      height: 374x;
+    }
+}
+
+.modal__title {
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.15;
+
+  text-align: left;
+
+  @include mq(desktop) {
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.07;
+  }
+}
+
+.modal__info-card {
+  margin-bottom: 20px;
+}
+
+.modal__about {
+  margin-bottom: 20px;
+}
+
+.modal__about-title {
+  margin-bottom: 8px;
+
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.67;
+  text-transform: uppercase;
+  @include mq(desktop) {
+    line-height: 1.33;
+  }
+}
+
+.modal__about-text {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.67;
+}
+
+.info-card__list-parametrs {
+  display: grid;
+  grid-template-columns: 108px 2fr;
+}
+
+.info-card__item-point {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  color: #000000;
+}
+
+.info-card__item-paramter {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+
+  color: #8c8c8c;
+}
+
+.orig-title {
+  min-height: 100%;
+}
+
+.info-card__list-parametrs > li:not(:nth-last-of-type(-n + 2)) {
+  margin-bottom: 8px;
+}
+
+.info-card__list-parametrs > li > span:first-child {
+  display: inline-block;
+  width: 30px;
+  height: 14px;
+  background-color: #b92f2c;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.info-card__list-parametrs > li > span {
+  display: inline-block;
+  text-align: center;
+  color: #8c8c8c;
+
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+}
+
+.info-card__list-parametrs > li > span:last-child {
+  display: inline-block;
+  width: 36px;
+  height: 16px;
+  background-color: #f7f7f7;
+  color: #000;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.modal__buttons {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  @include mq(desktop) {
+    justify-content: flex-start;
+    // padding-left: 16px;
+  }
+}
+
+.modal__button {
+  color: #b92f2c;
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.16;
+  text-align: center;
+  text-transform: uppercase;
+
+  cursor: pointer;
+  width: 126px;
+  height: 34px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 100px;
+
+  padding: 9px 11px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover,
+  &:focus {
+    border: none;
+    background: #b92f2c;
+    box-shadow: 0px 0px 7px rgba(27, 27, 27, 0.15);
+    color: #fff;
+  }
+  @include mq(tablet) {
+    width: 139px;
+    height: 38px;
+    padding: 12px 18px;
+  }
+  @include mq(desktop) {
+    width: 167px;
+    height: 42px;
+    padding: 14px 32px;
+  }
+}
+
+.modal__add-queue {
+  padding: 9px 13px;
+  width: 111px;
+  @include mq(tablet) {
+    width: 120px;
+  }
+  @include mq(desktop) {
+    width: 134px;
+    padding: 14px 24px;
+  }
+}
+.poster-trailler{
+  padding: 15px;
+  border: 0px;
+  border-radius: 50%;
+  background: #00000061;
+  position: absolute;
+  top: 45%;
+  left: 40%;
+  // transition: width 2s, height 2s, background-color 2s, transform 2s;
+}
+.trailler-svg{
+  fill: #cb0909;
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  transition: width 500ms, height 500ms;
+}
+.modal__movi-poster > .poster-trailler :hover,
+.modal__movi-poster > .poster-trailler :focus {
+  width: 50px;
+  height: 50px;
+}
+
+
+.modal_movi-info {
+  margin-left: 0;
+}

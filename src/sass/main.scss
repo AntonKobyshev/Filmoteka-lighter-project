@@ -1,2 +1,23 @@
+@import './utils/breakpoints';
+@import './utils/variables';
+@import './utils/mixin';
+
 @import './utils/normalize';
+@import './components/variables';
+@import './components/modal-user-auth';
 @import './components/footer';
+@import './components/btn-to-top';
+@import './components/header-home';
+
+@import './components/header-library';
+@import './components/main-library';
+@import './components/backdrop';
+@import './components/movie-library';
+@import './components/movie-gallery';
+@import './base/_container';
+@import './base/_global';
+@import './components/modal';
+@import './components/modal-team';
+@import './components/loader';
+@import './components/pagination';
+

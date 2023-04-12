@@ -1,7 +1,5 @@
-<<<<<<< Updated upstream
-import './sass/main.scss';
-=======
 import './js/features/arrowtop';
+import { animationInput } from './js/placeholder_animation';
 import './js/features/auth/modal-team';
 import './js/features/auth/modal';
 import './sass/main.scss';
@@ -13,4 +11,3 @@ import './js/homeSearch';
 
 import './js/pagination';
 import './js/trailer';
->>>>>>> Stashed changes
