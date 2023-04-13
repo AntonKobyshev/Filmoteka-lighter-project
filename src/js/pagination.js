@@ -1,6 +1,7 @@
 import { API_service } from './api/apiService';
 const newFetch = new API_service();
 import { renderMovie } from './movieCardsGallery';
+// import { onWatchedBtnClick, onQueueBtnClick } from './libRender';
 
 // variables
 const buttonsList = document.querySelector('.pagination');
@@ -31,7 +32,9 @@ async function fetchByType() {
     fetchSearch();
   }
   // else if (localStorage.getItem('fetchType') == 'watched') {
-  // } else if (localStorage.getItem('fetchType') == 'queue') {
+  //   fetchWatched();
+  // }
+  // else if (localStorage.getItem('fetchType') == 'queue') {
   // }
 }
 
@@ -48,25 +51,25 @@ async function fetchSearch() {
 }
 
 async function fetchWatched() {
-  function pageCount() {
-    return Math.ceil(watchedList.length / 20);
-  } // ця фунція має бути в файлі рендеру сторінок для watched
-
-  localStorage.setItem('fetchType', 'watched');
-  localStorage.setItem('totalPages', pageCount());
-  const totalPages = localStorage.getItem('totalPages');
-  renderPagination(totalPages);
+  // function pageCount() {
+  //   return Math.ceil(watchedList.length / 20);
+  // } // ця фунція має бути в файлі рендеру сторінок для watched
+  // localStorage.setItem('fetchType', 'watched');
+  // localStorage.setItem('totalPages', pageCount());
+  // const totalPages = localStorage.getItem('totalPages');
+  // renderPagination(totalPages);
+  // onWatchedBtnClick();
 }
 
 async function fetchQueue() {
-  function pageCount() {
-    return Math.ceil(queueList.length / 20);
-  } // ця фунція має бути в файлі рендеру сторінок для queue
-
-  localStorage.setItem('fetchType', 'queue');
-  localStorage.setItem('totalPages', pageCount());
-  const totalPages = localStorage.getItem('totalPages');
-  renderPagination(totalPages);
+  // function pageCount() {
+  //   return Math.ceil(queueList.length / 20);
+  // } // ця фунція має бути в файлі рендеру сторінок для queue
+  // localStorage.setItem('fetchType', 'queue');
+  // localStorage.setItem('totalPages', pageCount());
+  // const totalPages = localStorage.getItem('totalPages');
+  // renderPagination(totalPages);
+  // onQueueBtnClick();
 }
 
 // render pagination for first load
@@ -150,6 +153,7 @@ function onClick(e) {
     updateCurrentBtn();
     fetchByType();
   }
+  localStorage.setItem('currentPage', currentPage);
 }
 
 // check the beginning of pagination

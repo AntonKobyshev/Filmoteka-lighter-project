@@ -5,7 +5,6 @@ export default function fetchGenres() {
   return axios
     .get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${KEY}`)
     .then(function ({ data }) {
-      console.log(data);
       localStorage.setItem('genres', JSON.stringify(data));
       return data;
     })

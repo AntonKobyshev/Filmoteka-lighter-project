@@ -6,7 +6,9 @@ import { firebaseConfig } from './api/firebase/firebaseConfig';
 import renderFilmsMarkup from './librender/renderFilmsMarkup';
 import dataStorage from './api/firebase/data-storage';
 import { onOpenModalAuth } from './api/firebase/auth-settings';
-import { Loading } from 'notiflix/build/notiflix-loading-aio';
+import * as spiner from './features/auth/spiner';
+import { renderPagination } from './pagination';
+import { Loading } from 'notiflix';
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -31,11 +33,9 @@ authBtn.addEventListener('click', onOpenModalAuth);
 
 onWatchedBtnClick();
 
-function onWatchedBtnClick() {
+export function onWatchedBtnClick() {
   if (watchedBtnRef.classList.contains('current')) return;
-  Loading.pulse({
-    svgColor: 'orange',
-  });
+  let spinerSelector = spiner.spinerInit('body');
 
   onAuthStateChanged(auth, user => {
     if (user) {
@@ -45,11 +45,22 @@ function onWatchedBtnClick() {
         .then(snapshot => {
           if (snapshot.exists()) {
             const ids = Object.keys(snapshot.val());
-            localStorage.setItem('watched', JSON.stringify(ids));
+
+
+            //pagination
+            localStorage.setItem('fetchType', 'watched');
+            localStorage.setItem('totalPages', Math.ceil(ids.length / 20));
+            const totalPages = localStorage.getItem('totalPages');
+            renderPagination(totalPages);
+            //pagination
+
+            localStorage.setItem('watched', JSON.stringify(snapshot.val()));
+
             if (!emptyMessage.classList.contains('visually-hidden')) {
               emptyMessage.classList.add('visually-hidden');
             }
-            renderMarkupByIds(ids);
+            // renderMarkupByIds(ids);
+            renderMarkupByIds(ids, localStorage.getItem('currentPage'));
             //Render
           } else {
             if (emptyMessage.classList.contains('visually-hidden')) {
@@ -62,22 +73,19 @@ function onWatchedBtnClick() {
         .catch(error => {
           console.error(error);
         });
-      Loading.remove();
     }
   });
-
+  spiner.removeSpiner(spinerSelector);
   watchedBtnRef.classList.add('is-active');
   queueBtnRef.classList.remove('is-active');
 }
 
-function onQueueBtnClick() {
+export function onQueueBtnClick() {
   if (queueBtnRef.classList.contains('is-active')) return;
   queueBtnRef.classList.add('is-active');
   watchedBtnRef.classList.remove('is-active');
 
-  Loading.pulse({
-    svgColor: 'orange',
-  });
+  let spinerSelector = spiner.spinerInit('body');
 
   onAuthStateChanged(auth, user => {
     if (user) {
@@ -87,11 +95,21 @@ function onQueueBtnClick() {
         .then(snapshot => {
           if (snapshot.exists()) {
             const ids = Object.keys(snapshot.val());
-            localStorage.setItem('queued', JSON.stringify(ids));
+
+            //pagination
+            localStorage.setItem('fetchType', 'queue');
+            localStorage.setItem('totalPages', Math.ceil(ids.length / 20));
+            const totalPages = localStorage.getItem('totalPages');
+            renderPagination(totalPages);
+            //pagination
+
+            localStorage.setItem('queued', JSON.stringify(snapshot.val()));
+
             if (!emptyMessage.classList.contains('visually-hidden')) {
               emptyMessage.classList.add('visually-hidden');
             }
             renderMarkupByIds(ids);
+
             //render
           } else {
             if (emptyMessage.classList.contains('visually-hidden')) {
@@ -107,14 +125,19 @@ function onQueueBtnClick() {
         });
     }
   });
-  Loading.remove();
+  spiner.removeSpiner(spinerSelector);
 }
 
 export default async function renderMarkupByIds(ids, page = 1) {
   try {
-    Loading.pulse({
-      svgColor: 'orange',
-    });
+    let spinerSelector = spiner.spinerInit('body');
+
+    console.log('spinner on');
+
+    // Loading.pulse({
+    //   svgColor: 'orange',
+    // });
+
     const startIndex = (page - 1) * 20;
     const endIndex = page * 20;
     const idsToRender = ids.slice(startIndex, endIndex);
@@ -124,7 +147,8 @@ export default async function renderMarkupByIds(ids, page = 1) {
     });
     const films = await Promise.all(arrProm);
     renderFilmsMarkup(films);
-    Loading.remove();
+    console.log('spinner off');
+    spiner.removeSpiner(spinerSelector);
   } catch (error) {
     console.log(error);
   }

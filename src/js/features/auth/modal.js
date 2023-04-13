@@ -1,5 +1,6 @@
-import { API_service } from "../../api/apiService";
-
+import { API_service } from '../../api/apiService';
+import * as basicLightbox from 'basiclightbox';
+import 'basiclightbox/dist/basicLightbox.min.css';
 
 const newApiServis = new API_service();
 
@@ -89,6 +90,10 @@ const btnClose = document.querySelector('.btn__closs-modal');
 const ulMain = document.querySelector('.movie__gallery');
 const ulLibrary = document.querySelector('.library__container-list');
 
+// document
+//   .querySelector('.movie__gallery')
+//   .addEventListener('click', createModal);
+
 
 if(ulMain){
   ulMain.addEventListener('click', createModal);
@@ -96,20 +101,24 @@ if(ulMain){
   ulLibrary.addEventListener('click', createModal);
 }
 
+let cardId;
 
 function createModal(event) {
-  if(event.target.nodeName === "UL"){
-   return;
-  } 
-  
-  let cardItem = document.querySelector('.movie-card')
-  const cardId = cardItem.id = event.target.closest('li').dataset.id;
- 
-  newApiServis.id = cardId;
-  newApiServis.fetchMovieById().then(movieById => {renderModalContent(movieById);
-  openModal()
-  }); 
+  if (event.target.nodeName === 'UL') {
+    return;
+  }
 
+
+  let cardItem = document.querySelector('.movie-card');
+
+  const cardId = (cardItem.id = event.target.closest('li').dataset.id);
+  localStorage.setItem('movieId', cardId);
+
+  newApiServis.id = cardId;
+  newApiServis.fetchMovieById().then(movieById => {
+    renderModalContent(movieById);
+    openModal();
+  });
 }
 
 function openModal() {
@@ -128,20 +137,22 @@ function setCloseOptionModal() {
 }
 
 function renderModalContent(movieById) {
-  let newId = movieById.genres.map((genre) => {
-    return genre.name;
-  }).join(', ');
+  let newId = movieById.genres
+    .map(genre => {
+      return genre.name;
+    })
+    .join(', ');
 
-  modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup( 
+  modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup(
     movieById.poster_path,
-    movieById.popularity, 
-    movieById.vote_average, 
+    movieById.popularity,
+    movieById.vote_average,
     movieById.vote_count,
-    movieById.original_title, 
+    movieById.original_title,
     newId,
-    movieById.overview);
+    movieById.overview
+  );
 }
-
 
 function offModalForEscape(e) {
   if (e.key === 'Escape') {
@@ -165,4 +176,38 @@ function offModal() {
   modalBackdrop.firstElementChild.dataset.id = '';
 
   movieModal.innerHTML = '';
+}
+
+//Плеєр
+function onYoutubeBtnClick() {
+  let idBtn = document.querySelector('.film__button');
+
+  newApiServis.movieId = idBtn.dataset.id;
+
+  newApiServis
+    .fetchYoutube()
+    .then(data => {
+      let results = data.results[0];
+      let key = results.key;
+      return key;
+    })
+    .then(key => iframeRender(key));
+}
+
+function iframeRender(key) {
+  const BASE_YOUTUBE_URL = 'https://www.youtube.com/embed/';
+  const instance = basicLightbox.create(
+    `<button type="button" id="youtube-close-btn"><i class="fa-regular fa-circle-xmark"></i></button><iframe
+      src="${BASE_YOUTUBE_URL}${key}"?autoplay=1&mute=1&controls=1>
+      </iframe>
+    `,
+    {
+      onShow: instance => {
+        instance.element().querySelector('#youtube-close-btn').onclick =
+          instance.close;
+      },
+    }
+  );
+
+  instance.show();
 }

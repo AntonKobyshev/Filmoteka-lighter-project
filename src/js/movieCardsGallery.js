@@ -1,10 +1,11 @@
 // import fetchMovies from './api/firebase/fetchMovies';
-import { Loading } from 'notiflix/build/notiflix-loading-aio';
+// import { Loading } from 'notiflix/build/notiflix-loading-aio';
+
 import { API_service } from './api/apiService';
 import fetchGenres from './api/fetchGenres';
 import '../sass/components/_movie-gallery.scss';
 import { renderPagination } from './pagination';
-
+import * as spiner from './features/auth/spiner';
 const apiMovies = new API_service();
 
 const refs = {
@@ -13,9 +14,10 @@ const refs = {
 
 async function init() {
   try {
-    Loading.pulse({
-      svgColor: 'orange',
-    });
+    let spinerSelector = spiner.spinerInit('.gallery');
+    // Loading.pulse({
+    //   svgColor: 'orange',
+    // });
 
     const genreObj = await fetchGenres();
     renderGenre(genreObj);
@@ -26,7 +28,7 @@ async function init() {
     renderPagination(totalPages);
     renderMovie(movie.results);
 
-    Loading.remove();
+    spiner.removeSpiner(spinerSelector);
   } catch (error) {
     console.log(error);
   }
