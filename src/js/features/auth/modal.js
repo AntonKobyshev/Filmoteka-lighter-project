@@ -10,7 +10,7 @@ const modalMoviemarkup = (
   vote_average,
   vote_count,
   original_title,
-  newId,
+  genresId,
   overview
 ) => {
   let posterPath = ``;
@@ -62,7 +62,7 @@ const modalMoviemarkup = (
     <li class="info-card__item info-card__item-paramter">Original Title</li>
     <li class="info-card__item info-card__item-point">${original_title}</li>
     <li class="info-card__item info-card__item-paramter">Genre</li>
-    <li class="info-card__item info-card__item-point">${newId}</li>
+    <li class="info-card__item info-card__item-point">${genresId}</li>
   </ul>
   
 </div>
@@ -90,15 +90,17 @@ const modalBackdrop = document.querySelector('.modal-backdrop');
 const btnClose = document.querySelector('.btn__closs-modal');
 const youtubePreview = document.querySelector('.trailler');
 console.log(youtubePreview);
+const ulMain = document.querySelector('.movie__gallery');
+const ulLibrary = document.querySelector('.library__container-list');
 
 // document
 //   .querySelector('.movie__gallery')
 //   .addEventListener('click', createModal);
 
-if (document.querySelector('.movie__gallery')) {
-  document
-    .querySelector('.movie__gallery')
-    .addEventListener('click', createModal);
+if (ulMain) {
+  ulMain.addEventListener('click', createModal);
+} else if (ulLibrary) {
+  ulLibrary.addEventListener('click', createModal);
 }
 
 let cardId;
@@ -139,11 +141,14 @@ function setCloseOptionModal() {
 }
 
 function renderModalContent(movieById) {
-  let newId = movieById.genres
+  console.log(movieById);
+  let genresId = movieById.genres
     .map(genre => {
       return genre.name;
     })
     .join(', ');
+
+  movieModal.dataset.id = movieById.id;
   movieModal.insertAdjacentHTML(
     'afterbegin',
     modalMoviemarkup(
@@ -152,8 +157,9 @@ function renderModalContent(movieById) {
       movieById.vote_average,
       movieById.vote_count,
       movieById.original_title,
-      newId,
-      movieById.overview
+      genresId,
+      movieById.overview,
+      movieById.id
     )
   );
   // modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup(
