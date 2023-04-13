@@ -10,7 +10,7 @@ const modalMoviemarkup = (
   vote_average,
   vote_count,
   original_title,
-  newId,
+  genresId,
   overview
 ) => {
   let posterPath = ``;
@@ -62,7 +62,7 @@ const modalMoviemarkup = (
     <li class="info-card__item info-card__item-paramter">Original Title</li>
     <li class="info-card__item info-card__item-point">${original_title}</li>
     <li class="info-card__item info-card__item-paramter">Genre</li>
-    <li class="info-card__item info-card__item-point">${newId}</li>
+    <li class="info-card__item info-card__item-point">${genresId}</li>
   </ul>
   
 </div>
@@ -133,11 +133,13 @@ function setCloseOptionModal() {
 }
 
 function renderModalContent(movieById) {
-  let newId = movieById.genres
+  console.log(movieById)
+  let genresId = movieById.genres
     .map(genre => {
       return genre.name;
-    })
-    .join(', ');
+  }).join(', ');
+
+  movieModal.dataset.id = movieById.id;
 
   modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup(
     movieById.poster_path,
@@ -145,8 +147,9 @@ function renderModalContent(movieById) {
     movieById.vote_average,
     movieById.vote_count,
     movieById.original_title,
-    newId,
-    movieById.overview
+    genresId,
+    movieById.overview,
+    movieById.id
   );
 }
 
