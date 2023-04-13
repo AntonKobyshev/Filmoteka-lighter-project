@@ -5,8 +5,11 @@ export function spinerInit(selector) {
 }
 
 export function removeSpiner(spinerSelector) {
-  document.querySelector(spinerSelector).remove();
+  setTimeout(() => {
+    document.querySelector(spinerSelector).remove();
+  }, 100);
 }
+
 
 function spinerHTML() {
   return `
