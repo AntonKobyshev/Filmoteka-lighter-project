@@ -86,6 +86,9 @@
     // width: 300px;
     // height: 450px;
     // margin-top: 20px;
+    // width: 300px;
+    // height: 450px;
+    // margin-top: 20px;
   }
   @include mq(desktop) {
     // width: 360px;
@@ -101,7 +104,10 @@
   max-width: 360px;
 
   margin-left: 0;
-  margin-top: 0px;
+  display: block;
+  object-fit: fill;
+  border-radius: 5px;
+  margin-bottom: 20px;
   @include mq(desktop) {
     height: 100%;
     object-fit: fill;
