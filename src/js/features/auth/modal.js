@@ -111,10 +111,10 @@ function createModal(event) {
 
   let cardItem = document.querySelector('.movie-card');
 
-  const cardId = (cardItem.id = event.target.closest('li').dataset.id);
-  localStorage.setItem('movieId', cardId);
+  cardItem = event.target.closest('li').dataset.id;
+  localStorage.setItem('movieId', cardItem);
 
-  newApiServis.id = cardId;
+  newApiServis.id = cardItem;
   newApiServis.fetchMovieById().then(movieById => {
     renderModalContent(movieById);
     openModal();
