@@ -28,8 +28,8 @@
 
 .modal {
   position: fixed;
-    top: 50%;
-    left: 50%;
+  top: 50%;
+  left: 50%;
   background-color: #fff;
   min-width: 280px;
   padding: 48px 20px 40px;
@@ -81,7 +81,6 @@
 }
 
 .modal__movi-poster {
-
   @include mq(tablet) {
     // margin-top: 20px;
     // width: 300px;
@@ -291,7 +290,7 @@
     padding: 14px 24px;
   }
 }
-.poster-trailler{
+.poster-trailler {
   padding: 15px;
   border: 0px;
   border-radius: 50%;
@@ -302,7 +301,7 @@
   transform: translate(-50%, -50%);
   // transition: width 2s, height 2s, background-color 2s, transform 2s;
 }
-.trailler-svg{
+.trailler-svg {
   fill: #cb0909;
   display: flex;
   align-content: center;
@@ -315,7 +314,39 @@
   height: 50px;
 }
 
+//Стилі трейлера
 
 .modal_movi-info {
   margin-left: 0;
+}
+
+iframe {
+  position: relative;
+  min-width: 50vw;
+  height: 60vh;
+}
+
+#youtube-close-btn {
+  position: absolute;
+  width: 48px;
+  background-color: transparent;
+  border: transparent;
+  z-index: 2;
+  top: -47px;
+  right: -10px;
+  .fa-regular {
+    width: 35px;
+    height: 35px;
+    color: var(--second-text-color);
+    border-radius: 50%;
+    font-size: 30px;
+    &:hover,
+    &:focus {
+      color: var(--accent-color);
+      cursor: pointer;
+    }
+  }
+}
+.basicLightbox.basicLightbox--visible {
+  background-color: rgba(0, 0, 0, 0.9);
 }
