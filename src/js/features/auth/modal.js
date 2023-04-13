@@ -88,10 +88,23 @@ const movieModal = document.querySelector('.modal');
 const modalBackdrop = document.querySelector('.modal-backdrop');
 
 const btnClose = document.querySelector('.btn__closs-modal');
-const youtubePreview = document.querySelector('.trailler');
-console.log(youtubePreview);
 const ulMain = document.querySelector('.movie__gallery');
 const ulLibrary = document.querySelector('.library__container-list');
+
+movieModal.addEventListener('click', function (e) {
+  if (e.target.classList.contains('poster')) {
+    // onYoutubeBtnClick();
+    console.log('message');
+  }
+  if (e.target.classList.contains('modal__add-watched')) {
+    onYoutubeBtnClick();
+    console.log('message');
+  }
+  if (e.target.classList.contains('modal__add-queue')) {
+    // onYoutubeBtnClick();
+    console.log('message');
+  }
+});
 
 // document
 //   .querySelector('.movie__gallery')
@@ -118,7 +131,6 @@ function createModal(event) {
   newApiServis.id = cardItem;
   newApiServis.fetchMovieById().then(movieById => {
     renderModalContent(movieById);
-
     openModal();
   });
 }
@@ -137,7 +149,7 @@ function setCloseOptionModal() {
     .querySelector('.btn__closs-modal')
     .addEventListener('click', offModal);
 
-  youtubePreview.addEventListener('click', onYoutubeBtnClick);
+  // youtubePreview.addEventListener('click', onYoutubeBtnClick);
 }
 
 function renderModalContent(movieById) {
