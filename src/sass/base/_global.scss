@@ -37,3 +37,18 @@ p {
   margin: 0;
   padding: 0;
 }
+
+.library__container {
+  opacity: 0;
+  animation: ani 0.8s forwards;
+}
+
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

@@ -19,6 +19,7 @@
 .films__item {
   background-color: #ffffff;
     cursor: pointer;
+    transition: transform 250ms linear;
   
     @media screen and (max-width: 767px) {
       &:not(:last-child) {
@@ -38,6 +39,11 @@
       margin-right: 16px;
       margin-bottom: 32px;
     }
+}
+
+.films__item:hover,
+.films__item:focus {
+  transform: scale(1.05);
 }
 
 .films__img {

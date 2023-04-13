@@ -121,3 +121,18 @@
     line-height: 1.2;
   }
 }
+
+ .movie-card__poster {
+  opacity: 0;
+  animation: ani 0.5s forwards;
+}
+
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
