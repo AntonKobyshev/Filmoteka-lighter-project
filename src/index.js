@@ -12,3 +12,4 @@ import './js/homeSearch';
 import './js/pagination';
 // import './js/trailer';
 import './js/features/auth/modal-team';
+import './js/library-search';
