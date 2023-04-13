@@ -11,7 +11,5 @@ import './js/homeSearch';
 
 import './js/pagination';
 import './js/trailer';
-<<<<<<< Updated upstream
-=======
 import './js/features/auth/modal-team';
->>>>>>> Stashed changes
+
