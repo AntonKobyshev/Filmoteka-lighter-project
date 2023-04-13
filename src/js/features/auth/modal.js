@@ -86,9 +86,10 @@ const modalMoviemarkup = (
 const list = document.querySelector('.poster-list');
 const movieModal = document.querySelector('.modal');
 const modalBackdrop = document.querySelector('.modal-backdrop');
-const modal = document.querySelector('.modal');
+
 const btnClose = document.querySelector('.btn__closs-modal');
-const youtubePreview = document.querySelector('.poster-trailler');
+const youtubePreview = document.querySelector('.trailler');
+console.log(youtubePreview);
 
 // document
 //   .querySelector('.movie__gallery')
@@ -134,7 +135,6 @@ function setCloseOptionModal() {
     .querySelector('.btn__closs-modal')
     .addEventListener('click', offModal);
 
-  console.log(youtubePreview);
   youtubePreview.addEventListener('click', onYoutubeBtnClick);
 }
 
@@ -144,7 +144,7 @@ function renderModalContent(movieById) {
       return genre.name;
     })
     .join(', ');
-  modal.insertAdjacentHTML(
+  movieModal.insertAdjacentHTML(
     'afterbegin',
     modalMoviemarkup(
       movieById.poster_path,
@@ -193,9 +193,7 @@ function offModal() {
 
 //Плеєр
 function onYoutubeBtnClick() {
-  let idBtn = document.querySelector('.modal');
-
-  newApiServis.movieId = idBtn.dataset.id;
+  newApiServis.movieId = movieModal.dataset.id;
 
   newApiServis
     .fetchYoutube()
