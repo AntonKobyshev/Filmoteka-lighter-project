@@ -8,6 +8,7 @@ import { getDatabase, ref, get } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../api/firebase/firebaseConfig';
+// import { onQueueBtnClick } from '../../libRender'
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -113,11 +114,11 @@ movieModal.addEventListener('click', function (e) {
     console.log('message');
   }
   if (e.target.classList.contains('modal__add-watched')) {
-    onWatchedModalBtnClick();
+    onWatchedModalBtnClick(e);
   }
   if (e.target.classList.contains('modal__add-queue')) {
     // onYoutubeBtnClick();
-    console.log('message');
+  console.log('message');
   }
 });
 
