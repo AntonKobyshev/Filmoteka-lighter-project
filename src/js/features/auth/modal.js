@@ -291,6 +291,7 @@ function onWatchedModalBtnClick(e) {
   // console.log('message');
   const filmName = document.querySelector('.modal__title');
   const watchedModalBtn = document.querySelector('.modal__add-watched');
+  console.log(watchedModalBtn);
   const userData = {
     queue: {},
     watched: {},
