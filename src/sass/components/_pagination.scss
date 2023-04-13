@@ -1,5 +1,5 @@
 .pagination {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   gap: 16px;
@@ -15,6 +15,12 @@
     border-radius: 5px;
     cursor: pointer;
   }
+}
+
+.pagination__btn--previous,
+.pagination__btn--first-page,
+.pagination__dots--start {
+  display: none;
 }
 
 .pagination__btn--previous,
