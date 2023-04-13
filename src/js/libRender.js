@@ -7,6 +7,7 @@ import renderFilmsMarkup from './librender/renderFilmsMarkup';
 import dataStorage from './api/firebase/data-storage';
 import { onOpenModalAuth } from './api/firebase/auth-settings';
 import * as spiner from './features/auth/spiner';
+import { Loading } from 'notiflix';
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -33,7 +34,7 @@ onWatchedBtnClick();
 
 function onWatchedBtnClick() {
   if (watchedBtnRef.classList.contains('current')) return;
-  let spinerSelector = spiner.spinerInit('body')
+  let spinerSelector = spiner.spinerInit('body');
 
   onAuthStateChanged(auth, user => {
     if (user) {
@@ -43,7 +44,7 @@ function onWatchedBtnClick() {
         .then(snapshot => {
           if (snapshot.exists()) {
             const ids = Object.keys(snapshot.val());
-            localStorage.setItem('watched', JSON.stringify(ids));
+            localStorage.setItem('watched', JSON.stringify(snapshot.val()));
             if (!emptyMessage.classList.contains('visually-hidden')) {
               emptyMessage.classList.add('visually-hidden');
             }
@@ -60,10 +61,9 @@ function onWatchedBtnClick() {
         .catch(error => {
           console.error(error);
         });
-      spiner.removeSpiner(spinerSelector);
     }
   });
-
+  spiner.removeSpiner(spinerSelector);
   watchedBtnRef.classList.add('is-active');
   queueBtnRef.classList.remove('is-active');
 }
@@ -73,7 +73,7 @@ function onQueueBtnClick() {
   queueBtnRef.classList.add('is-active');
   watchedBtnRef.classList.remove('is-active');
 
-  let spinerSelector = spiner.spinerInit('body')
+  let spinerSelector = spiner.spinerInit('body');
 
   onAuthStateChanged(auth, user => {
     if (user) {
@@ -83,7 +83,7 @@ function onQueueBtnClick() {
         .then(snapshot => {
           if (snapshot.exists()) {
             const ids = Object.keys(snapshot.val());
-            localStorage.setItem('queued', JSON.stringify(ids));
+            localStorage.setItem('queued', JSON.stringify(snapshot.val()));
             if (!emptyMessage.classList.contains('visually-hidden')) {
               emptyMessage.classList.add('visually-hidden');
             }
@@ -108,8 +108,8 @@ function onQueueBtnClick() {
 
 export default async function renderMarkupByIds(ids, page = 1) {
   try {
- let spinerSelector = spiner.spinerInit('body')
-
+    let spinerSelector = spiner.spinerInit('body');
+    console.log('spinner on');
     // Loading.pulse({
     //   svgColor: 'orange',
     // });
@@ -123,6 +123,7 @@ export default async function renderMarkupByIds(ids, page = 1) {
     });
     const films = await Promise.all(arrProm);
     renderFilmsMarkup(films);
+    console.log('spinner off');
     spiner.removeSpiner(spinerSelector);
   } catch (error) {
     console.log(error);
