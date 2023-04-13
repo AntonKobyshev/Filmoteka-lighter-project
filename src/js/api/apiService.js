@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as spiner from '../features/auth/spiner'
+import * as spiner from '../features/auth/spiner';
 
 const API_KEY = '1ad822106312cb8004c8ffd62b3d3ebd';
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
@@ -71,15 +71,13 @@ export class API_service {
       let { data } = await axios(`/movie/${this.id}/videos`, {
         params: {
           api_key: API_KEY,
-        }
+        },
       });
-       
+
       return data;
+    } catch (error) {
+      console.log('error');
     }
-    catch (error) {
-      console.log("error");
-    }
-    
   }
   get query() {
     return this.searchQuery;

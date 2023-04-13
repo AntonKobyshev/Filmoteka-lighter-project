@@ -32,15 +32,19 @@ export default function makeFilmsMarkup(films) {
         }" loading="lazy">
                   <div class="films__description">
                   <p class="films__title">${title || name}</p>
-                  <p class="movie-card__additionaly">${filmGenres || 'Action'}  |  ${(release_date || first_air_date || '2023').slice(
-                      0,
-                      4,
-                    )}</p>
-                    <span class="films__rating visually-hidden">${vote_average || '-'}</span>
+                  <p class="movie-card__additionaly">${
+                    filmGenres || 'Action'
+                  }  |  ${(release_date || first_air_date || '2023').slice(
+          0,
+          4
+        )}</p>
+                    <span class="films__rating visually-hidden">${
+                      vote_average || '-'
+                    }</span>
                   </div>
                 </div>
             </li>`;
-      },
+      }
     )
     .join('');
 }

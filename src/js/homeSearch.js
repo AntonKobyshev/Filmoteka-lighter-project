@@ -11,7 +11,7 @@ const homeSearchInput = document.querySelector('.header__search-input');
 const gallery = document.querySelector('.movie__gallery');
 let searchQuery = '';
 let totalPages = '';
-// homeSearchForm.addEventListener('submit', movieSearch);
+
 if (homeSearchForm) {
   homeSearchForm.addEventListener('submit', movieSearch);
 }
@@ -51,14 +51,13 @@ function renderMovie(response) {
     }
     return movieCard;
   });
-  console.log(changedMovie);
   let movieList = changedMovie
     .map(({ poster_path, genre_ids, title, release_date, id }) => {
       var releaseYear = release_date.slice(0, 4);
       if (genre_ids.length > 2) {
         return `
       <li class="movie-card" data-id="${id}">
-          <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w400${poster_path}" loading="lazy" />
+          <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w400${poster_path}" alt="There is no poster for this movie" loading="lazy" />
           <div class="movie-card__info">
             <p class="movie-card__title">${title}</p>
             <p class="movie-card__additionaly">${genre_ids[0]},&nbsp;${genre_ids[1]},&nbsp;Other | ${releaseYear}</p>
@@ -68,10 +67,10 @@ function renderMovie(response) {
       } else {
         return `
       <li class="movie-card" data-id="${id}">
-          <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w400${poster_path}" loading="lazy" />
+          <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w400${poster_path}" alt="There is no poster for this movie" loading="lazy" />
           <div class="movie-card__info">
             <p class="movie-card__title">${title}</p>
-            <p class="movie-card__additionaly">${genre_ids[0]},&nbsp;${genre_ids[1]} | ${releaseYear}</p>
+            <p class="movie-card__additionaly">${genre_ids} | ${releaseYear}</p>
           </div>
       </li>
       `;
@@ -79,6 +78,5 @@ function renderMovie(response) {
     })
     .join('');
 
-  // console.log(fuck);
   gallery.innerHTML = movieList;
 }

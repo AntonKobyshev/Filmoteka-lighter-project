@@ -100,12 +100,12 @@ function onClick(e) {
   if (totalPages !== localStorage.getItem('totalPages')) {
     totalPages = localStorage.getItem('totalPages');
   }
-
   if (e.target.classList.contains('pagination__btn')) {
     currentPage = e.target.textContent;
     updateCurrentBtn();
     fetchByType();
-  } else if (e.target.classList.contains('pagination__btn--next')) {
+  }
+  if (e.target.classList.contains('pagination__btn--next')) {
     btn1.textContent = Number(btn1.textContent) + 5;
     btn2.textContent = Number(btn2.textContent) + 5;
     btn3.textContent = Number(btn3.textContent) + 5;
@@ -115,8 +115,8 @@ function onClick(e) {
     checkEndPagination();
     updateCurrentBtn();
     fetchByType();
-    return;
-  } else if (e.target.classList.contains('pagination__btn--previous')) {
+  }
+  if (e.target.classList.contains('pagination__btn--previous')) {
     btn1.textContent = Number(btn1.textContent) - 5;
     btn2.textContent = Number(btn2.textContent) - 5;
     btn3.textContent = Number(btn3.textContent) - 5;
@@ -126,7 +126,8 @@ function onClick(e) {
     checkStartPagination();
     updateCurrentBtn();
     fetchByType();
-  } else if (e.target.classList.contains('pagination__btn--last-page')) {
+  }
+  if (e.target.classList.contains('pagination__btn--last-page')) {
     btn1.textContent = Number(e.target.textContent) - 4;
     btn2.textContent = Number(e.target.textContent) - 3;
     btn3.textContent = Number(e.target.textContent) - 2;
@@ -136,14 +137,17 @@ function onClick(e) {
     checkEndPagination();
     updateCurrentBtn();
     fetchByType();
-  } else if (e.target.classList.contains('pagination__btn--first-page')) {
+  }
+  if (e.target.classList.contains('pagination__btn--first-page')) {
     btn1.textContent = 1;
     currentPage = btn1.textContent;
     checkStartPagination();
     updateCurrentBtn();
     fetchByType();
   }
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (e.target.tagName === 'BUTTON') {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
 
 // check the beginning of pagination
@@ -207,15 +211,10 @@ function updateCurrentBtn() {
   });
 }
 
+// render movies from library
 async function renderMarkupByIds(ids, page = 1) {
   try {
     let spinerSelector = spiner.spinerInit('body');
-
-    console.log('spinner on');
-
-    // Loading.pulse({
-    //   svgColor: 'orange',
-    // });
 
     const startIndex = (page - 1) * 20;
     const endIndex = page * 20;
@@ -226,7 +225,6 @@ async function renderMarkupByIds(ids, page = 1) {
     });
     const films = await Promise.all(arrProm);
     renderFilmsMarkup(films);
-    console.log('spinner off');
     spiner.removeSpiner(spinerSelector);
   } catch (error) {
     console.log(error);

@@ -14,7 +14,6 @@ body {
   opacity: 1;
   visibility: visible;
 
-
   .ld-roller {
     position: absolute;
     left: 50%;
@@ -35,7 +34,7 @@ body {
   }
 
   .ld-roller div:after {
-    content: " ";
+    content: ' ';
     display: block;
     position: absolute;
     width: 7px;
@@ -116,7 +115,6 @@ body {
     top: 56px;
     left: 12px;
   }
-
 }
 
 @keyframes ld-roller {
