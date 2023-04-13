@@ -66,7 +66,21 @@ export class API_service {
       console.log(error);
     }
   }
-
+  async fetchYoutube() {
+    try {
+      let { data } = await axios(`/movie/${this.id}/videos`, {
+        params: {
+          api_key: API_KEY,
+        }
+      });
+       
+      return data;
+    }
+    catch (error) {
+      console.log("error");
+    }
+    
+  }
   get query() {
     return this.searchQuery;
   }
