@@ -132,12 +132,8 @@ function onLogInUser(e) {
 
 function onLogOut(e) {
   const user = new User();
-
+  window.location.href = './index.html';
   user.logOut();
-
-  refs.userLibrary.classList.add('visually-hidden');
-  document.getElementById('btn-home').click();
-  onCloseModalAuth(e);
 }
 
 function onUserRemove(e) {
