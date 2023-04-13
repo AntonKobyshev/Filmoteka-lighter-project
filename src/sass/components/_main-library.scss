@@ -22,7 +22,12 @@
   font-size: 24px;
   line-height: 14px;
   color: #d53838;
+
+  opacity: 0;
+    animation: ani 0.5s forwards;
+
 }
 .not-active {
   visibility: hidden;
 }
+
