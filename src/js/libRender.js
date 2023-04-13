@@ -56,8 +56,8 @@ export function onWatchedBtnClick() {
             if (!emptyMessage.classList.contains('visually-hidden')) {
               emptyMessage.classList.add('visually-hidden');
             }
-            // renderMarkupByIds(ids);
-            renderMarkupByIds(ids, localStorage.getItem('currentPage'));
+            renderMarkupByIds(ids);
+
             //Render
           } else {
             if (emptyMessage.classList.contains('visually-hidden')) {
