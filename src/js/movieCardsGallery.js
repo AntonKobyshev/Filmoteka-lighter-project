@@ -60,7 +60,7 @@ export function renderMovie(movie) {
       if (genre_ids.length > 2) {
         return `
       <li class="movie-card" data-id="${id}">
-          <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w400${poster_path}" loading="lazy" />
+          <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w400${poster_path}" alt="There is no poster for this movie" loading="lazy" />
           <div class="movie-card__info">
             <p class="movie-card__title">${title}</p>
             <p class="movie-card__additionaly">${genre_ids[0]},${genre_ids[1]},Other | ${releaseYear}</p>
@@ -70,7 +70,7 @@ export function renderMovie(movie) {
       } else {
         return `
       <li class="movie-card" data-id="${id}">
-          <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w400${poster_path}" loading="lazy" />
+          <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w400${poster_path}" alt="There is no poster for this movie" loading="lazy" />
           <div class="movie-card__info">
             <p class="movie-card__title">${title}</p>
             <p class="movie-card__additionaly">${genre_ids} | ${releaseYear}</p>
