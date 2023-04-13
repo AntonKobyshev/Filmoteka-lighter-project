@@ -86,6 +86,7 @@ const modalMoviemarkup = (
 const list = document.querySelector('.poster-list');
 const movieModal = document.querySelector('.modal');
 const modalBackdrop = document.querySelector('.modal-backdrop');
+const modal = document.querySelector('.modal');
 const btnClose = document.querySelector('.btn__closs-modal');
 const youtubePreview = document.querySelector('.poster-trailler');
 
@@ -143,16 +144,27 @@ function renderModalContent(movieById) {
       return genre.name;
     })
     .join(', ');
-
-  modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup(
-    movieById.poster_path,
-    movieById.popularity,
-    movieById.vote_average,
-    movieById.vote_count,
-    movieById.original_title,
-    newId,
-    movieById.overview
+  modal.insertAdjacentHTML(
+    'beforeend',
+    modalMoviemarkup(
+      movieById.poster_path,
+      movieById.popularity,
+      movieById.vote_average,
+      movieById.vote_count,
+      movieById.original_title,
+      newId,
+      movieById.overview
+    )
   );
+  // modalBackdrop.firstElementChild.innerHTML = modalMoviemarkup(
+  //   movieById.poster_path,
+  //   movieById.popularity,
+  //   movieById.vote_average,
+  //   movieById.vote_count,
+  //   movieById.original_title,
+  //   newId,
+  //   movieById.overview
+  // );
 }
 
 function offModalForEscape(e) {
