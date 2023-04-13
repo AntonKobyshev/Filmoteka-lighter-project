@@ -14,6 +14,7 @@ const db = getDatabase(app);
 const auth = getAuth(app);
 // const filmsListRef = document.querySelector('.films');
 // const libraryBtnRef = document.querySelector('.');
+const libraryBtnRef = document.querySelector('.btn-library');
 const userData = {
   queue: {},
   watched: {},
@@ -290,16 +291,18 @@ function onWatchedModalBtnClick(e) {
   // console.log('message');
   const filmName = document.querySelector('.modal__title');
   const watchedModalBtn = document.querySelector('.modal__add-watched');
+  console.log(watchedModalBtn);
   const userData = {
     queue: {},
     watched: {},
   };
   const firebase = new dataStorage(userData);
 
-  if (watchedModalBtn.classList.contains('active')) {
+  if (watchedModalBtn.classList.contains('is-active')) {
     userData.watched[e.target.dataset.id] = filmName.textContent;
     firebase.delWatched();
     watchedModalBtn.textContent = 'Add to watched';
+    console.log(libraryBtnRef);
     if (libraryBtnRef.classList.contains('current')) {
       onAuthStateChanged(auth, user => {
         if (user) {
@@ -345,5 +348,5 @@ function onWatchedModalBtnClick(e) {
     watchedModalBtn.textContent = 'Remove';
   }
 
-  watchedModalBtn.classList.toggle('active');
+  watchedModalBtn.classList.toggle('is-active');
 }
