@@ -3,7 +3,7 @@ import { initializeApp } from 'firebase/app';
 import dataStorage from '../../api/firebase/data-storage';
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
-
+import { renderMarkupByIds } from '../../pagination';
 import { getDatabase, ref, get } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
@@ -13,8 +13,6 @@ import { firebaseConfig } from '../../api/firebase/firebaseConfig';
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
-// const filmsListRef = document.querySelector('.films');
-// const libraryBtnRef = document.querySelector('.');
 const libraryBtnRef = document.querySelector('.btn-library');
 const userData = {
   queue: {},
@@ -117,8 +115,7 @@ movieModal.addEventListener('click', function (e) {
     onWatchedModalBtnClick(e);
   }
   if (e.target.classList.contains('modal__add-queue')) {
-    // onYoutubeBtnClick();
-  console.log('message');
+    console.log('message');
   }
 });
 
@@ -289,7 +286,6 @@ function iframeRender(key) {
 }
 
 function onWatchedModalBtnClick(e) {
-  // console.log('message');
   const filmName = document.querySelector('.modal__title');
   const watchedModalBtn = document.querySelector('.modal__add-watched');
   console.log(watchedModalBtn);
@@ -337,7 +333,6 @@ function onWatchedModalBtnClick(e) {
             .then(snapshot => {
               if (snapshot.exists()) {
                 const ids = Object.keys(snapshot.val());
-                resetErrorStyles();
                 renderMarkupByIds(ids);
               }
             })
