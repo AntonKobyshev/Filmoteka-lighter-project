@@ -74,8 +74,9 @@ const modalMoviemarkup = (
   </p>
 </div>
 <div class="modal__buttons">
-      <button type="button" class="modal__button modal__add-watched" data-watched='false' data-liery='false'>add to watched</button>
+    <button type="button" class="modal__button modal__add-watched" data-watched='false' data-liery='false'>add to watched</button>
     <button type="button" class="modal__button modal__add-queue" data-queue='false' data-liery='false'>add to queue</button>
+    <button type="button" class="modal__button modal__watch-traier" data-queue='false' data-liery='false'>watch trailer</button>
 </div>
 
 
