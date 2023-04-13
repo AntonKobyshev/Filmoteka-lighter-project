@@ -87,6 +87,7 @@ const list = document.querySelector('.poster-list');
 const movieModal = document.querySelector('.modal');
 const modalBackdrop = document.querySelector('.modal-backdrop');
 const btnClose = document.querySelector('.btn__closs-modal');
+const youtubePreview = document.querySelector('.poster-trailler');
 
 // document
 //   .querySelector('.movie__gallery')
@@ -113,6 +114,7 @@ function createModal(event) {
   newApiServis.id = cardId;
   newApiServis.fetchMovieById().then(movieById => {
     renderModalContent(movieById);
+
     openModal();
   });
 }
@@ -130,6 +132,9 @@ function setCloseOptionModal() {
   document
     .querySelector('.btn__closs-modal')
     .addEventListener('click', offModal);
+
+  console.log(youtubePreview);
+  youtubePreview.addEventListener('click', onYoutubeBtnClick);
 }
 
 function renderModalContent(movieById) {
@@ -176,7 +181,7 @@ function offModal() {
 
 //Плеєр
 function onYoutubeBtnClick() {
-  let idBtn = document.querySelector('.film__button');
+  let idBtn = document.querySelector('.modal');
 
   newApiServis.movieId = idBtn.dataset.id;
 
