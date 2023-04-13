@@ -145,7 +145,7 @@ function renderModalContent(movieById) {
     })
     .join(', ');
   modal.insertAdjacentHTML(
-    'beforeend',
+    'afterbegin',
     modalMoviemarkup(
       movieById.poster_path,
       movieById.popularity,
