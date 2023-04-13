@@ -92,7 +92,7 @@ const ulMain = document.querySelector('.movie__gallery');
 const ulLibrary = document.querySelector('.library__container-list');
 
 movieModal.addEventListener('click', function (e) {
-  if (e.target.classList.contains('poster')) {
+  if (e.target.classList.contains('modal__movi-img')) {
     // onYoutubeBtnClick();
     console.log('message');
   }
