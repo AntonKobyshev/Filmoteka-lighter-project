@@ -1,7 +1,8 @@
 import { API_service } from './api/apiService';
 const newFetch = new API_service();
 import { renderMovie } from './movieCardsGallery';
-// import { onWatchedBtnClick, onQueueBtnClick } from './libRender';
+import * as spiner from './features/auth/spiner';
+import renderFilmsMarkup from './librender/renderFilmsMarkup';
 
 // variables
 const buttonsList = document.querySelector('.pagination');
@@ -30,12 +31,11 @@ async function fetchByType() {
     fetchTrending();
   } else if (localStorage.getItem('fetchType') == 'search') {
     fetchSearch();
+  } else if (localStorage.getItem('fetchType') == 'watched') {
+    fetchWatched();
+  } else if (localStorage.getItem('fetchType') == 'queue') {
+    fetchQueue();
   }
-  // else if (localStorage.getItem('fetchType') == 'watched') {
-  //   fetchWatched();
-  // }
-  // else if (localStorage.getItem('fetchType') == 'queue') {
-  // }
 }
 
 async function fetchTrending() {
@@ -51,25 +51,13 @@ async function fetchSearch() {
 }
 
 async function fetchWatched() {
-  // function pageCount() {
-  //   return Math.ceil(watchedList.length / 20);
-  // } // ця фунція має бути в файлі рендеру сторінок для watched
-  // localStorage.setItem('fetchType', 'watched');
-  // localStorage.setItem('totalPages', pageCount());
-  // const totalPages = localStorage.getItem('totalPages');
-  // renderPagination(totalPages);
-  // onWatchedBtnClick();
+  const ids = Object.keys(JSON.parse(localStorage.getItem('watched')));
+  renderMarkupByIds(ids, currentPage);
 }
 
 async function fetchQueue() {
-  // function pageCount() {
-  //   return Math.ceil(queueList.length / 20);
-  // } // ця фунція має бути в файлі рендеру сторінок для queue
-  // localStorage.setItem('fetchType', 'queue');
-  // localStorage.setItem('totalPages', pageCount());
-  // const totalPages = localStorage.getItem('totalPages');
-  // renderPagination(totalPages);
-  // onQueueBtnClick();
+  const ids = Object.keys(JSON.parse(localStorage.getItem('queued')));
+  renderMarkupByIds(ids, currentPage);
 }
 
 // render pagination for first load
@@ -87,6 +75,7 @@ export function renderPagination(totalPages) {
   lastPageBtn.textContent = totalPages;
   currentPage = 1;
   updateCurrentBtn();
+  localStorage.setItem('currentPage', currentPage);
 
   if (totalPages > 5) {
     afterDots.style.display = 'inline';
@@ -153,7 +142,7 @@ function onClick(e) {
     updateCurrentBtn();
     fetchByType();
   }
-  localStorage.setItem('currentPage', currentPage);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // check the beginning of pagination
@@ -215,4 +204,30 @@ function updateCurrentBtn() {
       btn.classList.add('pagination__btn--current');
     }
   });
+}
+
+async function renderMarkupByIds(ids, page = 1) {
+  try {
+    let spinerSelector = spiner.spinerInit('body');
+
+    console.log('spinner on');
+
+    // Loading.pulse({
+    //   svgColor: 'orange',
+    // });
+
+    const startIndex = (page - 1) * 20;
+    const endIndex = page * 20;
+    const idsToRender = ids.slice(startIndex, endIndex);
+    const arrProm = idsToRender.map(async id => {
+      newFetch.id = id;
+      return await newFetch.fetchMovieById();
+    });
+    const films = await Promise.all(arrProm);
+    renderFilmsMarkup(films);
+    console.log('spinner off');
+    spiner.removeSpiner(spinerSelector);
+  } catch (error) {
+    console.log(error);
+  }
 }
