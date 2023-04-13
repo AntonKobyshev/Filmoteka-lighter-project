@@ -46,7 +46,6 @@ export function onWatchedBtnClick() {
           if (snapshot.exists()) {
             const ids = Object.keys(snapshot.val());
 
-
             //pagination
             localStorage.setItem('fetchType', 'watched');
             localStorage.setItem('totalPages', Math.ceil(ids.length / 20));
@@ -59,7 +58,7 @@ export function onWatchedBtnClick() {
             if (!emptyMessage.classList.contains('visually-hidden')) {
               emptyMessage.classList.add('visually-hidden');
             }
-            renderMarkupByIds(ids);
+            renderMarkupByIds(ids, localStorage.getItem('currentPage'));
 
             //Render
           } else {
