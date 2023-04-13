@@ -1,29 +1,28 @@
-.library__container{
-    margin-top: 20px;
-        margin-bottom: 40px;
-    
-        @media screen and (min-width: 768px) {
-            margin-bottom: 60px;
-        }
-    
-        @media screen and (min-width: 1280px) {
-            margin-top: 32px;
-        }
+.library__container {
+  margin-top: 20px;
+  margin-bottom: 40px;
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 60px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    margin-top: 32px;
+  }
 }
 .library__mes {
-    padding: 100px 0;
-    display: flex;
-    justify-content: center;
+  padding: 100px 0;
+  display: flex;
+  justify-content: center;
 }
-.library__messege{
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 14px;
-    color: #d53838;
+.library__messege {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 14px;
+  color: #d53838;
 }
-.not-active{
-    visibility: hidden;
+.not-active {
+  visibility: hidden;
 }
-
