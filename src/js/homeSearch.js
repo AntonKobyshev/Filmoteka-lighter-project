@@ -11,7 +11,7 @@ const homeSearchInput = document.querySelector('.header__search-input');
 const gallery = document.querySelector('.movie__gallery');
 let searchQuery = '';
 let totalPages = '';
-// homeSearchForm.addEventListener('submit', movieSearch);
+
 if (homeSearchForm) {
   homeSearchForm.addEventListener('submit', movieSearch);
 }
@@ -51,7 +51,6 @@ function renderMovie(response) {
     }
     return movieCard;
   });
-  console.log(changedMovie);
   let movieList = changedMovie
     .map(({ poster_path, genre_ids, title, release_date, id }) => {
       var releaseYear = release_date.slice(0, 4);
@@ -79,6 +78,5 @@ function renderMovie(response) {
     })
     .join('');
 
-  // console.log(fuck);
   gallery.innerHTML = movieList;
 }
