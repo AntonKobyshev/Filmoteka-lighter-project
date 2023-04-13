@@ -1,4 +1,6 @@
 import { API_service } from '../../api/apiService';
+import * as basicLightbox from 'basiclightbox';
+import 'basiclightbox/dist/basicLightbox.min.css';
 
 const newApiServis = new API_service();
 
@@ -170,4 +172,38 @@ function offModal() {
   modalBackdrop.firstElementChild.dataset.id = '';
 
   movieModal.innerHTML = '';
+}
+
+//Плеєр
+function onYoutubeBtnClick() {
+  let idBtn = document.querySelector('.film__button');
+
+  newApiServis.movieId = idBtn.dataset.id;
+
+  newApiServis
+    .fetchYoutube()
+    .then(data => {
+      let results = data.results[0];
+      let key = results.key;
+      return key;
+    })
+    .then(key => iframeRender(key));
+}
+
+function iframeRender(key) {
+  const BASE_YOUTUBE_URL = 'https://www.youtube.com/embed/';
+  const instance = basicLightbox.create(
+    `<button type="button" id="youtube-close-btn"><i class="fa-regular fa-circle-xmark"></i></button><iframe
+      src="${BASE_YOUTUBE_URL}${key}"?autoplay=1&mute=1&controls=1>
+      </iframe>
+    `,
+    {
+      onShow: instance => {
+        instance.element().querySelector('#youtube-close-btn').onclick =
+          instance.close;
+      },
+    }
+  );
+
+  instance.show();
 }

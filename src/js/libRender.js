@@ -8,6 +8,7 @@ import dataStorage from './api/firebase/data-storage';
 import { onOpenModalAuth } from './api/firebase/auth-settings';
 import * as spiner from './features/auth/spiner';
 import { renderPagination } from './pagination';
+import { Loading } from 'notiflix';
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -45,6 +46,7 @@ export function onWatchedBtnClick() {
           if (snapshot.exists()) {
             const ids = Object.keys(snapshot.val());
 
+
             //pagination
             localStorage.setItem('fetchType', 'watched');
             localStorage.setItem('totalPages', Math.ceil(ids.length / 20));
@@ -52,7 +54,8 @@ export function onWatchedBtnClick() {
             renderPagination(totalPages);
             //pagination
 
-            localStorage.setItem('watched', JSON.stringify(ids));
+            localStorage.setItem('watched', JSON.stringify(snapshot.val()));
+
             if (!emptyMessage.classList.contains('visually-hidden')) {
               emptyMessage.classList.add('visually-hidden');
             }
@@ -70,10 +73,9 @@ export function onWatchedBtnClick() {
         .catch(error => {
           console.error(error);
         });
-      spiner.removeSpiner(spinerSelector);
     }
   });
-
+  spiner.removeSpiner(spinerSelector);
   watchedBtnRef.classList.add('is-active');
   queueBtnRef.classList.remove('is-active');
 }
@@ -101,7 +103,8 @@ export function onQueueBtnClick() {
             renderPagination(totalPages);
             //pagination
 
-            localStorage.setItem('queued', JSON.stringify(ids));
+            localStorage.setItem('queued', JSON.stringify(snapshot.val()));
+
             if (!emptyMessage.classList.contains('visually-hidden')) {
               emptyMessage.classList.add('visually-hidden');
             }
@@ -129,6 +132,8 @@ export default async function renderMarkupByIds(ids, page = 1) {
   try {
     let spinerSelector = spiner.spinerInit('body');
 
+    console.log('spinner on');
+
     // Loading.pulse({
     //   svgColor: 'orange',
     // });
@@ -142,6 +147,7 @@ export default async function renderMarkupByIds(ids, page = 1) {
     });
     const films = await Promise.all(arrProm);
     renderFilmsMarkup(films);
+    console.log('spinner off');
     spiner.removeSpiner(spinerSelector);
   } catch (error) {
     console.log(error);
