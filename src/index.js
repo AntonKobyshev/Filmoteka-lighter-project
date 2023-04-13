@@ -10,5 +10,5 @@ import './js/movieCardsGallery';
 import './js/homeSearch';
 
 import './js/pagination';
-import './js/trailer';
+// import './js/trailer';
 import './js/features/auth/modal-team';
