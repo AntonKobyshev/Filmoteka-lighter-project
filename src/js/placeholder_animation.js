@@ -1,4 +1,4 @@
-const elementAnim = document.querySelector('.header__search-input');
+const elementAnim = document.querySelector('.header__search-inputAnim');
 const targetText = 'Movie search';
 const speed = 220;
 let i = 0;
