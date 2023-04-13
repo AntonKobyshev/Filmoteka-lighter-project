@@ -11,7 +11,10 @@ const homeSearchInput = document.querySelector('.header__search-input');
 const gallery = document.querySelector('.movie__gallery');
 let searchQuery = '';
 let totalPages = '';
-homeSearchForm.addEventListener('submit', movieSearch);
+// homeSearchForm.addEventListener('submit', movieSearch);
+if (homeSearchForm) {
+  homeSearchForm.addEventListener('submit', movieSearch);
+}
 
 async function movieSearch(e) {
   e.preventDefault();
@@ -29,7 +32,6 @@ async function movieSearch(e) {
     renderPagination(localStorage.getItem('totalPages'));
     renderMovie(response.results);
     spiner.removeSpiner(spinerSelector);
-
   } else {
     Notiflix.Notify.failure('Please enter the name of the movie.');
   }

@@ -86,9 +86,15 @@ const movieModal = document.querySelector('.modal');
 const modalBackdrop = document.querySelector('.modal-backdrop');
 const btnClose = document.querySelector('.btn__closs-modal');
 
-document
-  .querySelector('.movie__gallery')
-  .addEventListener('click', createModal);
+// document
+//   .querySelector('.movie__gallery')
+//   .addEventListener('click', createModal);
+
+if (document.querySelector('.movie__gallery')) {
+  document
+    .querySelector('.movie__gallery')
+    .addEventListener('click', createModal);
+}
 
 let cardId;
 

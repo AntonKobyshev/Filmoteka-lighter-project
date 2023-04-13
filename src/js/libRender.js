@@ -7,6 +7,7 @@ import renderFilmsMarkup from './librender/renderFilmsMarkup';
 import dataStorage from './api/firebase/data-storage';
 import { onOpenModalAuth } from './api/firebase/auth-settings';
 import * as spiner from './features/auth/spiner';
+import { renderPagination } from './pagination';
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -31,9 +32,9 @@ authBtn.addEventListener('click', onOpenModalAuth);
 
 onWatchedBtnClick();
 
-function onWatchedBtnClick() {
+export function onWatchedBtnClick() {
   if (watchedBtnRef.classList.contains('current')) return;
-  let spinerSelector = spiner.spinerInit('body')
+  let spinerSelector = spiner.spinerInit('body');
 
   onAuthStateChanged(auth, user => {
     if (user) {
@@ -43,11 +44,20 @@ function onWatchedBtnClick() {
         .then(snapshot => {
           if (snapshot.exists()) {
             const ids = Object.keys(snapshot.val());
+
+            //pagination
+            localStorage.setItem('fetchType', 'watched');
+            localStorage.setItem('totalPages', Math.ceil(ids.length / 20));
+            const totalPages = localStorage.getItem('totalPages');
+            renderPagination(totalPages);
+            //pagination
+
             localStorage.setItem('watched', JSON.stringify(ids));
             if (!emptyMessage.classList.contains('visually-hidden')) {
               emptyMessage.classList.add('visually-hidden');
             }
-            renderMarkupByIds(ids);
+            // renderMarkupByIds(ids);
+            renderMarkupByIds(ids, localStorage.getItem('currentPage'));
             //Render
           } else {
             if (emptyMessage.classList.contains('visually-hidden')) {
@@ -68,12 +78,12 @@ function onWatchedBtnClick() {
   queueBtnRef.classList.remove('is-active');
 }
 
-function onQueueBtnClick() {
+export function onQueueBtnClick() {
   if (queueBtnRef.classList.contains('is-active')) return;
   queueBtnRef.classList.add('is-active');
   watchedBtnRef.classList.remove('is-active');
 
-  let spinerSelector = spiner.spinerInit('body')
+  let spinerSelector = spiner.spinerInit('body');
 
   onAuthStateChanged(auth, user => {
     if (user) {
@@ -83,11 +93,20 @@ function onQueueBtnClick() {
         .then(snapshot => {
           if (snapshot.exists()) {
             const ids = Object.keys(snapshot.val());
+
+            //pagination
+            localStorage.setItem('fetchType', 'queue');
+            localStorage.setItem('totalPages', Math.ceil(ids.length / 20));
+            const totalPages = localStorage.getItem('totalPages');
+            renderPagination(totalPages);
+            //pagination
+
             localStorage.setItem('queued', JSON.stringify(ids));
             if (!emptyMessage.classList.contains('visually-hidden')) {
               emptyMessage.classList.add('visually-hidden');
             }
             renderMarkupByIds(ids);
+
             //render
           } else {
             if (emptyMessage.classList.contains('visually-hidden')) {
@@ -108,7 +127,7 @@ function onQueueBtnClick() {
 
 export default async function renderMarkupByIds(ids, page = 1) {
   try {
- let spinerSelector = spiner.spinerInit('body')
+    let spinerSelector = spiner.spinerInit('body');
 
     // Loading.pulse({
     //   svgColor: 'orange',
