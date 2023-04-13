@@ -35,6 +35,8 @@ async function fetchByType() {
     fetchWatched();
   } else if (localStorage.getItem('fetchType') == 'queue') {
     fetchQueue();
+  } else if (localStorage.getItem('fetchType') == 'library-search') {
+    fetchSearchLibrary();
   }
 }
 
@@ -48,6 +50,11 @@ async function fetchSearch() {
   newFetch.searchQuery = searchQuery;
   const response = await newFetch.fetchMoviesByKeyword();
   renderMovie(response.results);
+}
+
+async function fetchSearchLibrary() {
+  const ids = Object.keys(JSON.parse(localStorage.getItem('librarySearch')));
+  renderMarkupByIds(ids, currentPage);
 }
 
 async function fetchWatched() {
@@ -212,7 +219,7 @@ function updateCurrentBtn() {
 }
 
 // render movies from library
-async function renderMarkupByIds(ids, page = 1) {
+export async function renderMarkupByIds(ids, page = 1) {
   try {
     let spinerSelector = spiner.spinerInit('body');
 

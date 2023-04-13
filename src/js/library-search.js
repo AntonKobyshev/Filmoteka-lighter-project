@@ -90,23 +90,34 @@ import 'notiflix/dist/notiflix-3.2.6.min.css';
 //   renderMarkupByIds(filteredMovies);
 // });
 
-import renderMarkupByIds from './libRender';
+import { renderMarkupByIds, renderPagination } from './pagination';
 
 const searchForm = document.querySelector('.header__searchlib');
 const searchInput = document.querySelector('.header__searchlib-input');
 
-searchForm.addEventListener('submit', event => {
-  event.preventDefault();
-  const searchQuery = searchInput.value.trim().toLowerCase();
+if (searchForm) {
+  searchForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const searchQuery = searchInput.value.trim().toLowerCase();
 
-  const watched = JSON.parse(localStorage.getItem('watched')) || {};
-  const queue = JSON.parse(localStorage.getItem('queue')) || {};
+    const watched = JSON.parse(localStorage.getItem('watched')) || {};
+    const queue = JSON.parse(localStorage.getItem('queue')) || {};
 
-  const movieIds = Object.keys(watched).concat(Object.keys(queue));
-  const filteredMovies = movieIds.filter(id => {
-    const title = watched[id] || queue[id];
-    return title && title.toLowerCase().includes(searchQuery);
+    const movieIds = Object.keys(watched).concat(Object.keys(queue));
+    const filteredMovies = movieIds.filter(id => {
+      const title = watched[id] || queue[id];
+
+      return title && title.toLowerCase().includes(searchQuery);
+    });
+
+    //pagination
+    localStorage.setItem('fetchType', 'library-search');
+    localStorage.setItem('totalPages', Math.ceil(filteredMovies.length / 20));
+    localStorage.setItem('librarySearch', JSON.parse(filteredMovies));
+    const totalPages = localStorage.getItem('totalPages');
+    renderPagination(totalPages);
+    //pagination
+
+    renderMarkupByIds(filteredMovies);
   });
-
-  renderMarkupByIds(filteredMovies);
-});
+}
