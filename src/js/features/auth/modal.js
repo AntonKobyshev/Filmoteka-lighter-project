@@ -94,13 +94,11 @@ const ulMain = document.querySelector('.movie__gallery');
 const ulLibrary = document.querySelector('.library__container-list');
 
 movieModal.addEventListener('click', function (e) {
-  if (e.target.classList.contains('modal__movi-img')) {
-    // onYoutubeBtnClick();
+  if (e.target.classList.contains('modal__watch-traier')) {
+    onYoutubeBtnClick();
     console.log('message');
   }
   if (e.target.classList.contains('modal__add-watched')) {
-    onYoutubeBtnClick();
-    console.log('message');
   }
   if (e.target.classList.contains('modal__add-queue')) {
     // onYoutubeBtnClick();
