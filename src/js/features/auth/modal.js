@@ -86,11 +86,15 @@ const list = document.querySelector('.poster-list');
 const movieModal = document.querySelector('.modal');
 const modalBackdrop = document.querySelector('.modal-backdrop');
 const btnClose = document.querySelector('.btn__closs-modal');
+const ulMain = document.querySelector('.movie__gallery');
+const ulLibrary = document.querySelector('.library__container-list');
 
 
-document.querySelector('.movie__gallery').addEventListener('click', createModal);
-
-
+if(ulMain){
+  ulMain.addEventListener('click', createModal);
+} else if(ulLibrary){
+  ulLibrary.addEventListener('click', createModal);
+}
 
 
 function createModal(event) {
