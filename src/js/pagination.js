@@ -92,6 +92,7 @@ export function renderPagination(totalPages) {
     firstPageBtn.style.display = 'none';
     beforeDots.style.display = 'none';
   }
+  buttonsList.style.display = 'flex';
 }
 
 // logic of pressed button
