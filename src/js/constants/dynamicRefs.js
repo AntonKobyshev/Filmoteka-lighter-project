@@ -1,5 +1,5 @@
 export const dynRefs = () => {
-    return {
+  return {
     addToWatchedBtn: document.querySelector('.modal-card__watched-btn'),
     addToQueueBtn: document.querySelector('.modal-card__queue-btn'),
     switchSignUpBtn: document.getElementById('switchSignUp'),
@@ -13,7 +13,6 @@ export const dynRefs = () => {
     userEmail: document.getElementById('user_email'),
     closeModalBtnEl: document.querySelector('[data-modal-close]'),
     backdropEl: document.querySelector('[data-backdrop]'),
-    movieElements: document.querySelectorAll('[data-modal-open]')
+    movieElements: document.querySelectorAll('[data-modal-open]'),
   };
-   
 };

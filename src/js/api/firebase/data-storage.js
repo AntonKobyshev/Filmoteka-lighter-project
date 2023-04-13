@@ -48,7 +48,8 @@ export default class dataStorage {
   delQueue() {
     onAuthStateChanged(auth, user => {
       if (user) {
-        const libDataBase = `users/${user.uid}/lib/queue/` + Object.keys(this.queue);
+        const libDataBase =
+          `users/${user.uid}/lib/queue/` + Object.keys(this.queue);
 
         remove(ref(db, libDataBase));
       }
@@ -58,7 +59,8 @@ export default class dataStorage {
   delWatched() {
     onAuthStateChanged(auth, user => {
       if (user) {
-        const libDataBase = `users/${user.uid}/lib/watched/` + Object.keys(this.watched);
+        const libDataBase =
+          `users/${user.uid}/lib/watched/` + Object.keys(this.watched);
 
         remove(ref(db, libDataBase));
       }
