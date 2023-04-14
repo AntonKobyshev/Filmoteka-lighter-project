@@ -89,7 +89,7 @@ const modalMoviemarkup = (
 </div>
 <div class="modal__buttons">
     <button type="button" class="modal__button modal__add-watched" data-id="${id}" data-watched='false' data-liery='false'>add to watched</button>
-    <button type="button" class="modal__button modal__add-queue" data-queue='false' data-liery='false'>add to queue</button>
+    <button type="button" class="modal__button modal__add-queue" data-id="${id}" data-queue='false' data-liery='false'>add to queue</button>
 </div>
     <button type="button" class="modal__button modal__watch-traier" data-queue='false' data-liery='false'>watch trailer</button>
 
@@ -102,8 +102,8 @@ const modalMoviemarkup = (
 const list = document.querySelector('.poster-list');
 const movieModal = document.querySelector('.modal');
 const modalBackdrop = document.querySelector('.modal-backdrop');
-const watchedModalBtn = document.querySelector('.modal__add-watched');
-const queueModalBtn = document.querySelector('.modal__add-queue');
+// const watchedModalBtn = document.querySelector('.modal__add-watched');
+// const queueModalBtn = document.querySelector('.modal__add-queue');
 const btnClose = document.querySelector('.btn__closs-modal');
 const ulMain = document.querySelector('.movie__gallery');
 const ulLibrary = document.querySelector('.library__container-list');
@@ -144,6 +144,8 @@ function createModal(event) {
   localStorage.setItem('movieId', cardItem);
 
   newApiServis.id = cardItem;
+  // console.log(cardItem);
+  // console.log(newApiServis.id);
   newApiServis.fetchMovieById().then(movieById => {
     renderModalContent(movieById);
     openModal();
@@ -152,14 +154,25 @@ function createModal(event) {
       if (user) {
         const libDataBaseWatched = `users/${user.uid}/lib/watched/`;
         const libDataBaseQueue = `users/${user.uid}/lib/queue/`;
+        const watchedModalBtn = document.querySelector('.modal__add-watched');
+        const queueModalBtn = document.querySelector('.modal__add-queue');
 
         get(ref(db, libDataBaseWatched))
           .then(snapshot => {
             if (snapshot.exists()) {
               const ids = Object.keys(snapshot.val());
-              if (ids.includes(newApiServis.id)) {
-                watchedModalBtn.classList.add('active');
-                watchedModalBtn.textContent = 'Remove';
+              // console.log(ids);
+              console.log(ids.includes(newApiServis.id));
+              if (ids.includes(newApiServis.id))
+              
+              {
+
+                console.log(watchedModalBtn);
+                if (watchedModalBtn) {
+                
+                  watchedModalBtn.classList.add('is-active')
+                };
+                if(watchedModalBtn) {watchedModalBtn.textContent = 'Remove'};
               }
             }
           })
@@ -170,13 +183,22 @@ function createModal(event) {
             if (snapshot.exists()) {
               const ids = Object.keys(snapshot.val());
               if (ids.includes(newApiServis.id)) {
-                queueModalBtn.classList.add('active');
-                queueModalBtn.textContent = 'Remove';
+                if (queueModalBtn) {queueModalBtn.classList.add('is-active') };
+                if (queueModalBtn) { queueModalBtn.textContent = 'Remove' };
               }
             }
           })
           .catch(console.error);
       }
+      else {
+
+        const watchedModalBtn = document.querySelector('.modal__add-watched');
+        const queueModalBtn = document.querySelector('.modal__add-queue');
+        
+        watchedModalBtn.classList.add('visually-hidden');
+        queueModalBtn.classList.add('visually-hidden');
+}
+
     });
   });
 }
@@ -313,8 +335,8 @@ function onWatchedModalBtnClick(e) {
                 const ids = Object.keys(snapshot.val());
                 renderMarkupByIds(ids);
               } else {
-                filmsListRef.innerHTML = '';
-                addErrorStyles();
+                if (filmsListRef) { filmsListRef.innerHTML = '' };
+                // addErrorStyles();
               }
             })
             .catch(console.error);
@@ -359,12 +381,12 @@ function onQueueModalBtnClick(e) {
   };
   const firebase = new dataStorage(userData);
 
-  if (queueModalBtn.classList.contains('current')) {
+  if (queueModalBtn.classList.contains('is-active')) {
     userData.queue[e.target.dataset.id] = filmName.textContent;
     firebase.delQueue();
     queueModalBtn.textContent = 'Add to queue';
 
-    if (libraryBtnRef.classList.contains('button')) {
+    if (libraryBtnRef.classList.contains('current')) {
       onAuthStateChanged(auth, user => {
         if (user) {
           const libDataBaseWatched = `users/${user.uid}/lib/queue/`;
@@ -375,8 +397,8 @@ function onQueueModalBtnClick(e) {
                 const ids = Object.keys(snapshot.val());
                 renderMarkupByIds(ids);
               } else {
-                filmsListRef.innerHTML = '';
-                addErrorStyles();
+                if (filmsListRef) { filmsListRef.innerHTML = '' };
+                // addErrorStyles();
               }
             })
             .catch(console.error);
@@ -405,8 +427,8 @@ function onQueueModalBtnClick(e) {
       });
     }
 
-    watchedModalBtn.textContent = 'Remove';
+    queueModalBtn.textContent = 'Remove';
   }
 
-  watchedModalBtn.classList.toggle('is-active');
+  queueModalBtn.classList.toggle('is-active');
 }
