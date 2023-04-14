@@ -344,6 +344,7 @@ function onWatchedModalBtnClick(e) {
                 const ids = Object.keys(snapshot.val());
                 renderMarkupByIds(ids);
               } else {
+
                 if (filmsListRef) {
                   filmsListRef.innerHTML = '';
                 }
