@@ -69,6 +69,7 @@ async function fetchQueue() {
 
 // render pagination for first load
 export function renderPagination(totalPages) {
+  buttonsList.style.display = 'none';
   const pagButtons = [btn1, btn2, btn3, btn4, btn5];
   pagButtons.forEach((button, index) => {
     const pageNumber = index + 1;
@@ -99,7 +100,9 @@ export function renderPagination(totalPages) {
     firstPageBtn.style.display = 'none';
     beforeDots.style.display = 'none';
   }
-  buttonsList.style.display = 'flex';
+  if (totalPages > 1) {
+    buttonsList.style.display = 'flex';
+  }
 }
 
 // logic of pressed button

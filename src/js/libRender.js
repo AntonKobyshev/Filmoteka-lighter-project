@@ -67,6 +67,7 @@ export function onWatchedBtnClick() {
             }
             filmsList.innerHTML = '';
             console.log('No data available');
+            renderPagination(1);
           }
         })
         .catch(error => {
@@ -117,6 +118,7 @@ export function onQueueBtnClick() {
             filmsList.innerHTML = '';
 
             console.log('No data available');
+            renderPagination(1);
           }
         })
         .catch(error => {
