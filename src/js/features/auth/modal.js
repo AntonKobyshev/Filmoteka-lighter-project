@@ -169,7 +169,7 @@ function createModal(event) {
                   watchedModalBtn.classList.add('is-active');
                   // queueModalBtn.setAttribute('disabled', 'true');
                   queueModalBtn.disabled = true;
-                  queueModalBtn.style.backgroundColor = 'gray';
+                  // queueModalBtn.style.backgroundColor = 'gray';
                   watchedModalBtn.textContent = 'Remove';
                 }
               }
@@ -185,7 +185,7 @@ function createModal(event) {
                 if (queueModalBtn) {
                   queueModalBtn.classList.add('is-active');
                   watchedModalBtn.setAttribute('disabled', 'true');
-                  watchedModalBtn.style.backgroundColor = 'gray';
+                  // watchedModalBtn.style.backgroundColor = 'gray';
                   queueModalBtn.textContent = 'Remove';
                 }
               }
@@ -338,7 +338,7 @@ function onWatchedModalBtnClick(e) {
     localStorage.setItem('isRemoveFilm', 'yes');
     // queueModalBtn.setAttribute('disabled', 'false');
     queueModalBtn.disabled = false;
-    queueModalBtn.style.backgroundColor = 'green';
+    // queueModalBtn.style.backgroundColor = 'green';
 
     if (libraryBtnRef.classList.contains('current')) {
       onAuthStateChanged(auth, user => {
@@ -367,7 +367,7 @@ function onWatchedModalBtnClick(e) {
     };
     // queueModalBtn.setAttribute('disabled', 'true');
     queueModalBtn.disabled = true;
-    queueModalBtn.style.backgroundColor = 'gray';
+    // queueModalBtn.style.backgroundColor = 'gray';
 
     if (libraryBtnRef.classList.contains('button')) {
       onAuthStateChanged(auth, user => {
@@ -410,7 +410,7 @@ function onQueueModalBtnClick(e) {
     localStorage.setItem('isRemoveFilm', 'yes');
     // watchedModalBtn.setAttribute('disabled', 'false');
     watchedModalBtn.disabled = false;
-    watchedModalBtn.style.backgroundColor = 'green';
+    // watchedModalBtn.style.backgroundColor = 'green';
 
     // watchedModalBtn.setAttribute('disabled', 'true');
     // watchedModalBtn.style.backgroundColor = "gray";
@@ -442,7 +442,7 @@ function onQueueModalBtnClick(e) {
     };
     // watchedModalBtn.setAttribute('disabled', 'true');
     watchedModalBtn.disabled = true;
-    watchedModalBtn.style.backgroundColor = 'gray';
+    // watchedModalBtn.style.backgroundColor = 'gray';
 
     if (libraryBtnRef.classList.contains('current')) {
       onAuthStateChanged(auth, user => {
