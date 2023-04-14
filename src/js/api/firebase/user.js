@@ -83,7 +83,7 @@ export default class User {
 
       set(ref(db, authDataBase + 'name'), this.userData.name);
 
-      Notify.message(`User name updated`);
+      Notify.success(`User name updated`);
     }
 
     if (this.userData.email) {
@@ -91,7 +91,7 @@ export default class User {
 
       set(ref(db, authDataBase + 'email'), this.userData.email);
 
-      Notify.message(`Email updated`);
+      Notify.success(`Email updated`);
     }
 
     if (this.userData.pswd) {
@@ -101,7 +101,7 @@ export default class User {
 
       set(ref(db, authDataBase + 'password'), this.userData.pswd);
 
-      Notify.message(`Password updated`);
+      Notify.success(`Password updated`);
     }
   }
 
