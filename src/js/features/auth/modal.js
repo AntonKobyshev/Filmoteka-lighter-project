@@ -374,6 +374,7 @@ function onQueueModalBtnClick(e) {
                 renderMarkupByIds(ids);
               } else {
                 filmsListRef.innerHTML = '';
+                addErrorStyles();
               }
             })
             .catch(console.error);
