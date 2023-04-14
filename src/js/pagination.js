@@ -53,7 +53,7 @@ async function fetchSearch() {
 }
 
 async function fetchSearchLibrary() {
-  const ids = Object.keys(JSON.parse(localStorage.getItem('librarySearch')));
+  const ids = JSON.parse(localStorage.getItem('librarySearch'));
   renderMarkupByIds(ids, currentPage);
 }
 
