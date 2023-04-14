@@ -135,8 +135,6 @@ export default async function renderMarkupByIds(ids, page = 1) {
   try {
     let spinerSelector = spiner.spinerInit('body');
 
-    console.log('spinner on');
-
     // Loading.pulse({
     //   svgColor: 'orange',
     // });
@@ -150,7 +148,7 @@ export default async function renderMarkupByIds(ids, page = 1) {
     });
     const films = await Promise.all(arrProm);
     renderFilmsMarkup(films);
-    console.log('spinner off');
+
     spiner.removeSpiner(spinerSelector);
   } catch (error) {
     console.log(error);
