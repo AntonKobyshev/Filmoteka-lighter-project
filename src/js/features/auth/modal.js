@@ -111,7 +111,7 @@ const ulLibrary = document.querySelector('.library__container-list');
 movieModal.addEventListener('click', function (e) {
   if (e.target.classList.contains('modal__watch-traier')) {
     onYoutubeBtnClick();
-    console.log('message');
+    // console.log('message');
   }
   if (e.target.classList.contains('modal__add-watched')) {
     onWatchedModalBtnClick(e);
@@ -162,12 +162,12 @@ function createModal(event) {
             if (snapshot.exists()) {
               const ids = Object.keys(snapshot.val());
               // console.log(ids);
-              console.log(ids.includes(newApiServis.id));
+              // console.log(ids.includes(newApiServis.id));
               if (ids.includes(newApiServis.id))
               
               {
 
-                console.log(watchedModalBtn);
+                // console.log(watchedModalBtn);
                 if (watchedModalBtn) {
                 
                   watchedModalBtn.classList.add('is-active')
@@ -194,7 +194,7 @@ function createModal(event) {
 
         const watchedModalBtn = document.querySelector('.modal__add-watched');
         const queueModalBtn = document.querySelector('.modal__add-queue');
-        
+
         watchedModalBtn.classList.add('visually-hidden');
         queueModalBtn.classList.add('visually-hidden');
 }
@@ -221,7 +221,7 @@ function setCloseOptionModal() {
 }
 
 function renderModalContent(movieById) {
-  console.log(movieById);
+  // console.log(movieById);
   let genresId = movieById.genres
     .map(genre => {
       return genre.name;
@@ -312,7 +312,7 @@ function iframeRender(key) {
 function onWatchedModalBtnClick(e) {
   const filmName = document.querySelector('.modal__title');
   const watchedModalBtn = document.querySelector('.modal__add-watched');
-  console.log(watchedModalBtn);
+  // console.log(watchedModalBtn);
   const userData = {
     queue: {},
     watched: {},
@@ -323,7 +323,7 @@ function onWatchedModalBtnClick(e) {
     userData.watched[e.target.dataset.id] = filmName.textContent;
     firebase.delWatched();
     watchedModalBtn.textContent = 'Add to watched';
-    console.log(libraryBtnRef);
+    // console.log(libraryBtnRef);
     if (libraryBtnRef.classList.contains('current')) {
       onAuthStateChanged(auth, user => {
         if (user) {
@@ -374,7 +374,7 @@ function onWatchedModalBtnClick(e) {
 function onQueueModalBtnClick(e) {
   const filmName = document.querySelector('.modal__title');
   const queueModalBtn = document.querySelector('.modal__add-queue');
-  console.log(queueModalBtn);
+  // console.log(queueModalBtn);
   const userData = {
     queue: {},
     watched: {},
