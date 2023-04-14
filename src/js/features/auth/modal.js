@@ -115,7 +115,7 @@ movieModal.addEventListener('click', function (e) {
     onWatchedModalBtnClick(e);
   }
   if (e.target.classList.contains('modal__add-queue')) {
-    console.log('message');
+    onQueueModalBtnClick(e);
   }
 });
 
@@ -328,6 +328,68 @@ function onWatchedModalBtnClick(e) {
       onAuthStateChanged(auth, user => {
         if (user) {
           const libDataBaseWatched = `users/${user.uid}/lib/watched/`;
+
+          get(ref(db, libDataBaseWatched))
+            .then(snapshot => {
+              if (snapshot.exists()) {
+                const ids = Object.keys(snapshot.val());
+                renderMarkupByIds(ids);
+              }
+            })
+            .catch(console.error);
+        }
+      });
+    }
+
+    watchedModalBtn.textContent = 'Remove';
+  }
+
+  watchedModalBtn.classList.toggle('is-active');
+}
+
+function onQueueModalBtnClick(e) {
+  const filmName = document.querySelector('.modal__title');
+  const watchedModalBtn = document.querySelector('.modal__add-watched');
+  console.log(watchedModalBtn);
+  const userData = {
+    queue: {},
+    watched: {},
+  };
+  const firebase = new dataStorage(userData);
+
+  if (watchedModalBtn.classList.contains('is-active')) {
+    userData.queue[e.target.dataset.id] = filmName.textContent;
+    firebase.delQueue();
+    queueModalBtn.textContent = 'Add to queue';
+
+    if (libraryBtnRef.classList.contains('current')) {
+      onAuthStateChanged(auth, user => {
+        if (user) {
+          const libDataBaseWatched = `users/${user.uid}/lib/queue/`;
+
+          get(ref(db, libDataBaseWatched))
+            .then(snapshot => {
+              if (snapshot.exists()) {
+                const ids = Object.keys(snapshot.val());
+                renderMarkupByIds(ids);
+              } else {
+                filmsListRef.innerHTML = '';
+                addErrorStyles();
+              }
+            })
+            .catch(console.error);
+        }
+      });
+    }
+  } else {
+    firebase.queue = {
+      [e.target.dataset.id]: filmName.textContent,
+    };
+
+    if (libraryBtnRef.classList.contains('current')) {
+      onAuthStateChanged(auth, user => {
+        if (user) {
+          const libDataBaseWatched = `users/${user.uid}/lib/queue/`;
 
           get(ref(db, libDataBaseWatched))
             .then(snapshot => {
