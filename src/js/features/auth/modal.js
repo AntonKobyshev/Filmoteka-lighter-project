@@ -102,6 +102,7 @@ const list = document.querySelector('.poster-list');
 const movieModal = document.querySelector('.modal');
 const modalBackdrop = document.querySelector('.modal-backdrop');
 const watchedModalBtn = document.querySelector('.modal__add-watched');
+const queueModalBtn = document.querySelector('.modal__add-queue');
 const btnClose = document.querySelector('.btn__closs-modal');
 const ulMain = document.querySelector('.movie__gallery');
 const ulLibrary = document.querySelector('.library__container-list');
