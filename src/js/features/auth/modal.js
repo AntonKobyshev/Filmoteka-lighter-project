@@ -137,7 +137,7 @@ function createModal(event) {
   if (event.target.nodeName === 'UL') {
     return;
   }
-
+  
   let cardItem = document.querySelector('.movie-card');
 
   cardItem = event.target.closest('li').dataset.id;
@@ -167,6 +167,8 @@ function createModal(event) {
                 // console.log(watchedModalBtn);
                 if (watchedModalBtn) {
                   watchedModalBtn.classList.add('is-active');
+                  queueModalBtn.setAttribute('disabled', 'true');
+                  queueModalBtn.style.backgroundColor = "gray";
                 }
                 if (watchedModalBtn) {
                   watchedModalBtn.textContent = 'Remove';
@@ -183,6 +185,9 @@ function createModal(event) {
               if (ids.includes(newApiServis.id)) {
                 if (queueModalBtn) {
                   queueModalBtn.classList.add('is-active');
+                  watchedModalBtn.setAttribute('disabled', 'true');
+                  watchedModalBtn.style.backgroundColor = "gray";
+
                 }
                 if (queueModalBtn) {
                   queueModalBtn.textContent = 'Remove';
@@ -322,6 +327,8 @@ function onWatchedModalBtnClick(e) {
   const filmName = document.querySelector('.modal__title');
   const watchedModalBtn = document.querySelector('.modal__add-watched');
   // console.log(watchedModalBtn);
+  const queueModalBtn = document.querySelector('.modal__add-queue');
+  
   const userData = {
     queue: {},
     watched: {},
@@ -333,6 +340,9 @@ function onWatchedModalBtnClick(e) {
     firebase.delWatched();
     watchedModalBtn.textContent = 'Add to watched';
     localStorage.setItem('isRemoveFilm', 'yes');
+    queueModalBtn.setAttribute('disabled', 'false');
+    queueModalBtn.style.backgroundColor = "green";
+
     if (libraryBtnRef.classList.contains('current')) {
       onAuthStateChanged(auth, user => {
         if (user) {
@@ -357,8 +367,11 @@ function onWatchedModalBtnClick(e) {
     }
   } else {
     firebase.watched = {
-      [e.target.dataset.id]: filmName.textContent,
+      [e.target.dataset.id]: filmName.textContent, 
     };
+    queueModalBtn.setAttribute('disabled', 'true');
+    queueModalBtn.style.backgroundColor = "gray";
+    
 
     if (libraryBtnRef.classList.contains('button')) {
       onAuthStateChanged(auth, user => {
@@ -386,6 +399,7 @@ function onWatchedModalBtnClick(e) {
 function onQueueModalBtnClick(e) {
   const filmName = document.querySelector('.modal__title');
   const queueModalBtn = document.querySelector('.modal__add-queue');
+  const watchedModalBtn = document.querySelector('.modal__add-watched');
   // console.log(queueModalBtn);
   const userData = {
     queue: {},
@@ -398,6 +412,12 @@ function onQueueModalBtnClick(e) {
     firebase.delQueue();
     queueModalBtn.textContent = 'Add to queue';
     localStorage.setItem('isRemoveFilm', 'yes');
+    watchedModalBtn.setAttribute('disabled', 'false');
+    watchedModalBtn.style.backgroundColor = "green";
+
+    // watchedModalBtn.setAttribute('disabled', 'true');
+    // watchedModalBtn.style.backgroundColor = "gray";
+
     if (libraryBtnRef.classList.contains('current')) {
       onAuthStateChanged(auth, user => {
         if (user) {
@@ -423,6 +443,8 @@ function onQueueModalBtnClick(e) {
     firebase.queue = {
       [e.target.dataset.id]: filmName.textContent,
     };
+    watchedModalBtn.setAttribute('disabled', 'true');
+    watchedModalBtn.style.backgroundColor = "gray";
 
     if (libraryBtnRef.classList.contains('current')) {
       onAuthStateChanged(auth, user => {
