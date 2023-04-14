@@ -45,6 +45,7 @@ export function onWatchedBtnClick() {
         .then(snapshot => {
           if (snapshot.exists()) {
             const ids = Object.keys(snapshot.val());
+            console.log(ids);
 
             //pagination
             localStorage.setItem('fetchType', 'watched');
@@ -66,6 +67,7 @@ export function onWatchedBtnClick() {
               emptyMessage.classList.remove('visually-hidden');
             }
             filmsList.innerHTML = '';
+            console.log('123');
             console.log('No data available');
           }
         })
