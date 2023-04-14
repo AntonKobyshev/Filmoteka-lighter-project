@@ -137,7 +137,7 @@ function createModal(event) {
   if (event.target.nodeName === 'UL') {
     return;
   }
-  
+
   let cardItem = document.querySelector('.movie-card');
 
   cardItem = event.target.closest('li').dataset.id;
@@ -167,10 +167,9 @@ function createModal(event) {
                 // console.log(watchedModalBtn);
                 if (watchedModalBtn) {
                   watchedModalBtn.classList.add('is-active');
-                  queueModalBtn.setAttribute('disabled', 'true');
-                  queueModalBtn.style.backgroundColor = "gray";
-                }
-                if (watchedModalBtn) {
+                  // queueModalBtn.setAttribute('disabled', 'true');
+                  queueModalBtn.disabled = true;
+                  queueModalBtn.style.backgroundColor = 'gray';
                   watchedModalBtn.textContent = 'Remove';
                 }
               }
@@ -186,10 +185,7 @@ function createModal(event) {
                 if (queueModalBtn) {
                   queueModalBtn.classList.add('is-active');
                   watchedModalBtn.setAttribute('disabled', 'true');
-                  watchedModalBtn.style.backgroundColor = "gray";
-
-                }
-                if (queueModalBtn) {
+                  watchedModalBtn.style.backgroundColor = 'gray';
                   queueModalBtn.textContent = 'Remove';
                 }
               }
@@ -328,7 +324,7 @@ function onWatchedModalBtnClick(e) {
   const watchedModalBtn = document.querySelector('.modal__add-watched');
   // console.log(watchedModalBtn);
   const queueModalBtn = document.querySelector('.modal__add-queue');
-  
+
   const userData = {
     queue: {},
     watched: {},
@@ -340,8 +336,9 @@ function onWatchedModalBtnClick(e) {
     firebase.delWatched();
     watchedModalBtn.textContent = 'Add to watched';
     localStorage.setItem('isRemoveFilm', 'yes');
-    queueModalBtn.setAttribute('disabled', 'false');
-    queueModalBtn.style.backgroundColor = "green";
+    // queueModalBtn.setAttribute('disabled', 'false');
+    queueModalBtn.disabled = false;
+    queueModalBtn.style.backgroundColor = 'green';
 
     if (libraryBtnRef.classList.contains('current')) {
       onAuthStateChanged(auth, user => {
@@ -354,7 +351,6 @@ function onWatchedModalBtnClick(e) {
                 const ids = Object.keys(snapshot.val());
                 renderMarkupByIds(ids);
               } else {
-
                 if (filmsListRef) {
                   filmsListRef.innerHTML = '';
                 }
@@ -367,11 +363,11 @@ function onWatchedModalBtnClick(e) {
     }
   } else {
     firebase.watched = {
-      [e.target.dataset.id]: filmName.textContent, 
+      [e.target.dataset.id]: filmName.textContent,
     };
-    queueModalBtn.setAttribute('disabled', 'true');
-    queueModalBtn.style.backgroundColor = "gray";
-    
+    // queueModalBtn.setAttribute('disabled', 'true');
+    queueModalBtn.disabled = true;
+    queueModalBtn.style.backgroundColor = 'gray';
 
     if (libraryBtnRef.classList.contains('button')) {
       onAuthStateChanged(auth, user => {
@@ -412,8 +408,9 @@ function onQueueModalBtnClick(e) {
     firebase.delQueue();
     queueModalBtn.textContent = 'Add to queue';
     localStorage.setItem('isRemoveFilm', 'yes');
-    watchedModalBtn.setAttribute('disabled', 'false');
-    watchedModalBtn.style.backgroundColor = "green";
+    // watchedModalBtn.setAttribute('disabled', 'false');
+    watchedModalBtn.disabled = false;
+    watchedModalBtn.style.backgroundColor = 'green';
 
     // watchedModalBtn.setAttribute('disabled', 'true');
     // watchedModalBtn.style.backgroundColor = "gray";
@@ -443,8 +440,9 @@ function onQueueModalBtnClick(e) {
     firebase.queue = {
       [e.target.dataset.id]: filmName.textContent,
     };
-    watchedModalBtn.setAttribute('disabled', 'true');
-    watchedModalBtn.style.backgroundColor = "gray";
+    // watchedModalBtn.setAttribute('disabled', 'true');
+    watchedModalBtn.disabled = true;
+    watchedModalBtn.style.backgroundColor = 'gray';
 
     if (libraryBtnRef.classList.contains('current')) {
       onAuthStateChanged(auth, user => {
