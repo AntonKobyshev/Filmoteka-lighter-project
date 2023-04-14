@@ -13,7 +13,7 @@ import { firebaseConfig } from '../../api/firebase/firebaseConfig';
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
-const libraryBtnRef = document.querySelector('.btn-library');
+const libraryBtnRef = document.querySelector('.button');
 const userData = {
   queue: {},
   watched: {},
@@ -29,7 +29,8 @@ const modalMoviemarkup = (
   vote_count,
   original_title,
   genresId,
-  overview
+  overview,
+  id
 ) => {
   let posterPath = ``;
   if (poster_path) {
@@ -87,7 +88,7 @@ const modalMoviemarkup = (
   </p>
 </div>
 <div class="modal__buttons">
-    <button type="button" class="modal__button modal__add-watched" data-watched='false' data-liery='false'>add to watched</button>
+    <button type="button" class="modal__button modal__add-watched" data-id="${id}" data-watched='false' data-liery='false'>add to watched</button>
     <button type="button" class="modal__button modal__add-queue" data-queue='false' data-liery='false'>add to queue</button>
 </div>
     <button type="button" class="modal__button modal__watch-traier" data-queue='false' data-liery='false'>watch trailer</button>
@@ -325,7 +326,7 @@ function onWatchedModalBtnClick(e) {
       [e.target.dataset.id]: filmName.textContent,
     };
 
-    if (libraryBtnRef.classList.contains('current')) {
+    if (libraryBtnRef.classList.contains('button')) {
       onAuthStateChanged(auth, user => {
         if (user) {
           const libDataBaseWatched = `users/${user.uid}/lib/watched/`;
@@ -350,20 +351,20 @@ function onWatchedModalBtnClick(e) {
 
 function onQueueModalBtnClick(e) {
   const filmName = document.querySelector('.modal__title');
-  const watchedModalBtn = document.querySelector('.modal__add-watched');
-  console.log(watchedModalBtn);
+  const queueModalBtn = document.querySelector('.modal__add-queue');
+  console.log(queueModalBtn);
   const userData = {
     queue: {},
     watched: {},
   };
   const firebase = new dataStorage(userData);
 
-  if (watchedModalBtn.classList.contains('is-active')) {
+  if (queueModalBtn.classList.contains('current')) {
     userData.queue[e.target.dataset.id] = filmName.textContent;
     firebase.delQueue();
     queueModalBtn.textContent = 'Add to queue';
 
-    if (libraryBtnRef.classList.contains('current')) {
+    if (libraryBtnRef.classList.contains('button')) {
       onAuthStateChanged(auth, user => {
         if (user) {
           const libDataBaseWatched = `users/${user.uid}/lib/queue/`;
