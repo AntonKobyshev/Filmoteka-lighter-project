@@ -3,7 +3,7 @@ import { initializeApp } from 'firebase/app';
 import dataStorage from '../../api/firebase/data-storage';
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
-
+import { renderMarkupByIds } from '../../pagination';
 import { getDatabase, ref, get } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
@@ -13,8 +13,6 @@ import { firebaseConfig } from '../../api/firebase/firebaseConfig';
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
-// const filmsListRef = document.querySelector('.films');
-// const libraryBtnRef = document.querySelector('.');
 const libraryBtnRef = document.querySelector('.btn-library');
 const userData = {
   queue: {},
@@ -117,8 +115,7 @@ movieModal.addEventListener('click', function (e) {
     onWatchedModalBtnClick(e);
   }
   if (e.target.classList.contains('modal__add-queue')) {
-    // onYoutubeBtnClick();
-  console.log('message');
+    onQueueModalBtnClick(e);
   }
 });
 
@@ -289,7 +286,6 @@ function iframeRender(key) {
 }
 
 function onWatchedModalBtnClick(e) {
-  // console.log('message');
   const filmName = document.querySelector('.modal__title');
   const watchedModalBtn = document.querySelector('.modal__add-watched');
   console.log(watchedModalBtn);
@@ -337,7 +333,68 @@ function onWatchedModalBtnClick(e) {
             .then(snapshot => {
               if (snapshot.exists()) {
                 const ids = Object.keys(snapshot.val());
-                resetErrorStyles();
+                renderMarkupByIds(ids);
+              }
+            })
+            .catch(console.error);
+        }
+      });
+    }
+
+    watchedModalBtn.textContent = 'Remove';
+  }
+
+  watchedModalBtn.classList.toggle('is-active');
+}
+
+function onQueueModalBtnClick(e) {
+  const filmName = document.querySelector('.modal__title');
+  const watchedModalBtn = document.querySelector('.modal__add-watched');
+  console.log(watchedModalBtn);
+  const userData = {
+    queue: {},
+    watched: {},
+  };
+  const firebase = new dataStorage(userData);
+
+  if (watchedModalBtn.classList.contains('is-active')) {
+    userData.queue[e.target.dataset.id] = filmName.textContent;
+    firebase.delQueue();
+    queueModalBtn.textContent = 'Add to queue';
+
+    if (libraryBtnRef.classList.contains('current')) {
+      onAuthStateChanged(auth, user => {
+        if (user) {
+          const libDataBaseWatched = `users/${user.uid}/lib/queue/`;
+
+          get(ref(db, libDataBaseWatched))
+            .then(snapshot => {
+              if (snapshot.exists()) {
+                const ids = Object.keys(snapshot.val());
+                renderMarkupByIds(ids);
+              } else {
+                filmsListRef.innerHTML = '';
+                addErrorStyles();
+              }
+            })
+            .catch(console.error);
+        }
+      });
+    }
+  } else {
+    firebase.queue = {
+      [e.target.dataset.id]: filmName.textContent,
+    };
+
+    if (libraryBtnRef.classList.contains('current')) {
+      onAuthStateChanged(auth, user => {
+        if (user) {
+          const libDataBaseWatched = `users/${user.uid}/lib/queue/`;
+
+          get(ref(db, libDataBaseWatched))
+            .then(snapshot => {
+              if (snapshot.exists()) {
+                const ids = Object.keys(snapshot.val());
                 renderMarkupByIds(ids);
               }
             })
