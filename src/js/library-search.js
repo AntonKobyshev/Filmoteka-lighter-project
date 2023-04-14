@@ -113,7 +113,7 @@ if (searchForm) {
     //pagination
     localStorage.setItem('fetchType', 'library-search');
     localStorage.setItem('totalPages', Math.ceil(filteredMovies.length / 20));
-    localStorage.setItem('librarySearch', JSON.parse(filteredMovies));
+    localStorage.setItem('librarySearch', JSON.stringify(filteredMovies));
     const totalPages = localStorage.getItem('totalPages');
     renderPagination(totalPages);
     //pagination

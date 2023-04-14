@@ -163,16 +163,14 @@ function createModal(event) {
               const ids = Object.keys(snapshot.val());
               // console.log(ids);
               // console.log(ids.includes(newApiServis.id));
-              if (ids.includes(newApiServis.id))
-              
-              {
-
+              if (ids.includes(newApiServis.id)) {
                 // console.log(watchedModalBtn);
                 if (watchedModalBtn) {
-                
-                  watchedModalBtn.classList.add('is-active')
-                };
-                if(watchedModalBtn) {watchedModalBtn.textContent = 'Remove'};
+                  watchedModalBtn.classList.add('is-active');
+                }
+                if (watchedModalBtn) {
+                  watchedModalBtn.textContent = 'Remove';
+                }
               }
             }
           })
@@ -183,22 +181,23 @@ function createModal(event) {
             if (snapshot.exists()) {
               const ids = Object.keys(snapshot.val());
               if (ids.includes(newApiServis.id)) {
-                if (queueModalBtn) {queueModalBtn.classList.add('is-active') };
-                if (queueModalBtn) { queueModalBtn.textContent = 'Remove' };
+                if (queueModalBtn) {
+                  queueModalBtn.classList.add('is-active');
+                }
+                if (queueModalBtn) {
+                  queueModalBtn.textContent = 'Remove';
+                }
               }
             }
           })
           .catch(console.error);
-      }
-      else {
-
+      } else {
         const watchedModalBtn = document.querySelector('.modal__add-watched');
         const queueModalBtn = document.querySelector('.modal__add-queue');
 
         watchedModalBtn.classList.add('visually-hidden');
         queueModalBtn.classList.add('visually-hidden');
-}
-
+      }
     });
   });
 }
@@ -206,7 +205,7 @@ function createModal(event) {
 function openModal() {
   modalBackdrop.classList.add('modal-open');
   document.body.style.overflow = 'hidden';
-
+  localStorage.setItem('isRemoveFilm', 'no');
   setCloseOptionModal();
 }
 
@@ -275,6 +274,16 @@ function offModal() {
   modalBackdrop.firstElementChild.dataset.id = '';
 
   movieModal.innerHTML = '';
+
+  if (
+    localStorage.getItem('fetchType') == 'watched' ||
+    localStorage.getItem('fetchType') == 'queue' ||
+    localStorage.getItem('fetchType') == 'library-search'
+  ) {
+    if (localStorage.getItem('isRemoveFilm') == 'yes') {
+      window.location.reload();
+    }
+  }
 }
 
 //Плеєр
@@ -323,7 +332,7 @@ function onWatchedModalBtnClick(e) {
     userData.watched[e.target.dataset.id] = filmName.textContent;
     firebase.delWatched();
     watchedModalBtn.textContent = 'Add to watched';
-    // console.log(libraryBtnRef);
+    localStorage.setItem('isRemoveFilm', 'yes');
     if (libraryBtnRef.classList.contains('current')) {
       onAuthStateChanged(auth, user => {
         if (user) {
@@ -335,7 +344,9 @@ function onWatchedModalBtnClick(e) {
                 const ids = Object.keys(snapshot.val());
                 renderMarkupByIds(ids);
               } else {
-                if (filmsListRef) { filmsListRef.innerHTML = '' };
+                if (filmsListRef) {
+                  filmsListRef.innerHTML = '';
+                }
                 // addErrorStyles();
               }
             })
@@ -364,7 +375,7 @@ function onWatchedModalBtnClick(e) {
         }
       });
     }
-
+    localStorage.setItem('isRemoveFilm', 'no');
     watchedModalBtn.textContent = 'Remove';
   }
 
@@ -385,7 +396,7 @@ function onQueueModalBtnClick(e) {
     userData.queue[e.target.dataset.id] = filmName.textContent;
     firebase.delQueue();
     queueModalBtn.textContent = 'Add to queue';
-
+    localStorage.setItem('isRemoveFilm', 'yes');
     if (libraryBtnRef.classList.contains('current')) {
       onAuthStateChanged(auth, user => {
         if (user) {
@@ -397,7 +408,9 @@ function onQueueModalBtnClick(e) {
                 const ids = Object.keys(snapshot.val());
                 renderMarkupByIds(ids);
               } else {
-                if (filmsListRef) { filmsListRef.innerHTML = '' };
+                if (filmsListRef) {
+                  filmsListRef.innerHTML = '';
+                }
                 // addErrorStyles();
               }
             })
@@ -426,7 +439,7 @@ function onQueueModalBtnClick(e) {
         }
       });
     }
-
+    localStorage.setItem('isRemoveFilm', 'no');
     queueModalBtn.textContent = 'Remove';
   }
 
