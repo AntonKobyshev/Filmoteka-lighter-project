@@ -313,7 +313,6 @@ function onWatchedModalBtnClick(e) {
                 renderMarkupByIds(ids);
               } else {
                 filmsListRef.innerHTML = '';
-                addErrorStyles();
               }
             })
             .catch(console.error);
@@ -375,7 +374,6 @@ function onQueueModalBtnClick(e) {
                 renderMarkupByIds(ids);
               } else {
                 filmsListRef.innerHTML = '';
-                addErrorStyles();
               }
             })
             .catch(console.error);
