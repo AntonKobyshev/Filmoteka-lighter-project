@@ -4,6 +4,12 @@ body.show-modal-team .team-backdrop {
   pointer-events: initial;
   overflow: hidden;
   height: 100wh;
+  overflow: hidden;
+  
+}
+
+body.show-modal-team {
+  overflow: hidden;
 }
 
 .team-backdrop {
@@ -17,6 +23,7 @@ body.show-modal-team .team-backdrop {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 99;
+  overflow: hidden;
 
   pointer-events: none;
   opacity: 0;
