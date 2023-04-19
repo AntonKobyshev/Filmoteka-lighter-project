@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as spiner from '../features/auth/spiner';
-
+import { Notify } from 'notiflix';
 const API_KEY = '1ad822106312cb8004c8ffd62b3d3ebd';
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 
@@ -26,7 +26,7 @@ export class API_service {
 
       return allData ? data : data.results;
     } catch (error) {
-      console.log(error);
+      Notify.failure(error);
     }
   }
 
@@ -45,7 +45,7 @@ export class API_service {
 
       return data; //returns an OBJECT. e.g.{page: 1, results: Array(20), total_pages: 8, total_results: 147}
     } catch (error) {
-      console.log(error);
+      Notify.failure(error);
     }
   }
 
@@ -63,7 +63,7 @@ export class API_service {
 
       return data;
     } catch (error) {
-      console.log(error);
+      Notify.failure(error);
     }
   }
   async fetchYoutube() {
@@ -76,7 +76,7 @@ export class API_service {
 
       return data;
     } catch (error) {
-      console.log('error');
+      Notify.failure(error);
     }
   }
   get query() {
